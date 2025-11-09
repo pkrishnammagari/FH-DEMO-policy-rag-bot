@@ -789,7 +789,7 @@ def main():
             if msg["role"] == "assistant" and i > 0:
                 st.markdown("---", unsafe_allow_html=True)
 
-    # --- CHAT INPUT ---
+    # --- CHAT INPUT
     if prompt := st.chat_input("Ask a question about a company policy..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         
