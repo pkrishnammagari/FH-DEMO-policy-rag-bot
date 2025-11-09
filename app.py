@@ -564,11 +564,21 @@ def inject_custom_css():
                 border-radius: 8px;
                 transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
             }}
+            /* v15: NEW RULE - Force color on text *inside* the button */
+            .stButton > button * {{
+                color: #D4AF37 !important; /* v14: FH Gold */
+            }}
+            
             .stButton > button:hover {{
                 background-color: #D4AF37; /* v14: FH Gold */
                 border-color: #D4AF37; /* v14: FH Gold */
                 color: #002D62 !important; /* v14: FH Dark Blue */
             }}
+            /* v15: NEW RULE - Force color on text *inside* the button on hover */
+            .stButton > button:hover * {{
+                color: #002D62 !important; /* v14: FH Dark Blue */
+            }}
+
             .stButton > button:active {{
                 background-color: #D4AF37; /* v14: FH Gold */
                 opacity: 0.9;
