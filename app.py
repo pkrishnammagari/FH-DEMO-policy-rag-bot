@@ -23,20 +23,16 @@ from langgraph.graph import StateGraph, END
 DATA_DIR = "data"
 DB_DIR = "db"
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
-# Note: Use 'mps' for Apple Silicon, 'cuda' for NVIDIA, or 'cpu'
-# 'mps' will be very fast on your M4
-EMBEDDING_DEVICE = "cpu" 
+EMBEDDING_DEVICE = "cpu"  # Set to "cpu" for cloud deployment
 RETRIEVER_K = 10  # Number of docs to retrieve
 RERANKER_TOP_N = 3  # Number of docs to pass to LLM
 
 # --- 1. Caching and Resource Loading (Essential for Streamlit) ---
-# These functions will only run ONCE, loading our models into memory.
 
 @st.cache_resource
 def get_llm():
     """Load the Google Gemini LLM."""
     try:
-        # Get the API key from Streamlit secrets
         api_key = st.secrets["GOOGLE_API_KEY"]
         return ChatGoogleGenerativeAI(
             model="gemini-2.5-flash-preview-09-2025", 
@@ -88,7 +84,6 @@ def get_retriever(_embeddings):
             persist_directory=DB_DIR,
             embedding_function=_embeddings
         )
-        # Load the retriever
         return vector_store.as_retriever(search_kwargs={"k": RETRIEVER_K})
     except Exception as e:
         st.error(f"Error loading vector store: {e}")
@@ -131,7 +126,6 @@ class AgentState(TypedDict):
     answer: str
     follow_up_questions: List[str]
     metrics: Dict[str, float]
-    # Keep track of intermediate steps for the "Thinking" expander
     reasoning: Dict[str, any]
 
 # --- LangGraph Nodes (The "steps" in our "flowchart") ---
@@ -150,7 +144,6 @@ def detect_intent(state: AgentState):
     question = state["question"]
     policy_info = get_policy_info()
     
-    # Create a formatted string of policies for the prompt
     policy_list = "\n".join([f"- {p['number']}: {p['title']}" for p in policy_info])
     
     prompt_template = ChatPromptTemplate.from_messages([
@@ -171,7 +164,6 @@ Available Policies:
     intent_chain = prompt_template | llm
     intent = intent_chain.invoke({"question": question}).content.strip()
     
-    # Store the result in the state
     state["policy_intent"] = intent
     state["reasoning"]["intent"] = intent
     return state
@@ -214,19 +206,14 @@ def retrieve_docs(state: AgentState):
     
     all_retrieved_docs = []
     
-    # Create the metadata filter
     filter_dict = {}
     if policy_intent != "GENERAL":
         filter_dict = {"policy_number": policy_intent}
         
-    # Invoke the retriever for each query
     for query in queries:
-        # Note: LangChain retrievers now support filters directly in invoke
-        # We check if the retriever supports filtering. Chroma does.
         retrieved_docs = retriever.invoke(query, config={"filter": filter_dict})
         all_retrieved_docs.extend(retrieved_docs)
     
-    # De-duplicate documents based on page content
     unique_docs = {doc.page_content: doc for doc in all_retrieved_docs}.values()
     
     state["documents"] = list(unique_docs)
@@ -242,7 +229,6 @@ def rerank_docs(state: AgentState):
     documents = state["documents"]
     reranker = get_reranker()
     
-    # CohereRerank expects a list of Document objects
     reranked_docs = reranker.compress_documents(
         query=question,
         documents=documents
@@ -256,13 +242,10 @@ def format_context_for_llm(documents: List[Document]) -> str:
     """Helper function to format docs for the final prompt."""
     formatted_context = []
     for i, doc in enumerate(documents):
-        # Create a citation tag
         policy_num = doc.metadata.get('policy_number', 'N/A')
         policy_title = doc.metadata.get('policy_title', 'Unknown Policy')
         
         citation = f"[Source {i+1}: {policy_num} - {policy_title}]"
-        
-        # Format the context
         formatted_context.append(f"{citation}\n{doc.page_content}\n")
     
     return "\n---\n".join(formatted_context)
@@ -276,11 +259,9 @@ def generate_answer(state: AgentState):
     documents = state["reranked_documents"]
     
     if not documents:
-        # Handle case where no relevant documents were found
         state["answer"] = "I'm sorry, I couldn't find any relevant policy information for your question. Please try rephrasing."
         return state
 
-    # Format the context with citations
     context_str = format_context_for_llm(documents)
     
     prompt_template = ChatPromptTemplate.from_messages([
@@ -305,13 +286,7 @@ Your primary goal is to provide clear, accurate, and helpful answers to question
     
     llm = get_llm()
     answer_chain = prompt_template | llm
-    
-    # We use .stream() here to enable streaming in the UI
     answer_stream = answer_chain.stream({"question": question})
-    
-    # Since this node is the last one to *generate* content, 
-    # we'll save the full stream to the state.
-    # The UI will be responsible for rendering it.
     state["answer"] = answer_stream 
     return state
 
@@ -321,9 +296,6 @@ def generate_followup(state: AgentState):
     This is the "Follow-up Questions" feature.
     """
     question = state["question"]
-    # We need to buffer the answer stream to get the final string
-    # In a real app, we'd pass the final string. For this demo,
-    # we'll just use the original question as context.
     
     prompt_template = ChatPromptTemplate.from_messages([
         ("system", """
@@ -364,7 +336,6 @@ def get_graph():
     """
     workflow = StateGraph(AgentState)
     
-    # Add all the nodes
     workflow.add_node("start_timer", start_timer)
     workflow.add_node("detect_intent", detect_intent)
     workflow.add_node("multi_query_retriever", multi_query_retriever)
@@ -374,10 +345,8 @@ def get_graph():
     workflow.add_node("generate_followup", generate_followup)
     workflow.add_node("end_timer", end_timer)
     
-    # Set the entry point
     workflow.set_entry_point("start_timer")
     
-    # Define the edges (the "flowchart")
     workflow.add_edge("start_timer", "detect_intent")
     workflow.add_edge("detect_intent", "multi_query_retriever")
     workflow.add_edge("multi_query_retriever", "retrieve_docs")
@@ -387,99 +356,131 @@ def get_graph():
     workflow.add_edge("generate_followup", "end_timer")
     workflow.add_edge("end_timer", END)
     
-    # Compile the graph
     return workflow.compile()
 
 # --- 4. Streamlit UI Application ---
 
 def inject_custom_css():
-    """Injects custom CSS for a professional, neutral UI."""
+    """
+    Injects custom CSS for a professional, neutral UI.
+    THIS IS THE CORRECTED VERSION with !important tags to override themes.
+    """
     st.markdown("""
         <style>
-            /* --- Base & Colors (FIX: Set default text color) --- */
+            /* --- Base & Colors (FIX: Force light theme) --- */
+            /* This forces the app to be light mode and sets a dark text color */
             .stApp {
-                background-color: #f0f2f6; /* Neutral light gray background */
-                color: #1f2937; /* ADDED: Default dark text color for the whole app */
+                background-color: #f0f2f6 !important; /* Neutral light gray background */
+                color: #1f2937 !important; /* Default dark text color */
             }
             
-            /* --- Chat Bubbles (FIX: Explicitly set text color) --- */
+            /* --- Chat Bubbles (FIX: Force colors) --- */
             [data-testid="chat-message-container"] {
                 border-radius: 18px;
                 padding-top: 10px;
                 padding-bottom: 10px;
                 margin-bottom: 10px;
+                color: #1f2937 !important; /* Force dark text in all bubbles */
             }
             
             /* User (You) Bubble */
             [data-testid="chat-message-container"]:has([data-testid="chat-avatar-user"]) {
                 background-color: #e1f0ff; /* Light, friendly blue */
-                color: #1f2937; /* ADDED: Dark text */
             }
 
-            /* Assistant (Bot) Bubble (FIX: Explicitly set text color) */
+            /* Assistant (Bot) Bubble (FIX: Force text color on ALL children) */
             [data-testid="chat-message-container"]:has([data-testid="chat-avatar-assistant"]) {
-                background-color: #ffffff; /* Clean white */
+                background-color: #ffffff !important; /* Clean white */
                 border: 1px solid #d1d5db; /* Subtle border */
                 box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-                color: #1f2937; /* ADDED: Dark text */
+            }
+            /* This is the key: Force all p, li, h1, etc. inside to be dark */
+            [data-testid="chat-message-container"]:has([data-testid="chat-avatar-assistant"]) * {
+                color: #1f2937 !important;
             }
             
-            /* --- "Show Reasoning" Expander (FIX: Explicitly set text color) --- */
+            /* --- "Show Reasoning" Expander (FIX: Force colors) --- */
             [data-testid="stExpander"] {
                 border: 1px solid #d1d5db;
                 border-radius: 10px;
-                background-color: #fafafa; /* Slightly off-white */
+                background-color: #fafafa !important; /* Slightly off-white */
                 margin-top: 15px;
-                color: #1f2937; /* ADDED: Dark text for content inside */
             }
+            /* Force all text inside the expander to be dark */
+            [data-testid="stExpander"] * {
+                color: #1f2937 !important;
+            }
+            /* Fix summary text color */
             [data-testid="stExpander"] summary {
                 font-weight: 600;
-                color: #4b5563; /* Dark gray text */
+                color: #4b5563 !important;
             }
             
-            /* --- Follow-up Question Buttons (No change, was already OK) --- */
+            /* Fix for st.json dark-on-dark issue */
+            [data-testid="stExpander"] [data-testid="stJson"] {
+                background-color: #e5e7eb !important; /* Light gray background for JSON */
+                padding: 10px;
+                border-radius: 5px;
+            }
+            [data-testid="stExpander"] [data-testid="stJson"] * {
+                color: #1f2937 !important; /* Dark text for JSON content */
+            }
+
+            /* --- Follow-up Question Buttons (FIX: Force colors) --- */
             .stButton > button {
                 width: 100%;
                 text-align: left;
                 background-color: #ffffff;
                 border: 1px solid #d1d5db;
-                color: #1f2937;
+                color: #1f2937 !important; /* Force dark text */
                 font-weight: 500;
                 border-radius: 8px;
                 transition: background-color 0.2s ease, border-color 0.2s ease;
             }
             .stButton > button:hover {
-                background-color: #f9fafb; /* Very light gray hover */
+                background-color: #f9fafb;
                 border-color: #9ca3af;
-                color: #000;
+                color: #000000 !important; /* Force black text on hover */
             }
             .stButton > button:active {
                 background-color: #f3f4f6;
             }
             
-            /* --- Source Citation Styling (No change, was already OK) --- */
+            /* --- Source Citation Styling (Already OK) --- */
             .source-citation {
                 font-size: 0.85rem;
-                color: #6b7280; /* Medium gray */
+                color: #6b7280;
                 background-color: #f3f4f6;
                 padding: 2px 6px;
                 border-radius: 4px;
                 display: inline-block;
                 margin-right: 5px;
             }
+
+            /* --- Sidebar Styling (FIX: Force light theme) --- */
+            [data-testid="stSidebar"] {
+                background-color: #ffffff !important;
+            }
+            [data-testid="stSidebar"] * {
+                color: #1f2937 !important;
+            }
         </style>
     """, unsafe_allow_html=True)
 
 def format_reasoning_docs(docs: List[Document]) -> str:
-    """Helper to format retrieved/reranked docs for the expander."""
+    """
+    Helper to format retrieved/reranked docs for the expander.
+    THIS IS THE CORRECTED VERSION with inline styles to force text color.
+    """
     md_string = ""
     for i, doc in enumerate(docs):
         policy_num = doc.metadata.get('policy_number', 'N/A')
         policy_title = doc.metadata.get('policy_title', 'Unknown')
+        # FIX: Added inline style to force text color, overriding other rules
         md_string += f"""
 <details>
-    <summary><strong>Doc {i+1}: {policy_num} - {policy_title}</strong></summary>
-    <p style="font-size: 0.9rem; color: #4b5563; background-color: #f9fafb; border: 1px solid #e5e7eb; padding: 10px; border-radius: 5px;">
+    <summary><strong style="color: #1f2937 !important;">Doc {i+1}: {policy_num} - {policy_title}</strong></summary>
+    <p style="font-size: 0.9rem; color: #4b5563 !important; background-color: #f9fafb; border: 1px solid #e5e7eb; padding: 10px; border-radius: 5px;">
         {doc.page_content[:500]}...
     </p>
 </details>
@@ -492,22 +493,17 @@ def run_query(app, question: str):
     It uses st.status to show the "continuous feedback" and streams the response.
     """
     
-    # --- UI: Show Continuous Feedback ---
     with st.status("Thinking...", expanded=False) as status:
         config = RunnableConfig(recursion_limit=50)
         inputs = {"question": question}
         reasoning_data = {}
         
-        # This will hold the streamed answer chunks
         answer_placeholder = st.empty()
         full_answer = ""
         
         try:
-            # --- Run the Graph (Agent) ---
-            # We iterate through all events in the graph execution
             for event in app.stream(inputs, config=config):
                 
-                # event is a dict, keys are the node names
                 if "start_timer" in event:
                     status.update(label="Starting analysis...")
                 
@@ -529,7 +525,6 @@ def run_query(app, question: str):
 
                 if "generate_answer" in event:
                     status.update(label="Generating final answer...")
-                    # The 'answer' is a streaming object. We iterate it.
                     for chunk in event["generate_answer"]["answer"]:
                         full_answer += chunk.content
                         answer_placeholder.markdown(full_answer + "▌")
@@ -549,33 +544,26 @@ def run_query(app, question: str):
             status.error("An error occurred.")
             return
 
-    # --- Post-Stream Processing ---
-    
-    # Final cleanup of the answer
     answer_placeholder.markdown(full_answer)
     
-    # Store the complete message in session state
     st.session_state.messages.append({
         "role": "assistant",
         "content": full_answer,
-        "reasoning": reasoning_data, # This is the "wow" data
+        "reasoning": reasoning_data,
         "follow_ups": reasoning_data.get("follow_up_questions", [])
     })
 
 # --- Main Application Logic ---
 def main():
     
-    # --- Page Configuration ---
     st.set_page_config(
         page_title="Finance House Policy Bot",
         page_icon="🤖",
         layout="wide"
     )
     
-    # Inject the professional, neutral CSS
     inject_custom_css()
     
-    # --- Title and Sidebar ---
     st.title("Finance House Policy Bot 🤖")
     st.sidebar.header("About This App")
     st.sidebar.markdown("""
@@ -591,7 +579,6 @@ def main():
     6.  **Follow-ups:** Suggests related questions to explore.
     """)
     
-    # --- Initialize Chat History ---
     if "messages" not in st.session_state:
         st.session_state.messages = [{
             "role": "assistant",
@@ -600,21 +587,16 @@ def main():
             "follow_ups": []
         }]
 
-    # --- Load the RAG Agent ---
-    # This is cached, so it only loads once
     try:
         app = get_graph()
     except Exception as e:
         st.error(f"Failed to initialize the RAG agent: {e}")
         st.stop()
 
-
-    # --- Display Chat History ---
-    for msg in st.session_state.messages:
+    for i, msg in enumerate(st.session_state.messages):
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
             
-            # --- The "Wow" Features: Reasoning & Follow-ups ---
             if msg["role"] == "assistant" and msg["reasoning"]:
                 
                 with st.expander("Show Reasoning 🧠"):
@@ -631,40 +613,38 @@ def main():
                     st.markdown(f"**4. Reranked Documents (Top {RERANKER_TOP_N}):**")
                     st.markdown(format_reasoning_docs(r['reranked_docs']), unsafe_allow_html=True)
 
-                # Display follow-up questions as clickable buttons
                 if msg["follow_ups"]:
                     st.markdown("<br>", unsafe_allow_html=True)
-                    cols = st.columns(len(msg["follow_ups"]))
-                    for i, fup_question in enumerate(msg["follow_ups"]):
-                        if cols[i].button(fup_question, use_container_width=True):
-                            # When button is clicked, add to history and run query
-                            st.session_state.messages.append({"role": "user", "content": fup_question})
-                            with st.chat_message("user"):
-                                st.markdown(fup_question)
-                            
-                            with st.chat_message("assistant"):
-                                run_query(app, fup_question)
-                            st.rerun() # Rerun to show the new message and response
+                    
+                    num_followups = len(msg["follow_ups"])
+                    if num_followups > 0:
+                        # Ensure we don't create more columns than we have questions
+                        cols = st.columns(min(num_followups, 3)) 
+                        for j, fup_question in enumerate(msg["follow_ups"]):
+                            if j < 3: # Only display up to 3 questions
+                                # Create a unique key for each button
+                                button_key = f"fup_{i}_{j}"
+                                if cols[j].button(fup_question, use_container_width=True, key=button_key):
+                                    st.session_state.messages.append({"role": "user", "content": fup_question})
+                                    with st.chat_message("user"):
+                                        st.markdown(fup_question)
+                                    
+                                    with st.chat_message("assistant"):
+                                        run_query(app, fup_question)
+                                    st.rerun()
             
-            # Add a small divider after assistant messages
             if msg["role"] == "assistant" and msg["content"] != "Hello! I'm the Finance House Policy Bot. How can I help you today?":
                 st.markdown("---", unsafe_allow_html=True)
 
-
-    # --- Chat Input Box ---
     if prompt := st.chat_input("Ask a question about a company policy..."):
-        # Add user message to history
         st.session_state.messages.append({"role": "user", "content": prompt})
         
-        # Display user message
         with st.chat_message("user"):
             st.markdown(prompt)
         
-        # Display assistant response (with streaming and "thinking" status)
         with st.chat_message("assistant"):
             run_query(app, prompt)
         
-        # Rerun to clear the "follow-up" buttons from previous answers
         st.rerun()
 
 if __name__ == "__main__":
