@@ -406,11 +406,12 @@ def inject_custom_css():
 
             /* --- 2. BRANDING: Sidebar (Finance House Dark Blue) --- */
             
-            /* * FIX 2.0 (BUG 1 - v11): Ultra-aggressive sidebar scroll fix */
+            /* * FIX 2.0 (BUG 1 & 4 - v12): Aggressive scroll fix + text fit */
             [data-testid="stSidebar"] {{
                 background-color: #002D62 !important; /* FH Dark Blue */
                 border-right: 1px solid #002D62;
                 overflow: hidden !important; /* Disables scroll on the container */
+                padding: 1rem !important; /* Reduce top/bottom padding */
             }}
             /* Target the *direct child* wrapper div */
             [data-testid="stSidebar"] > div:first-child {{
@@ -420,6 +421,8 @@ def inject_custom_css():
             [data-testid="stSidebar"] > div:first-child > [data-testid="stVerticalBlock"] {{
                 overflow: hidden !important; /* Disables scroll on the block */
                 scrollbar-width: none; /* Firefox */
+                padding-top: 0rem !important; /* v12: Remove block padding */
+                padding-bottom: 0rem !important; /* v12: Remove block padding */
             }}
             [data-testid="stSidebar"] [data-testid="stVerticalBlock"]::-webkit-scrollbar {{
                 display: none; /* Chrome, Safari */
@@ -433,13 +436,22 @@ def inject_custom_css():
             /* FIX 2.2: Style sidebar headers (About, How it works) */
             [data-testid="stSidebar"] h1 {{
                 color: #D4AF37 !important; /* FH Gold */
-                font-size: 2rem;
+                font-size: 1.8rem !important; /* v12: Reduced from 2rem */
+                margin-bottom: 5px !important; /* v12: Tighten spacing */
             }}
             [data-testid="stSidebar"] h3 {{
                 color: #D4AF37 !important; /* FH Gold */
+                font-size: 1.1rem !important; /* v12: Set specific small size */
+                margin-top: 15px !important; /* v12: Control spacing */
+                margin-bottom: 5px !important; /* v12: Tighten spacing */
             }}
             [data-testid="stSidebar"] strong {{
                 color: #D4AF37 !important; /* FH Gold for "How it Works" */
+            }}
+            /* v12: NEW RULE for sidebar text */
+            [data-testid="stSidebar"] .stMarkdown p {{
+                font-size: 0.9rem !important;
+                line-height: 1.4 !important;
             }}
 
             /* --- 3. CHAT BUBBLES --- */
@@ -501,12 +513,17 @@ def inject_custom_css():
                 border-radius: 4px;
             }}
 
-            /* * FIX 5.3 (BUG 2 - v11): Specificity-boosted fix for st.json */
+            /* * FIX 5.3 (BUG 2 - v12): Hyper-aggressive fix for st.json */
             /* This targets st.json *only inside* the expander */
             [data-testid="stExpanderDetails"] [data-testid="stJson"] {{
                 background-color: #e5e7eb !important;
                 border: 1px solid #d1d5db;
                 border-radius: 5px;
+            }}
+            /* v12: NEW RULE - Target the intermediate div Streamlit injects */
+            [data-testid="stExpanderDetails"] [data-testid="stJson"] > div {{
+                background-color: #e5e7eb !important;
+                border: none !important;
             }}
             [data-testid="stExpanderDetails"] [data-testid="stJson"] pre {{
                 background-color: #e5e7eb !important;
