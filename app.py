@@ -386,18 +386,33 @@ def inject_custom_css():
                 background-color: #002D62 !important; /* FH Dark Blue */
                 border-right: 1px solid #002D62;
             }}
+            /* FIX 2.1: Force white text for all elements in the sidebar */
             [data-testid="stSidebar"] * {{
                 color: #ffffff !important;
             }}
-            [data-testid="stSidebar"] [data-testid="stHeader"] {{
+            /* FIX 2.2: Style sidebar headers (About, How it works) */
+            [data-testid="stSidebar"] h1 {{
                 color: #D4AF37 !important; /* FH Gold */
-                font-size: 1.5rem;
-                padding-top: 1rem;
+                font-size: 2rem;
             }}
-            /* FIX 1: Make sidebar title gold */
-            [data-testid="stSidebar"] [data-testid="stHeading"] {{
+            [data-testid="stSidebar"] h3 {{
                 color: #D4AF37 !important; /* FH Gold */
             }}
+            [data-testid="stSidebar"] strong {{
+                color: #D4AF37 !important; /* FH Gold for "How it Works" */
+            }}
+            /* FIX 2.3: Hide the sidebar scrollbar */
+            [data-testid="stSidebar"] [data-testid="stVerticalBlock"] {{
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
+            }}
+            [data-testid="stSidebar"] [data-testid="stVerticalBlock"]::-webkit-scrollbar {{
+                display: none; /* Hide scrollbar for Chrome, Safari */
+            }}
+            [data-testid="stSidebar"] [data-testid="stVerticalBlock"] {{
+                scrollbar-width: none; /* Hide scrollbar for Firefox */
+            }}
+
 
             /* --- 3. CHAT BUBBLES --- */
             [data-testid="chat-message-container"] {{
@@ -446,8 +461,7 @@ def inject_custom_css():
                 padding: 0.2em 0.4em;
                 border-radius: 4px;
             }}
-            /* This fixes the black box for st.json (Generated Sub-Queries) */
-            /* FIX 2: This is the hyper-specific rule for st.json */
+            /* FIX 2.4: This fixes the black box for st.json (Generated Sub-Queries) */
             [data-testid="stExpanderDetails"] [data-testid="stJson"] pre {{
                 background-color: #e5e7eb !important; /* Light gray background */
                 color: #1f2937 !important; /* Dark text */
@@ -461,6 +475,10 @@ def inject_custom_css():
             [data-testid="stApp"] strong {{
                 background-color: transparent !important;
                 color: #111827 !important;
+            }}
+            /* Re-apply sidebar strong color */
+             [data-testid="stSidebar"] strong {{
+                color: #D4AF37 !important; /* FH Gold */
             }}
             
             /* --- 6. FOLLOW-UP BUTTONS --- */
