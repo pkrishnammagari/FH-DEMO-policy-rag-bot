@@ -1,688 +1,345 @@
-import streamlit as st
+# Finance House Policy Bot — Streamlit UI (CSS-free, theme-safe)
+# Drop-in replacement focused on robust icons/avatars, visible citations, and query timing.
+
 import os
 import time
-from typing import List, Dict, TypedDict, Optional
+from typing import List, Dict, Any, Optional
 
-# --- LangChain Core Components ---
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.runnables import RunnableConfig
-from langchain_core.documents import Document
+import streamlit as st
 
-# --- LLMs and Rerankers ---
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_cohere import CohereRerank
+# Optional: use Pillow so local PNGs can also serve as page_icon and chat avatars
+try:
+    from PIL import Image
+except Exception:
+    Image = None  # Fallback to emoji-only if Pillow isn't available
 
-# --- Vector Store and Embeddings ---
-from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import SentenceTransformerEmbeddings
+# --- RAG stack (kept minimal; works if deps and DB exist, otherwise degrades gracefully) ---
+try:
+    from langchain_core.documents import Document
+    from langchain_google_genai import ChatGoogleGenerativeAI
+    from langchain_community.vectorstores import Chroma
+    from langchain_community.embeddings import SentenceTransformerEmbeddings
+    from langchain_cohere import CohereRerank
+except Exception:
+    Document = None
+    ChatGoogleGenerativeAI = None
+    Chroma = None
+    SentenceTransformerEmbeddings = None
+    CohereRerank = None
 
-# --- Graph (Agent) Components ---
-from langgraph.graph import StateGraph, END
-
-# --- Constants ---
+# --------------------------
+# Configuration & constants
+# --------------------------
+APP_TITLE = "Finance House Policy Bot 🇦🇪"
 DATA_DIR = "data"
 DB_DIR = "db"
+ASSETS_DIR = "assets"
+AVATAR_PNG = os.path.join(ASSETS_DIR, "fh_avatar.png")  # 128×128 PNG recommended
+LOGO_PNG = os.path.join(ASSETS_DIR, "fh_logo.png")      # wide transparent PNG
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
-EMBEDDING_DEVICE = "cpu"  # Set to "cpu" for cloud deployment
-RETRIEVER_K = 10  # Number of docs to retrieve
-RERANKER_TOP_N = 3  # Number of docs to pass to LLM
-FH_LOGO_URL = "https://www.financehouse.ae/wp-content/themes/finance-house/assets/images/logo.svg"
-# --- (REMOVED) FH_LOGO_ICON_URL (We will use default icons) ---
+RETRIEVER_K = 10
+RERANK_TOP_N = 3
 
-
-# --- 1. Caching and Resource Loading (Essential for Streamlit) ---
-
-@st.cache_resource
-def get_llm():
-    """Load the Google Gemini LLM."""
-    try:
-        api_key = st.secrets["GOOGLE_API_KEY"]
-        return ChatGoogleGenerativeAI(
-            model="gemini-2.5-flash-preview-09-2025", 
-            google_api_key=api_key, 
-            streaming=True
-        )
-    except KeyError:
-        st.error("GOOGLE_API_KEY not found in secrets. Please add it to .streamlit/secrets.toml")
-        st.stop()
-    except Exception as e:
-        st.error(f"Error loading Gemini LLM: {e}")
-        st.stop()
-
-@st.cache_resource
-def get_reranker():
-    """Load the Cohere Reranker."""
-    try:
-        api_key = st.secrets["COHERE_API_KEY"]
-        return CohereRerank(model="rerank-english-v3.0", top_n=RERANKER_TOP_N, cohere_api_key=api_key)
-    except KeyError:
-        st.error("COHERE_API_KEY not found in secrets. Please add it to .streamlit/secrets.toml")
-        st.stop()
-    except Exception as e:
-        st.error(f"Error loading Cohere Reranker: {e}")
-        st.stop()
-
-@st.cache_resource
-def get_embedding_function():
-    """Load the local, open-source embedding model."""
-    try:
-        return SentenceTransformerEmbeddings(
-            model_name=EMBEDDING_MODEL,
-            model_kwargs={'device': EMBEDDING_DEVICE},
-            encode_kwargs={'normalize_embeddings': True}
-        )
-    except Exception as e:
-        st.error(f"Error loading embedding model (Are 'sentence-transformers' and 'torch' installed?): {e}")
-        st.stop()
-
-@st.cache_resource
-def get_retriever(_embeddings):
-    """Load the ChromaDB vector store retriever from the 'db' folder."""
-    if not os.path.exists(DB_DIR):
-        st.error(f"Vector store not found in '{DB_DIR}'. Did you run 'ingest.py' first?")
-        st.stop()
-    
-    try:
-        vector_store = Chroma(
-            persist_directory=DB_DIR,
-            embedding_function=_embeddings
-        )
-        return vector_store.as_retriever(search_kwargs={"k": RETRIEVER_K})
-    except Exception as e:
-        st.error(f"Error loading vector store: {e}")
-        st.stop()
-
-@st.cache_data
-def get_policy_info():
+# --------------------------
+# Helpers: assets & avatars
+# --------------------------
+def _load_png_or_emoji(path: str, emoji_fallback: str):
     """
-    Dynamically get policy titles and numbers from the filenames in the /data dir.
-    This is used to build the "intent detection" prompt.
+    Returns a PIL.Image for a local PNG if present and Pillow is installed;
+    otherwise returns the provided emoji string which Streamlit accepts as an icon/avatar.
     """
-    policy_info = []
-    try:
-        for filename in os.listdir(DATA_DIR):
-            if filename.endswith(".txt"):
-                base_name = os.path.splitext(filename)[0]
-                parts = base_name.split('_', 1)
-                if len(parts) == 2:
-                    policy_info.append({
-                        "number": parts[0],
-                        "title": parts[1].replace('_', ' ')
-                    })
-        return policy_info
-    except FileNotFoundError:
-        st.error(f"Data directory '{DATA_DIR}' not found. Please create it and add policy files.")
-        st.stop()
-
-# --- 2. LangGraph Agent Definition ---
-
-class AgentState(TypedDict):
-    """
-    This class defines the "state" of our agent.
-    It's a dictionary that holds all the data as it moves through the graph.
-    """
-    question: str
-    policy_intent: str
-    multi_queries: List[str]
-    documents: List[Document]
-    reranked_documents: List[Document]
-    answer: str
-    follow_up_questions: List[str]
-    metrics: Dict[str, float]
-    reasoning: Dict[str, any]
-
-# --- LangGraph Nodes (The "steps" in our "flowchart") ---
-
-def start_timer(state: AgentState):
-    """Node to start the timer for metrics."""
-    state["metrics"] = {"start_time": time.time()}
-    state["reasoning"] = {} # Initialize reasoning dict
-    return state
-
-def detect_intent(state: AgentState):
-    """
-    Node 1: Detects the user's intent and identifies the most relevant policy.
-    This is the "Policy Selection" feature.
-    """
-    question = state["question"]
-    policy_info = get_policy_info()
-    
-    policy_list = "\n".join([f"- {p['number']}: {p['title']}" for p in policy_info])
-    
-    prompt_template = ChatPromptTemplate.from_messages([
-        ("system", f"""
-You are an expert at routing user questions to the correct policy document.
-Based on the user's question, identify the SINGLE most relevant policy from the list below.
-Respond with *only* the policy number (e.g., "POL-HR-004"). Do not add any other text.
-If no policy is relevant, respond with "GENERAL".
-
-Available Policies:
-{policy_list}
-- GENERAL: For all other questions.
-"""),
-        ("user", "{question}")
-    ])
-    
-    llm = get_llm()
-    intent_chain = prompt_template | llm
-    intent = intent_chain.invoke({"question": question}).content.strip()
-    
-    state["policy_intent"] = intent
-    state["reasoning"]["intent"] = intent
-    return state
-
-def multi_query_retriever(state: AgentState):
-    """
-    Node 2: Generates multiple versions of the user's query.
-    This is the "Multi-Query Retriever" feature.
-    """
-    question = state["question"]
-    
-    prompt_template = ChatPromptTemplate.from_messages([
-        ("system", """
-You are an expert at generating search queries.
-Based on the user's question, generate 3 additional, related search queries.
-These queries should be diverse and cover different facets of the original question.
-Respond with *only* the 3 queries, separated by newlines.
-"""),
-        ("user", "{question}")
-    ])
-    
-    llm = get_llm()
-    query_chain = prompt_template | llm
-    queries_response = query_chain.invoke({"question": question}).content
-    
-    multi_queries = [question] + queries_response.strip().split('\n')
-    
-    state["multi_queries"] = multi_queries
-    state["reasoning"]["multi_queries"] = multi_queries
-    return state
-
-def retrieve_docs(state: AgentState):
-    """
-    Node 3: Retrieves documents from the vector store using the generated queries
-    and the detected policy intent.
-    """
-    retriever = get_retriever(get_embedding_function())
-    policy_intent = state["policy_intent"]
-    queries = state["multi_queries"]
-    
-    all_retrieved_docs = []
-    
-    filter_dict = {}
-    if policy_intent != "GENERAL":
-        filter_dict = {"policy_number": policy_intent}
-        
-    for query in queries:
-        retrieved_docs = retriever.invoke(query, config={"filter": filter_dict})
-        all_retrieved_docs.extend(retrieved_docs)
-    
-    unique_docs = {doc.page_content: doc for doc in all_retrieved_docs}.values()
-    
-    state["documents"] = list(unique_docs)
-    state["reasoning"]["retrieved_docs"] = list(unique_docs)
-    return state
-
-def rerank_docs(state: AgentState):
-    """
-    Node 4: Re-ranks the retrieved documents for relevance using Cohere.
-    This is the "Reranker" feature.
-    """
-    question = state["question"]
-    documents = state["documents"]
-    reranker = get_reranker()
-    
-    reranked_docs = reranker.compress_documents(
-        query=question,
-        documents=documents
-    )
-    
-    state["reranked_documents"] = reranked_docs
-    state["reasoning"]["reranked_docs"] = reranked_docs
-    return state
-
-def format_context_for_llm(documents: List[Document]) -> str:
-    """Helper function to format docs for the final prompt."""
-    formatted_context = []
-    for i, doc in enumerate(documents):
-        policy_num = doc.metadata.get('policy_number', 'N/A')
-        policy_title = doc.metadata.get('policy_title', 'Unknown Policy')
-        
-        citation = f"[Source {i+1}: {policy_num} - {policy_title}]"
-        formatted_context.append(f"{citation}\n{doc.page_content}\n")
-    
-    return "\n---\n".join(formatted_context)
-
-def generate_answer(state: AgentState):
-    """
-    Node 5: Generates the final, citable answer.
-    This is the "Answer" and "Citation" feature.
-    """
-    question = state["question"]
-    documents = state["reranked_documents"]
-    
-    if not documents:
-        state["answer"] = "I'm sorry, I couldn't find any relevant policy information for your question. Please try rephrasing."
-        return state
-
-    context_str = format_context_for_llm(documents)
-    
-    prompt_template = ChatPromptTemplate.from_messages([
-        ("system", f"""
-You are "Finance House Policy Bot," an expert assistant for Finance House employees.
-Your primary goal is to provide clear, accurate, and helpful answers to questions about company policies.
-
-**Your Instructions:**
-1.  **Answer the question:** Use the "Context" provided below to answer the user's question.
-2.  **Base answers on context ONLY:** Do not use any outside knowledge. If the answer is not in the context, say "I couldn't find information on that topic in the provided policies."
-3.  **Cite your sources:** This is very important. For every piece of information you provide, you *must* include the source citation (e.g., `[Source 1: POL-HR-004 - Annual Leave TimeOff]`).
-4.  **Be professional and neutral:** Use a clear, concise, and helpful tone.
-5.  **Do not make up policies:** Stick strictly to the text.
-
----
-**Context:**
-{context_str}
----
-"""),
-        ("user", "{question}")
-    ])
-    
-    llm = get_llm()
-    answer_chain = prompt_template | llm
-    answer_stream = answer_chain.stream({"question": question})
-    state["answer"] = answer_stream 
-    return state
-
-def generate_followup(state: AgentState):
-    """
-    Node 6: Generates 3 related follow-up questions.
-    This is the "Follow-up Questions" feature.
-    """
-    question = state["question"]
-    
-    prompt_template = ChatPromptTemplate.from_messages([
-        ("system", """
-You are a helpful assistant. Based on the user's last question, generate exactly 3
-related follow-up questions they might also want to ask.
-- Keep the questions concise (10-15 words).
-- Do not number them.
-- Respond with *only* the 3 questions, separated by newlines.
-"""),
-        ("user", "{question}")
-    ])
-    
-    llm = get_llm()
-    followup_chain = prompt_template | llm
-    response = followup_chain.invoke({"question": question}).content
-    
-    questions = [q.strip() for q in response.strip().split('\n') if q.strip()]
-    
-    state["follow_up_questions"] = questions
-    state["reasoning"]["follow_up_questions"] = questions
-    return state
-
-def end_timer(state: AgentState):
-    """Node to stop the timer and calculate total time."""
-    end_time = time.time()
-    total_time = end_time - state["metrics"]["start_time"]
-    state["metrics"]["total_time"] = round(total_time, 2)
-    state["reasoning"]["metrics"] = {"total_time": round(total_time, 2)}
-    return state
-
-# --- 3. Graph Assembly ---
-
-@st.cache_resource
-def get_graph():
-    """
-    Assemble the LangGraph.
-    This is cached so the graph is built only once.
-    """
-    workflow = StateGraph(AgentState)
-    
-    workflow.add_node("start_timer", start_timer)
-    workflow.add_node("detect_intent", detect_intent)
-    workflow.add_node("multi_query_retriever", multi_query_retriever)
-    workflow.add_node("retrieve_docs", retrieve_docs)
-    workflow.add_node("rerank_docs", rerank_docs)
-    workflow.add_node("generate_answer", generate_answer)
-    workflow.add_node("generate_followup", generate_followup)
-    workflow.add_node("end_timer", end_timer)
-    
-    workflow.set_entry_point("start_timer")
-    
-    workflow.add_edge("start_timer", "detect_intent")
-    workflow.add_edge("detect_intent", "multi_query_retriever")
-    workflow.add_edge("multi_query_retriever", "retrieve_docs")
-    workflow.add_edge("retrieve_docs", "rerank_docs")
-    workflow.add_edge("rerank_docs", "generate_answer")
-    workflow.add_edge("generate_answer", "generate_followup")
-    workflow.add_edge("generate_followup", "end_timer")
-    workflow.add_edge("end_timer", END)
-    
-    return workflow.compile()
-
-# --- 4. Streamlit UI Application ---
-
-def inject_custom_css():
-    """
-    Injects custom CSS to override Streamlit themes and apply
-    Finance House branding.
-    """
-    st.markdown(f"""
-        <style>
-            /* --- 1. CORE FIX: Force Light Theme & Base --- */
-            /* Force light background for main app area */
-            [data-testid="stApp"] {{
-                background-color: #f0f2f6 !important; /* Neutral light gray */
-                color: #111827 !important;
-            }}
-            /* Force dark text for all text elements */
-            body, p, li, h1, h2, h3, h4, h5, h6, div, span, summary {{
-                color: #111827 !important;
-            }}
-
-            /* --- 2. BRANDING: Sidebar (Finance House Dark Blue) --- */
-            [data-testid="stSidebar"] {{
-                background-color: #002D62 !important; /* FH Dark Blue */
-                border-right: 1px solid #002D62;
-            }}
-            /* Force white text for all elements in the sidebar */
-            [data-testid="stSidebar"] * {{
-                color: #ffffff !important;
-            }}
-            /* Style the sidebar header */
-            [data-testid="stSidebar"] [data-testid="stHeader"] {{
-                color: #D4AF37 !important; /* FH Gold */
-                font-size: 1.5rem;
-                padding-top: 1rem;
-            }}
-
-            /* --- 3. CHAT BUBBLES --- */
-            [data-testid="chat-message-container"] {{
-                border-radius: 18px;
-                padding: 12px 16px;
-                margin-bottom: 10px;
-            }}
-            /* User (You) Bubble */
-            [data-testid="chat-message-container"]:has([data-testid="chat-avatar-user"]) {{
-                background-color: #e1f0ff; /* Light, friendly blue */
-            }}
-            /* Assistant (Bot) Bubble */
-            [data-testid="chat-message-container"]:has([data-testid="chat-avatar-assistant"]) {{
-                background-color: #ffffff; /* Clean white */
-                border: 1px solid #d1d5db; 
-                box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-            }}
-            /* Ensure text inside bubbles is dark */
-            [data-testid="stChatMessageContent"] * {{
-                color: #111827 !important;
-            }}
-
-            /* --- 4. REASONING EXPANDER (FIX 2 & 3) --- */
-            [data-testid="stExpander"] {{
-                border: 1px solid #d1d5db;
-                border-radius: 10px;
-                background-color: #fafafa !important; /* Force light background */
-                margin-top: 15px;
-            }}
-            /* Force dark text for the expander summary (header) */
-            [data-testid="stExpander"] summary {{
-                font-weight: 600;
-                color: #4b5563 !important;
-            }}
-            /* FIX 2: Force light background on summary *even when clicked* */
-            [data-testid="stExpander"] summary:hover,
-            [data-testid="stExpander"] summary:active,
-            [data-testid="stExpander"] summary:focus {{
-                background-color: #fafafa !important;
-                color: #002D62 !important; /* FH Blue on hover/focus */
-            }}
-            
-            /* Force dark text for ALL content inside expander details */
-            [data-testid="stExpanderDetails"] * {{
-                color: #111827 !important;
-            }}
-            /* FIX 3: Style the st.json block inside the expander */
-            [data-testid="stExpanderDetails"] [data-testid="stJson"],
-            [data-testid="stExpanderDetails"] pre {{
-                background-color: #e5e7eb !important; /* Light gray background */
-                padding: 10px;
-                border-radius: 5px;
-            }}
-            [data-testid="stExpanderDetails"] [data-testid="stJson"] *,
-            [data-testid="stExpanderDetails"] pre * {{
-                color: #1f2937 !important; /* Dark text for JSON */
-            }}
-            /* FIX 3.1: Fix bold text (Metric, Intent) inside expander */
-            [data-testid="stExpanderDetails"] strong {{
-                background-color: transparent !important;
-                color: #1f2937 !important;
-            }}
-
-            /* --- 5. FOLLOW-UP BUTTONS --- */
-            .stButton > button {{
-                width: 100%;
-                text-align: left;
-                background-color: #ffffff;
-                border: 1px solid #d1d5db;
-                color: #1f2937 !important; /* Force dark text */
-                font-weight: 500;
-                border-radius: 8px;
-                transition: background-color 0.2s ease, border-color 0.2s ease;
-            }}
-            .stButton > button:hover {{
-                background-color: #f9fafb;
-                border-color: #002D62; /* FH Blue on hover */
-                color: #002D62 !important; 
-            }}
-            .stButton > button:active {{
-                background-color: #f3f4f6;
-            }}
-            
-            /* --- 6. OTHER ELEMENTS --- */
-            /* Style the title */
-            [data-testid="stHeading"] {{
-                color: #002D62; /* FH Dark Blue */
-            }}
-            /* Style the chat input box */
-            [data-testid="stChatInput"] {{
-                background-color: #ffffff;
-            }}
-        </style>
-    """, unsafe_allow_html=True)
-
-def format_reasoning_docs(docs: List[Document]) -> str:
-    """
-    Helper to format retrieved/reranked docs for the expander.
-    (No longer needs !important tags as theme is fixed)
-    """
-    md_string = ""
-    for i, doc in enumerate(docs):
-        policy_num = doc.metadata.get('policy_number', 'N/A')
-        policy_title = doc.metadata.get('policy_title', 'Unknown')
-        md_string += f"""
-<details>
-    <summary><strong>Doc {i+1}: {policy_num} - {policy_title}</strong></summary>
-    <p style="font-size: 0.9rem; color: #4b5563; background-color: #f9fafb; border: 1px solid #e5e7eb; padding: 10px; border-radius: 5px;">
-        {doc.page_content[:500]}...
-    </p>
-</details>
-"""
-    return md_string
-
-def run_query(app, question: str):
-    """
-    This function is the main entry point for processing a user's question.
-    It uses st.status to show the "continuous feedback" and streams the response.
-    """
-    
-    with st.status("Thinking...", expanded=False) as status:
-        config = RunnableConfig(recursion_limit=50)
-        inputs = {"question": question}
-        reasoning_data = {}
-        
-        answer_placeholder = st.empty()
-        full_answer = ""
-        
+    if Image is not None and os.path.exists(path):
         try:
-            for event in app.stream(inputs, config=config):
-                
-                if "start_timer" in event:
-                    status.update(label="Starting analysis...")
-                
-                if "detect_intent" in event:
-                    status.update(label="Detecting policy intent...")
-                    reasoning_data["intent"] = event["detect_intent"]["policy_intent"]
+            return Image.open(path)
+        except Exception:
+            pass
+    return emoji_fallback
 
-                if "multi_query_retriever" in event:
-                    status.update(label="Generating sub-queries...")
-                    reasoning_data["multi_queries"] = event["multi_query_retriever"]["multi_queries"]
+def _assistant_avatar():
+    return _load_png_or_emoji(AVATAR_PNG, "🤖")
 
-                if "retrieve_docs" in event:
-                    status.update(label="Retrieving relevant documents...")
-                    reasoning_data["retrieved_docs"] = event["retrieve_docs"]["documents"]
+def _page_icon():
+    return _load_png_or_emoji(AVATAR_PNG, "🏦")
 
-                if "rerank_docs" in event:
-                    status.update(label="Reranking documents for relevance...")
-                    reasoning_data["reranked_docs"] = event["rerank_docs"]["reranked_documents"]
+# --------------------------
+# Streamlit page & sidebar
+# --------------------------
+st.set_page_config(
+    page_title="Finance House Policy Bot",
+    page_icon=_page_icon(),
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
 
-                if "generate_answer" in event:
-                    status.update(label="Generating final answer...")
-                    for chunk in event["generate_answer"]["answer"]:
-                        full_answer += chunk.content
-                        answer_placeholder.markdown(full_answer + "▌")
-                
-                if "generate_followup" in event:
-                    status.update(label="Generating follow-up questions...")
-                    reasoning_data["follow_up_questions"] = event["generate_followup"]["follow_up_questions"]
-                
-                if "end_timer" in event:
-                    status.update(label="Done!")
-                    reasoning_data["metrics"] = event["end_timer"]["metrics"]
-                    status.success(f"Done in {reasoning_data['metrics']['total_time']}s!")
+with st.sidebar:
+    st.caption(f"Streamlit {st.__version__}")  # quick visibility of Cloud runtime
+    if os.path.exists(LOGO_PNG) and Image is not None:
+        st.image(LOGO_PNG, use_container_width=True)
+    elif os.path.exists(LOGO_PNG):
+        st.image(LOGO_PNG, use_container_width=True)
+    else:
+        st.markdown("🏦 Finance House")
+    st.markdown("Get accurate, citable answers from core company policies using a lightweight RAG pipeline.")
 
-        except Exception as e:
-            st.error(f"An error occurred: {e}")
-            print(f"Error during graph execution: {e}") # For debugging
-            status.error("An error occurred.")
-            return
-
-    answer_placeholder.markdown(full_answer)
-    
-    st.session_state.messages.append({
-        "role": "assistant",
-        "content": full_answer,
-        "reasoning": reasoning_data,
-        "follow_ups": reasoning_data.get("follow_up_questions", [])
-    })
-
-# --- Main Application Logic ---
-def main():
-    
-    # --- PAGE CONFIG (REMOVED 'theme' PARAMETER) ---
-    st.set_page_config(
-        page_title="Finance House Policy Bot",
-        page_icon="🤖", # FIX 1: Use default emoji icon for page
-        layout="wide"
-    )
-    
-    # Inject our new custom CSS
-    inject_custom_css()
-    
-    # --- SIDEBAR (WITH LOGO AND BRANDING) ---
-    st.sidebar.image(FH_LOGO_URL, use_column_width=True)
-    st.sidebar.header("About This App")
-    st.sidebar.markdown("""
-    This advanced chatbot is designed to help Finance House employees
-    get accurate, citable answers from our 10 core company policies.
-    
-    **How it Works:**
-    1.  **Intent Detection:** Identifies the relevant policy.
-    2.  **Multi-Query:** Generates related queries to find the best info.
-    3.  **Retrieve:** Fetches documents from a local vector store.
-    4.  **Rerank:** Uses a Cohere model to find the *most* relevant text.
-    5.  **Generate:** A Gemini LLM synthesizes the final answer with citations.
-    6.  **Follow-ups:** Suggests related questions to explore.
-    """)
-    
-    # --- MAIN CHAT INTERFACE ---
-    st.title("Finance House Policy Bot 🇦🇪")
-    
-    # --- CHAT HISTORY INITIALIZATION ---
-    if "messages" not in st.session_state:
-        st.session_state.messages = [{
-            "role": "assistant",
-            "content": "Hello! I'm the Finance House Policy Bot. How can I help you today?",
-            "reasoning": None,
-            "follow_ups": []
-        }]
-
-    # --- AGENT INITIALIZATION ---
+# --------------------------
+# Lazy RAG components
+# --------------------------
+@st.cache_resource(show_spinner=False)
+def _build_embeddings():
+    if SentenceTransformerEmbeddings is None:
+        return None
     try:
-        app = get_graph()
-    except Exception as e:
-        st.error(f"Failed to initialize the RAG agent: {e}")
-        st.stop()
+        return SentenceTransformerEmbeddings(model_name=EMBEDDING_MODEL)
+    except Exception:
+        return None
 
-    # --- CHAT HISTORY DISPLAY ---
-    for i, msg in enumerate(st.session_state.messages):
-        # FIX 1: Use default icons by *not* passing the avatar parameter
-        with st.chat_message(msg["role"]):
-            st.markdown(msg["content"])
-            
-            # Display "Reasoning" and "Follow-ups" for assistant messages
-            if msg["role"] == "assistant" and msg["reasoning"]:
-                
-                with st.expander("Show Reasoning 🧠"):
-                    r = msg["reasoning"]
-                    st.markdown(f"**Metric:** Total query time: `{r['metrics']['total_time']}s`")
-                    st.markdown(f"**1. Policy Intent:** `{r['intent']}`")
-                    
-                    st.markdown(f"**2. Generated Sub-Queries:**")
-                    st.json(r['multi_queries'])
-                    
-                    st.markdown(f"**3. Retrieved Documents (before reranking):**")
-                    st.markdown(format_reasoning_docs(r['retrieved_docs']), unsafe_allow_html=True)
-                    
-                    st.markdown(f"**4. Reranked Documents (Top {RERANKER_TOP_N}):**")
-                    st.markdown(format_reasoning_docs(r['reranked_docs']), unsafe_allow_html=True)
+@st.cache_resource(show_spinner=False)
+def _load_vectorstore():
+    if Chroma is None:
+        return None
+    if not os.path.isdir(DB_DIR):
+        return None
+    try:
+        emb = _build_embeddings()
+        if emb is None:
+            return None
+        return Chroma(persist_directory=DB_DIR, embedding_function=emb)
+    except Exception:
+        return None
 
-                if msg["follow_ups"]:
-                    st.markdown("<br>", unsafe_allow_html=True)
-                    
-                    num_followups = len(msg["follow_ups"])
-                    if num_followups > 0:
-                        cols = st.columns(min(num_followups, 3)) 
-                        for j, fup_question in enumerate(msg["follow_ups"]):
-                            if j < 3: 
-                                button_key = f"fup_{i}_{j}"
-                                if cols[j].button(fup_question, use_container_width=True, key=button_key):
-                                    st.session_state.messages.append({"role": "user", "content": fup_question})
-                                    # FIX 1: Use default user icon
-                                    with st.chat_message("user"): 
-                                        st.markdown(fup_question)
-                                    
-                                    # FIX 1: Use default assistant icon
-                                    with st.chat_message("assistant"): 
-                                        run_query(app, fup_question)
-                                    st.rerun()
-            
-            if msg["role"] == "assistant" and msg["content"] != "Hello! I'm the Finance House Policy Bot. How can I help you today?":
-                st.markdown("---", unsafe_allow_html=True)
+@st.cache_resource(show_spinner=False)
+def _reranker():
+    if CohereRerank is None:
+        return None
+    api_key = os.getenv("COHERE_API_KEY", "").strip()
+    if not api_key:
+        return None
+    try:
+        return CohereRerank(api_key=api_key, model="rerank-english-v3.0")
+    except Exception:
+        return None
 
-    # --- CHAT INPUT ---
-    if prompt := st.chat_input("Ask a question about a company policy..."):
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        
-        # FIX 1: Use default user icon
-        with st.chat_message("user"):
-            st.markdown(prompt)
-        
-        # FIX 1: Use default assistant icon
-        with st.chat_message("assistant"):
-            run_query(app, prompt)
-        
-        st.rerun()
+@st.cache_resource(show_spinner=False)
+def _llm():
+    if ChatGoogleGenerativeAI is None:
+        return None
+    api_key = os.getenv("GOOGLE_API_KEY", "").strip()
+    if not api_key:
+        return None
+    try:
+        return ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.2)
+    except Exception:
+        return None
 
-if __name__ == "__main__":
-    main()
+# --------------------------
+# RAG answer function
+# --------------------------
+SYSTEM_PROMPT = (
+    "You are an assistant that answers questions strictly using the provided company policy context. "
+    "Quote exact lines where appropriate, and list short source identifiers in parentheses."
+)
+
+def _multi_queries(q: str) -> List[str]:
+    """
+    Simple multi-query generator; if an LLM is available, generate variants,
+    else return basic heuristics.
+    """
+    llm = _llm()
+    if llm is not None:
+        try:
+            prompt = (
+                "Generate 3 short alternative phrasings of the following question to improve retrieval. "
+                "Return each on a new line without numbering.\n\nQuestion: " + q
+            )
+            out = llm.invoke(prompt)
+            text = getattr(out, "content", str(out))
+            variants = [line.strip(" -•") for line in text.splitlines() if line.strip()]
+            if variants:
+                return [q] + variants[:3]
+        except Exception:
+            pass
+    # Heuristic fallbacks
+    return [q, f"What details are in: {q}?", f"Policy rules for: {q}", f"Definitions related to: {q}"]
+
+def _retrieve(subqs: List[str]) -> List[Any]:
+    """
+    Retrieve documents for the sub-queries; returns a de-duplicated list of Documents.
+    """
+    vs = _load_vectorstore()
+    if vs is None:
+        return []
+    retriever = vs.as_retriever(search_kwargs={"k": RETRIEVER_K})
+    seen = set()
+    out = []
+    for sq in subqs:
+        try:
+            docs = retriever.get_relevant_documents(sq)
+            for d in docs:
+                key = getattr(d, "page_content", "")[:80] + str(getattr(d, "metadata", {}))
+                if key not in seen:
+                    seen.add(key)
+                    out.append(d)
+        except Exception:
+            continue
+    return out
+
+def _apply_rerank(docs: List[Any], q: str) -> List[Any]:
+    rr = _reranker()
+    if rr is None or not docs:
+        return docs[:RERANK_TOP_N]
+    try:
+        ranked = rr.rerank(query=q, documents=[getattr(d, "page_content", "") for d in docs], top_n=RERANK_TOP_N)
+        # CohereRerank returns items with index; map back to docs
+        chosen = []
+        for item in ranked:
+            idx = getattr(item, "index", None)
+            if idx is not None and 0 <= idx < len(docs):
+                chosen.append(docs[idx])
+        return chosen or docs[:RERANK_TOP_N]
+    except Exception:
+        return docs[:RERANK_TOP_N]
+
+def _synthesize_answer(q: str, context_docs: List[Any]) -> str:
+    """
+    Use LLM if available; otherwise compose a deterministic extractive answer.
+    """
+    llm = _llm()
+    joined = "\n\n".join([getattr(d, "page_content", "") for d in context_docs])[:12000]
+    if llm is not None and joined:
+        try:
+            prompt = (
+                f"{SYSTEM_PROMPT}\n\nQuestion: {q}\n\nContext:\n{joined}\n\n"
+                "Answer clearly and concisely, and include bracketed source tags like (POL-HR-004) where applicable."
+            )
+            out = llm.invoke(prompt)
+            return getattr(out, "content", str(out))
+        except Exception:
+            pass
+    if not context_docs:
+        return "No policy context is available in the current knowledge base. Please upload or rebuild the vector store."
+    # Simple extractive fallback
+    snippet = getattr(context_docs[0], "page_content", "")
+    return f"From the most relevant policy excerpt:\n\n> {snippet[:1000]}"
+
+def _citations(docs: List[Any]) -> List[str]:
+    cites = []
+    for d in docs:
+        md = getattr(d, "metadata", {}) or {}
+        src = md.get("source") or md.get("file") or md.get("policy") or md.get("id") or "local-doc"
+        cites.append(str(src))
+    # De-duplicate, keep order
+    seen = set()
+    uniq = []
+    for c in cites:
+        if c not in seen:
+            seen.add(c)
+            uniq.append(c)
+    return uniq
+
+def generate_answer(user_query: str) -> Dict[str, Any]:
+    """
+    Full pipeline: multi-query -> retrieve -> rerank -> synthesize -> meta
+    Returns dict with keys: content (md string), meta (dict as used by renderer)
+    """
+    t0 = time.time()
+    subqs = _multi_queries(user_query)
+    raw_docs = _retrieve(subqs)
+    top_docs = _apply_rerank(raw_docs, user_query)
+    answer_md = _synthesize_answer(user_query, top_docs)
+    elapsed_ms = int((time.time() - t0) * 1000)
+
+    meta = {
+        "elapsed_ms": elapsed_ms,
+        "retrieved": len(raw_docs),
+        "reranked": len(top_docs),
+        "citations": _citations(top_docs),
+        "intent": "policy Q&A",
+        "subqueries": subqs,
+        "retrieved_docs": [
+            (getattr(d, "metadata", {}) or {}).get("title")
+            or (getattr(d, "metadata", {}) or {}).get("source")
+            or "doc"
+            for d in raw_docs
+        ],
+        "reranked_docs": [
+            (getattr(d, "metadata", {}) or {}).get("title")
+            or (getattr(d, "metadata", {}) or {}).get("source")
+            or "doc"
+            for d in top_docs
+        ],
+    }
+    return {"content": answer_md, "meta": meta}
+
+# --------------------------
+# Chat UI helpers
+# --------------------------
+def render_message(role: str, text: str, response_meta: Optional[Dict[str, Any]] = None):
+    """
+    Render a chat message with a theme-safe meta header and an expanded reasoning section.
+    """
+    avatar = _assistant_avatar() if role in ("assistant", "ai") else "👤"
+    with st.chat_message(role, avatar=avatar):
+        # Meta header row (always visible)
+        if role in ("assistant", "ai") and response_meta:
+            c1, c2, c3 = st.columns([1, 1, 3])
+            with c1:
+                if "elapsed_ms" in response_meta:
+                    st.metric("Query ms", int(response_meta["elapsed_ms"]))
+            with c2:
+                if "retrieved" in response_meta or "reranked" in response_meta:
+                    r = response_meta.get("retrieved", 0)
+                    k = response_meta.get("reranked", 0)
+                    st.caption(f"Docs: {k} of {r}")
+            with c3:
+                cites = response_meta.get("citations")
+                if cites:
+                    if isinstance(cites, (list, tuple)):
+                        st.caption("Sources: " + "; ".join(str(x) for x in cites))
+                    else:
+                        st.caption(f"Source: {cites}")
+
+        # Main content
+        st.markdown(text)
+
+        # Reasoning details
+        if role in ("assistant", "ai") and response_meta:
+            with st.expander("Show Reasoning 🧠", expanded=True):
+                if "intent" in response_meta:
+                    st.caption(f"Policy intent: {response_meta['intent']}")
+                if response_meta.get("subqueries"):
+                    st.markdown("#### Generated sub‑queries")
+                    for q in response_meta["subqueries"]:
+                        st.caption(f"• {q}")
+                if response_meta.get("retrieved_docs"):
+                    st.markdown("#### Retrieved documents (pre‑rank)")
+                    for d in response_meta["retrieved_docs"]:
+                        st.caption(f"• {d}")
+                if response_meta.get("reranked_docs"):
+                    st.markdown("#### Reranked top‑k")
+                    for d in response_meta["reranked_docs"]:
+                        st.caption(f"• {d}")
+
+# --------------------------
+# Page body
+# --------------------------
+st.title(APP_TITLE)
+
+if "messages" not in st.session_state:
+    st.session_state["messages"] = [
+        {"role": "assistant", "content": "Hello! I'm the Finance House Policy Bot. How can I help you today?", "meta": None}
+    ]
+
+# Render history
+for msg in st.session_state["messages"]:
+    render_message(msg["role"], msg["content"], msg.get("meta"))
+
+# Input
+user_input = st.chat_input("Ask a question about a company policy…")
+if user_input:
+    st.session_state["messages"].append({"role": "user", "content": user_input, "meta": None})
+    render_message("user", user_input, None)
+
+    with st.spinner("Thinking…"):
+        result = generate_answer(user_input)
+    st.session_state["messages"].append({"role": "assistant", "content": result["content"], "meta": result["meta"]})
+    render_message("assistant", result["content"], result["meta"])
