@@ -26,7 +26,6 @@ EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 EMBEDDING_DEVICE = "cpu"  # Set to "cpu" for cloud deployment
 RETRIEVER_K = 10  # Number of docs to retrieve
 RERANKER_TOP_N = 3  # Number of docs to pass to LLM
-# --- (REMOVED) FH_LOGO_URL (Will use default icons/text per user request) ---
 
 
 # --- 1. Caching and Resource Loading (Essential for Streamlit) ---
@@ -37,7 +36,7 @@ def get_llm():
     try:
         api_key = st.secrets["GOOGLE_API_KEY"]
         return ChatGoogleGenerativeAI(
-            model="gemini-2.5-flash-preview-09-2025", 
+            model="gemini-1.5-flash-latest", # Updated to latest flash model
             google_api_key=api_key, 
             streaming=True
         )
@@ -108,9 +107,15 @@ def get_policy_info():
                         "number": parts[0],
                         "title": parts[1].replace('_', ' ')
                     })
+        if not policy_info:
+            st.error(f"No .txt files found in '{DATA_DIR}'. Please add policy files and run ingest.py.")
+            st.stop()
         return policy_info
     except FileNotFoundError:
         st.error(f"Data directory '{DATA_DIR}' not found. Please create it and add policy files.")
+        st.stop()
+    except Exception as e:
+        st.error(f"Error reading policy info from '{DATA_DIR}': {e}")
         st.stop()
 
 # --- 2. LangGraph Agent Definition ---
@@ -210,10 +215,12 @@ def retrieve_docs(state: AgentState):
     
     filter_dict = {}
     if policy_intent != "GENERAL":
+        # Metadata filter for ChromaDB
         filter_dict = {"policy_number": policy_intent}
         
     for query in queries:
-        retrieved_docs = retriever.invoke(query, config={"filter": filter_dict})
+        # Pass the filter_dict in the 'config' argument for the retriever
+        retrieved_docs = retriever.invoke(query, config={"run_name": "retriever", "filter": filter_dict})
         all_retrieved_docs.extend(retrieved_docs)
     
     unique_docs = {doc.page_content: doc for doc in all_retrieved_docs}.values()
@@ -229,6 +236,12 @@ def rerank_docs(state: AgentState):
     """
     question = state["question"]
     documents = state["documents"]
+    
+    if not documents:
+        state["reranked_documents"] = []
+        state["reasoning"]["reranked_docs"] = []
+        return state
+
     reranker = get_reranker()
     
     reranked_docs = reranker.compress_documents(
@@ -264,6 +277,7 @@ def generate_answer(state: AgentState):
     
     if not documents:
         state["answer"] = "I'm sorry, I couldn't find any relevant policy information for your question. Please try rephrasing."
+        state["follow_up_questions"] = [] # No docs, no follow-up
         return state
 
     context_str = format_context_for_llm(documents)
@@ -299,6 +313,12 @@ def generate_followup(state: AgentState):
     Node 6: Generates 3 related follow-up questions.
     This is the "Follow-up Questions" feature.
     """
+    # If there was no answer (e.g., no docs), skip this
+    if not state.get("reranked_documents"):
+        state["follow_up_questions"] = []
+        state["reasoning"]["follow_up_questions"] = []
+        return state
+
     question = state["question"]
     
     prompt_template = ChatPromptTemplate.from_messages([
@@ -367,7 +387,7 @@ def get_graph():
 def inject_custom_css():
     """
     Injects custom CSS to override Streamlit themes and apply
-    Finance House branding. THIS IS THE DEFINITIVE FIX.
+    Finance House branding. THIS IS THE DEFINITIVE FIX (v7).
     """
     st.markdown(f"""
         <style>
@@ -401,10 +421,11 @@ def inject_custom_css():
             [data-testid="stSidebar"] strong {{
                 color: #D4AF37 !important; /* FH Gold for "How it Works" */
             }}
-            /* FIX 2.3: Hide the sidebar scrollbar */
+            
+            /* FIX 2.3: Hide the sidebar scrollbar (BUG 1 FIX) */
             [data-testid="stSidebar"] [data-testid="stVerticalBlock"] {{
                 overflow-x: hidden !important;
-                overflow-y: auto !important;
+                overflow-y: auto !important; /* Allows scrolling */
             }}
             [data-testid="stSidebar"] [data-testid="stVerticalBlock"]::-webkit-scrollbar {{
                 display: none; /* Hide scrollbar for Chrome, Safari */
@@ -453,33 +474,46 @@ def inject_custom_css():
                 color: #111827 !important;
             }}
             
-            /* --- 5. THE 100% READABILITY FIX --- */
-            /* This fixes the black boxes for Citations, Metric, Intent */
-            [data-testid="stApp"] code {{
+            /* --- 5. THE 100% READABILITY FIX (v7 - BUG 2 FIX) --- */
+            
+            /* FIX 5.1: Fixes `code` tags (citations) in the main answer */
+            [data-testid="stChatMessageContent"] code {
                 background-color: #e5e7eb !important; /* Light gray */
                 color: #1f2937 !important; /* Dark text */
                 padding: 0.2em 0.4em;
                 border-radius: 4px;
-            }}
-            /* FIX 2.4: This fixes the black box for st.json (Generated Sub-Queries) */
-            [data-testid="stExpanderDetails"] [data-testid="stJson"] pre {{
-                background-color: #e5e7eb !important; /* Light gray background */
+            }
+            
+            /* FIX 5.2: Fixes `code` tags (metrics, intent) in the expander */
+            [data-testid="stExpanderDetails"] code {
+                background-color: #e5e7eb !important; /* Light gray */
+                color: #1f2937 !important; /* Dark text */
+                padding: 0.2em 0.4em;
+                border-radius: 4px;
+            }
+
+            /* FIX 5.3: Fixes `pre` tags (st.json) in the expander */
+            [data-testid="stExpanderDetails"] pre {
+                background-color: #e5e7eb !important; /* Light gray */
                 color: #1f2937 !important; /* Dark text */
                 padding: 10px;
                 border-radius: 5px;
-            }}
-            [data-testid="stExpanderDetails"] [data-testid="stJson"] pre * {{
-                color: #1f2937 !important; /* Dark text for JSON */
-            }}
-            /* This fixes the bold text (Metric, etc.) from getting a black bg */
-            [data-testid="stApp"] strong {{
+            }
+            /* Fallback to force text color inside the pre tag */
+            [data-testid="stExpanderDetails"] pre * {
+                color: #1f2937 !important;
+            }
+
+            /* FIX 5.4: Fixes `strong` tags (bold text) from getting a black bg */
+            /* This targets the main app area, not the sidebar */
+            [data-testid="stAppViewContainer"] strong {
                 background-color: transparent !important;
                 color: #111827 !important;
-            }}
-            /* Re-apply sidebar strong color */
-             [data-testid="stSidebar"] strong {{
+            }
+            /* Must re-apply sidebar strong color */
+             [data-testid="stSidebar"] strong {
                 color: #D4AF37 !important; /* FH Gold */
-            }}
+            }
             
             /* --- 6. FOLLOW-UP BUTTONS --- */
             .stButton > button {{
@@ -574,7 +608,7 @@ def run_query(app, question: str):
                 
                 if "generate_followup" in event:
                     status.update(label="Generating follow-up questions...")
-                    reasoning_data["follow_up_questions"] = event["generate_followup"]["follow_up_questions"]
+                    reasoning_data["follow_up_questions"] = event["generate_followup"].get("follow_up_questions", [])
                 
                 if "end_timer" in event:
                     status.update(label="Done!")
@@ -610,7 +644,6 @@ def main():
     inject_custom_css()
     
     # --- SIDEBAR (WITH LOGO AND BRANDING) ---
-    # FIX 1: Removed the failing st.sidebar.image and replaced with text
     st.sidebar.title("Finance House 🇦🇪")
     st.sidebar.header("About This App")
     st.sidebar.markdown("""
@@ -631,7 +664,6 @@ def main():
     
     # --- CHAT HISTORY INITIALIZATION ---
     if "messages" not in st.session_state:
-        # FIX (from crash log): Restore the missing keys to the initial message
         st.session_state.messages = [{
             "role": "assistant",
             "content": "Hello! I'm the Finance House Policy Bot. How can I help you today?",
@@ -653,7 +685,6 @@ def main():
             st.markdown(msg["content"])
             
             # Display "Reasoning" and "Follow-ups" for assistant messages
-            # Use .get() for a safer check that won't raise a KeyError
             if msg.get("reasoning"):
                 
                 # Check if this is the last message
@@ -692,11 +723,12 @@ def main():
                                         run_query(app, fup_question)
                                     st.rerun()
             
-            if msg["role"] == "assistant" and msg["content"] != "Hello! I'm the Finance House Policy Bot. Got a question about company policies?":
+            # Add a separator after assistant messages, but not the first one
+            if msg["role"] == "assistant" and i > 0:
                 st.markdown("---", unsafe_allow_html=True)
 
     # --- CHAT INPUT ---
-    if prompt := st.chat_input("Ask a question about a company policy... Provide as much detail as possible."):
+    if prompt := st.chat_input("Ask a question about a company policy..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         
         with st.chat_message("user"):
