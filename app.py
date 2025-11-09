@@ -601,12 +601,13 @@ def inject_custom_css():
             /* --- 7. OTHER ELEMENTS --- */
             
             /* v19: NEW RULE - Center the main title */
-            .main-title {
+            /* v20: FIX - Escaped curly braces for f-string */
+            .main-title {{
                 color: #002D62; /* FH Dark Blue */
                 text-align: center;
                 width: 100%;
                 margin-bottom: 20px; /* Add some space below title */
-            }
+            }}
 
             [data-testid="stChatInput"] {{
                 background-color: #ffffff;
