@@ -692,11 +692,11 @@ def main():
                                         run_query(app, fup_question)
                                     st.rerun()
             
-            if msg["role"] == "assistant" and msg["content"] != "Hello! I'm the Finance House Policy Bot. How can I help you today?":
+            if msg["role"] == "assistant" and msg["content"] != "Hello! I'm the Finance House Policy Bot. Got a question about company policies?":
                 st.markdown("---", unsafe_allow_html=True)
 
     # --- CHAT INPUT ---
-    if prompt := st.chat_input("Ask a question about a company policy..."):
+    if prompt := st.chat_input("Ask a question about a company policy... Provide as much detail as possible."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         
         with st.chat_message("user"):
