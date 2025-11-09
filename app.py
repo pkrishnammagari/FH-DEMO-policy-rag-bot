@@ -396,12 +396,13 @@ def inject_custom_css():
     """Injects custom CSS for a professional, neutral UI."""
     st.markdown("""
         <style>
-            /* --- Base & Colors --- */
+            /* --- Base & Colors (FIX: Set default text color) --- */
             .stApp {
                 background-color: #f0f2f6; /* Neutral light gray background */
+                color: #1f2937; /* ADDED: Default dark text color for the whole app */
             }
             
-            /* --- Chat Bubbles --- */
+            /* --- Chat Bubbles (FIX: Explicitly set text color) --- */
             [data-testid="chat-message-container"] {
                 border-radius: 18px;
                 padding-top: 10px;
@@ -412,28 +413,31 @@ def inject_custom_css():
             /* User (You) Bubble */
             [data-testid="chat-message-container"]:has([data-testid="chat-avatar-user"]) {
                 background-color: #e1f0ff; /* Light, friendly blue */
+                color: #1f2937; /* ADDED: Dark text */
             }
 
-            /* Assistant (Bot) Bubble */
+            /* Assistant (Bot) Bubble (FIX: Explicitly set text color) */
             [data-testid="chat-message-container"]:has([data-testid="chat-avatar-assistant"]) {
                 background-color: #ffffff; /* Clean white */
                 border: 1px solid #d1d5db; /* Subtle border */
                 box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+                color: #1f2937; /* ADDED: Dark text */
             }
             
-            /* --- "Show Reasoning" Expander --- */
+            /* --- "Show Reasoning" Expander (FIX: Explicitly set text color) --- */
             [data-testid="stExpander"] {
                 border: 1px solid #d1d5db;
                 border-radius: 10px;
                 background-color: #fafafa; /* Slightly off-white */
                 margin-top: 15px;
+                color: #1f2937; /* ADDED: Dark text for content inside */
             }
             [data-testid="stExpander"] summary {
                 font-weight: 600;
                 color: #4b5563; /* Dark gray text */
             }
             
-            /* --- Follow-up Question Buttons --- */
+            /* --- Follow-up Question Buttons (No change, was already OK) --- */
             .stButton > button {
                 width: 100%;
                 text-align: left;
@@ -453,7 +457,7 @@ def inject_custom_css():
                 background-color: #f3f4f6;
             }
             
-            /* --- Source Citation Styling --- */
+            /* --- Source Citation Styling (No change, was already OK) --- */
             .source-citation {
                 font-size: 0.85rem;
                 color: #6b7280; /* Medium gray */
