@@ -425,6 +425,7 @@ def inject_custom_css():
                 font-weight: 600;
                 color: #4b5563 !important;
             }}
+            /* Fix for expander header black on click */
             [data-testid="stExpander"] summary:hover,
             [data-testid="stExpander"] summary:active,
             [data-testid="stExpander"] summary:focus {{
@@ -451,6 +452,11 @@ def inject_custom_css():
             }}
             [data-testid="stExpanderDetails"] pre * {{
                 color: #1f2937 !important; /* Dark text for JSON */
+            }}
+            /* This fixes the bold text (Metric, etc.) from getting a black bg */
+            [data-testid="stExpanderDetails"] strong {{
+                background-color: transparent !important;
+                color: #111827 !important;
             }}
             
             /* --- 6. FOLLOW-UP BUTTONS --- */
