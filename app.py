@@ -602,8 +602,9 @@ def inject_custom_css():
             
             /* v19: NEW RULE - Center the main title */
             /* v20: FIX - Escaped curly braces for f-string */
+            /* v21: FIX - Added !important to win specificity war */
             .main-title {{
-                color: #002D62; /* FH Dark Blue */
+                color: #002D62 !important; /* FH Dark Blue */
                 text-align: center;
                 width: 100%;
                 margin-bottom: 20px; /* Add some space below title */
@@ -798,7 +799,7 @@ def main():
             if msg["role"] == "assistant" and i > 0:
                 st.markdown("---", unsafe_allow_html=True)
 
-    # --- CHAT INPUT --
+    # --- CHAT INPUT ---
     if prompt := st.chat_input("Ask a question about a company policy..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         
