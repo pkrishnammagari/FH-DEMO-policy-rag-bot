@@ -27,7 +27,8 @@ EMBEDDING_DEVICE = "cpu"  # Set to "cpu" for cloud deployment
 RETRIEVER_K = 10  # Number of docs to retrieve
 RERANKER_TOP_N = 3  # Number of docs to pass to LLM
 FH_LOGO_URL = "https://www.financehouse.ae/wp-content/themes/finance-house/assets/images/logo.svg"
-FH_LOGO_ICON_URL = "https://www.financehouse.ae/wp-content/themes/finance-house/assets/images/logo-icon-dark.svg"
+# FIX 1: Use a .png for the avatar icon, as .svg is unreliable in st.chat_message
+FH_LOGO_ICON_URL = "https://www.financehouse.ae/wp-content/themes/finance-house/assets/images/favicon.png"
 
 
 # --- 1. Caching and Resource Loading (Essential for Streamlit) ---
@@ -377,7 +378,7 @@ def inject_custom_css():
                 color: #111827 !important;
             }}
             /* Force dark text for all text elements */
-            body, p, li, h1, h2, h3, h4, h5, h6 {{
+            body, p, li, h1, h2, h3, h4, h5, h6, div, span, summary {{
                 color: #111827 !important;
             }}
 
@@ -418,29 +419,39 @@ def inject_custom_css():
                 color: #111827 !important;
             }}
 
-            /* --- 4. REASONING EXPANDER --- */
+            /* --- 4. REASONING EXPANDER (FIX 2 & 3) --- */
             [data-testid="stExpander"] {{
                 border: 1px solid #d1d5db;
                 border-radius: 10px;
-                background-color: #fafafa;
+                background-color: #fafafa !important; /* Force light background */
                 margin-top: 15px;
             }}
-            /* Force dark text for the expander summary */
+            /* Force dark text for the expander summary (header) */
             [data-testid="stExpander"] summary {{
                 font-weight: 600;
                 color: #4b5563 !important;
             }}
+            /* FIX 2: Force light background on summary *even when clicked* */
+            [data-testid="stExpander"] summary:hover,
+            [data-testid="stExpander"] summary:active,
+            [data-testid="stExpander"] summary:focus {{
+                background-color: #fafafa !important;
+                color: #002D62 !important; /* FH Blue on hover/focus */
+            }}
+            
             /* Force dark text for ALL content inside expander details */
             [data-testid="stExpanderDetails"] * {{
                 color: #111827 !important;
             }}
-            /* Style the st.json block inside the expander */
-            [data-testid="stExpanderDetails"] [data-testid="stJson"] {{
+            /* FIX 3: Style the st.json block inside the expander */
+            [data-testid="stExpanderDetails"] [data-testid="stJson"],
+            [data-testid="stExpanderDetails"] pre {{
                 background-color: #e5e7eb !important; /* Light gray background */
                 padding: 10px;
                 border-radius: 5px;
             }}
-            [data-testid="stExpanderDetails"] [data-testid="stJson"] * {{
+            [data-testid="stExpanderDetails"] [data-testid="stJson"] *,
+            [data-testid="stExpanderDetails"] pre * {{
                 color: #1f2937 !important; /* Dark text for JSON */
             }}
 
