@@ -36,7 +36,7 @@ def get_llm():
     try:
         api_key = st.secrets["GOOGLE_API_KEY"]
         return ChatGoogleGenerativeAI(
-            model="gemini-1.5-flash-latest", # Updated to latest flash model
+            model="gemini-1.5-flash-latest", # Using latest flash model
             google_api_key=api_key, 
             streaming=True
         )
@@ -387,7 +387,10 @@ def get_graph():
 def inject_custom_css():
     """
     Injects custom CSS to override Streamlit themes and apply
-    Finance House branding. THIS IS THE DEFINITIVE FIX (v7).
+    Finance House branding. 
+    
+    FIX v8: Escaped all CSS curly braces '{{' and '}}' to prevent
+    Python f-string evaluation error.
     """
     st.markdown(f"""
         <style>
@@ -422,10 +425,12 @@ def inject_custom_css():
                 color: #D4AF37 !important; /* FH Gold for "How it Works" */
             }}
             
-            /* FIX 2.3: Hide the sidebar scrollbar (BUG 1 FIX) */
+            /* * FIX 2.3: Completely hide sidebar scrollbar (BUG 1 FIX)
+             * User confirmed content is static and never needs to scroll.
+             */
             [data-testid="stSidebar"] [data-testid="stVerticalBlock"] {{
                 overflow-x: hidden !important;
-                overflow-y: auto !important; /* Allows scrolling */
+                overflow-y: hidden !important; /* Disables all vertical scroll */
             }}
             [data-testid="stSidebar"] [data-testid="stVerticalBlock"]::-webkit-scrollbar {{
                 display: none; /* Hide scrollbar for Chrome, Safari */
@@ -474,46 +479,46 @@ def inject_custom_css():
                 color: #111827 !important;
             }}
             
-            /* --- 5. THE 100% READABILITY FIX (v7 - BUG 2 FIX) --- */
+            /* --- 5. THE 100% READABILITY FIX (v8 - BUG 2 FIX) --- */
             
             /* FIX 5.1: Fixes `code` tags (citations) in the main answer */
-            [data-testid="stChatMessageContent"] code {
+            [data-testid="stChatMessageContent"] code {{
                 background-color: #e5e7eb !important; /* Light gray */
                 color: #1f2937 !important; /* Dark text */
                 padding: 0.2em 0.4em;
                 border-radius: 4px;
-            }
+            }}
             
             /* FIX 5.2: Fixes `code` tags (metrics, intent) in the expander */
-            [data-testid="stExpanderDetails"] code {
+            [data-testid="stExpanderDetails"] code {{
                 background-color: #e5e7eb !important; /* Light gray */
                 color: #1f2937 !important; /* Dark text */
                 padding: 0.2em 0.4em;
                 border-radius: 4px;
-            }
+            }}
 
             /* FIX 5.3: Fixes `pre` tags (st.json) in the expander */
-            [data-testid="stExpanderDetails"] pre {
+            [data-testid="stExpanderDetails"] pre {{
                 background-color: #e5e7eb !important; /* Light gray */
                 color: #1f2937 !important; /* Dark text */
                 padding: 10px;
                 border-radius: 5px;
-            }
+            }}
             /* Fallback to force text color inside the pre tag */
-            [data-testid="stExpanderDetails"] pre * {
+            [data-testid="stExpanderDetails"] pre * {{
                 color: #1f2937 !important;
-            }
+            }}
 
             /* FIX 5.4: Fixes `strong` tags (bold text) from getting a black bg */
             /* This targets the main app area, not the sidebar */
-            [data-testid="stAppViewContainer"] strong {
+            [data-testid="stAppViewContainer"] strong {{
                 background-color: transparent !important;
                 color: #111827 !important;
-            }
+            }}
             /* Must re-apply sidebar strong color */
-             [data-testid="stSidebar"] strong {
+             [data-testid="stSidebar"] strong {{
                 color: #D4AF37 !important; /* FH Gold */
-            }
+            }}
             
             /* --- 6. FOLLOW-UP BUTTONS --- */
             .stButton > button {{
