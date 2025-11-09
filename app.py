@@ -588,7 +588,8 @@ def main():
     inject_custom_css()
     
     # --- SIDEBAR (WITH LOGO AND BRANDING) ---
-    st.sidebar.image(FH_LOGO_URL, use_column_width=True)
+    # FIX 2: Use use_container_width instead of use_column_width
+    st.sidebar.image(FH_LOGO_URL, use_container_width=True)
     st.sidebar.header("About This App")
     st.sidebar.markdown("""
     This advanced chatbot is designed to help Finance House employees
@@ -608,6 +609,7 @@ def main():
     
     # --- CHAT HISTORY INITIALIZATION ---
     if "messages" not in st.session_state:
+        # FIX 1: Restore the missing keys to the initial message
         st.session_state.messages = [{
             "role": "assistant",
             "content": "Hello! I'm the Finance House Policy Bot. How can I help you today?",
@@ -624,12 +626,13 @@ def main():
 
     # --- CHAT HISTORY DISPLAY ---
     for i, msg in enumerate(st.session_state.messages):
-        # FIX 1: Use default icons by *not* passing the avatar parameter
+        # Use default icons (no 'avatar' parameter)
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
             
             # Display "Reasoning" and "Follow-ups" for assistant messages
-            if msg["role"] == "assistant" and msg["reasoning"]:
+            # Use .get() for a safer check that won't raise a KeyError
+            if msg.get("reasoning"):
                 
                 # FIX 3: Check if this is the last message
                 is_last_message = (i == len(st.session_state.messages) - 1)
@@ -648,7 +651,7 @@ def main():
                     st.markdown(f"**4. Reranked Documents (Top {RERANKER_TOP_N}):**")
                     st.markdown(format_reasoning_docs(r['reranked_docs']), unsafe_allow_html=True)
 
-                if msg["follow_ups"]:
+                if msg.get("follow_ups"):
                     st.markdown("<br>", unsafe_allow_html=True)
                     
                     num_followups = len(msg["follow_ups"])
@@ -659,11 +662,10 @@ def main():
                                 button_key = f"fup_{i}_{j}"
                                 if cols[j].button(fup_question, use_container_width=True, key=button_key):
                                     st.session_state.messages.append({"role": "user", "content": fup_question})
-                                    # FIX 1: Use default user icon
+                                    
                                     with st.chat_message("user"): 
                                         st.markdown(fup_question)
                                     
-                                    # FIX 1: Use default assistant icon
                                     with st.chat_message("assistant"): 
                                         run_query(app, fup_question)
                                     st.rerun()
@@ -675,11 +677,9 @@ def main():
     if prompt := st.chat_input("Ask a question about a company policy..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         
-        # FIX 1: Use default user icon
         with st.chat_message("user"):
             st.markdown(prompt)
         
-        # FIX 1: Use default assistant icon
         with st.chat_message("assistant"):
             run_query(app, prompt)
         
