@@ -599,9 +599,15 @@ def inject_custom_css():
             }}
             
             /* --- 7. OTHER ELEMENTS --- */
-            [data-testid="stHeading"] {{
+            
+            /* v19: NEW RULE - Center the main title */
+            .main-title {
                 color: #002D62; /* FH Dark Blue */
-            }}
+                text-align: center;
+                width: 100%;
+                margin-bottom: 20px; /* Add some space below title */
+            }
+
             [data-testid="stChatInput"] {{
                 background-color: #ffffff;
             }}
@@ -723,7 +729,8 @@ def main():
     """)
     
     # --- MAIN CHAT INTERFACE ---
-    st.title("Finance House Policy Bot")
+    # v19: Replaced st.title with st.markdown for centering and icon
+    st.markdown("<h1 class='main-title'>🏦 Finance House Policy Bot</h1>", unsafe_allow_html=True)
     
     # --- CHAT HISTORY INITIALIZATION ---
     if "messages" not in st.session_state:
