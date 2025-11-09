@@ -389,8 +389,7 @@ def inject_custom_css():
     Injects custom CSS to override Streamlit themes and apply
     Finance House branding. 
     
-    FIX v8: Escaped all CSS curly braces '{{' and '}}' to prevent
-    Python f-string evaluation error.
+    FIX v9: More aggressive CSS for Sidebar scroll, Expander heading, and st.json.
     """
     st.markdown(f"""
         <style>
@@ -405,9 +404,11 @@ def inject_custom_css():
             }}
 
             /* --- 2. BRANDING: Sidebar (Finance House Dark Blue) --- */
+            /* * FIX 2.0 (BUG 1): Apply overflow hidden to main sidebar container */
             [data-testid="stSidebar"] {{
                 background-color: #002D62 !important; /* FH Dark Blue */
                 border-right: 1px solid #002D62;
+                overflow: hidden !important; /* Disables all scroll */
             }}
             /* FIX 2.1: Force white text for all elements in the sidebar */
             [data-testid="stSidebar"] * {{
@@ -425,18 +426,13 @@ def inject_custom_css():
                 color: #D4AF37 !important; /* FH Gold for "How it Works" */
             }}
             
-            /* * FIX 2.3: Completely hide sidebar scrollbar (BUG 1 FIX)
-             * User confirmed content is static and never needs to scroll.
-             */
-            [data-testid="stSidebar"] [data-testid="stVerticalBlock"] {{
-                overflow-x: hidden !important;
-                overflow-y: hidden !important; /* Disables all vertical scroll */
-            }}
+            /* * FIX 2.3: (Redundant but safe) Hide scrollbar properties */
             [data-testid="stSidebar"] [data-testid="stVerticalBlock"]::-webkit-scrollbar {{
                 display: none; /* Hide scrollbar for Chrome, Safari */
             }}
             [data-testid="stSidebar"] [data-testid="stVerticalBlock"] {{
                 scrollbar-width: none; /* Hide scrollbar for Firefox */
+                overflow: hidden !important; /* Double-tap to ensure no scroll */
             }}
 
 
@@ -465,9 +461,11 @@ def inject_custom_css():
                 background-color: #fafafa !important; /* Force light background */
                 margin-top: 15px;
             }}
+            /* * FIX 4.1 (BUG 3): Force light bg on expander heading */
             [data-testid="stExpander"] summary {{
                 font-weight: 600;
                 color: #4b5563 !important;
+                background-color: #fafafa !important; /* Force light bg */
             }}
             [data-testid="stExpander"] summary:hover,
             [data-testid="stExpander"] summary:active,
@@ -479,7 +477,7 @@ def inject_custom_css():
                 color: #111827 !important;
             }}
             
-            /* --- 5. THE 100% READABILITY FIX (v8 - BUG 2 FIX) --- */
+            /* --- 5. THE 100% READABILITY FIX (v9) --- */
             
             /* FIX 5.1: Fixes `code` tags (citations) in the main answer */
             [data-testid="stChatMessageContent"] code {{
@@ -497,20 +495,23 @@ def inject_custom_css():
                 border-radius: 4px;
             }}
 
-            /* FIX 5.3: Fixes `pre` tags (st.json) in the expander */
-            [data-testid="stExpanderDetails"] pre {{
-                background-color: #e5e7eb !important; /* Light gray */
-                color: #1f2937 !important; /* Dark text */
-                padding: 10px;
+            /* * FIX 5.3 (BUG 2): Aggressive fix for st.json black box */
+            [data-testid="stJson"] {{
+                background-color: #e5e7eb !important;
+                border: 1px solid #d1d5db;
                 border-radius: 5px;
             }}
-            /* Fallback to force text color inside the pre tag */
-            [data-testid="stExpanderDetails"] pre * {{
+            [data-testid="stJson"] pre {{
+                background-color: #e5e7eb !important;
                 color: #1f2937 !important;
+                padding: 10px;
             }}
-
+            [data-testid="stJson"] pre * {{
+                color: #1f2937 !important;
+                background-color: transparent !important;
+            }}
+            
             /* FIX 5.4: Fixes `strong` tags (bold text) from getting a black bg */
-            /* This targets the main app area, not the sidebar */
             [data-testid="stAppViewContainer"] strong {{
                 background-color: transparent !important;
                 color: #111827 !important;
