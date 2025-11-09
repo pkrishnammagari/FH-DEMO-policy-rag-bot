@@ -27,8 +27,7 @@ EMBEDDING_DEVICE = "cpu"  # Set to "cpu" for cloud deployment
 RETRIEVER_K = 10  # Number of docs to retrieve
 RERANKER_TOP_N = 3  # Number of docs to pass to LLM
 FH_LOGO_URL = "https://www.financehouse.ae/wp-content/themes/finance-house/assets/images/logo.svg"
-# FIX 1: Use a .png for the avatar icon, as .svg is unreliable in st.chat_message
-FH_LOGO_ICON_URL = "https://www.financehouse.ae/wp-content/themes/finance-house/assets/images/favicon.png"
+# --- (REMOVED) FH_LOGO_ICON_URL (We will use default icons) ---
 
 
 # --- 1. Caching and Resource Loading (Essential for Streamlit) ---
@@ -454,6 +453,11 @@ def inject_custom_css():
             [data-testid="stExpanderDetails"] pre * {{
                 color: #1f2937 !important; /* Dark text for JSON */
             }}
+            /* FIX 3.1: Fix bold text (Metric, Intent) inside expander */
+            [data-testid="stExpanderDetails"] strong {{
+                background-color: transparent !important;
+                color: #1f2937 !important;
+            }}
 
             /* --- 5. FOLLOW-UP BUTTONS --- */
             .stButton > button {{
@@ -578,7 +582,7 @@ def main():
     # --- PAGE CONFIG (REMOVED 'theme' PARAMETER) ---
     st.set_page_config(
         page_title="Finance House Policy Bot",
-        page_icon=FH_LOGO_ICON_URL, # Use FH icon as page icon
+        page_icon="🤖", # FIX 1: Use default emoji icon for page
         layout="wide"
     )
     
@@ -622,9 +626,8 @@ def main():
 
     # --- CHAT HISTORY DISPLAY ---
     for i, msg in enumerate(st.session_state.messages):
-        # Use FH icon for assistant, default for user
-        avatar = FH_LOGO_ICON_URL if msg["role"] == "assistant" else "🧑‍💻"
-        with st.chat_message(msg["role"], avatar=avatar):
+        # FIX 1: Use default icons by *not* passing the avatar parameter
+        with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
             
             # Display "Reasoning" and "Follow-ups" for assistant messages
@@ -655,10 +658,12 @@ def main():
                                 button_key = f"fup_{i}_{j}"
                                 if cols[j].button(fup_question, use_container_width=True, key=button_key):
                                     st.session_state.messages.append({"role": "user", "content": fup_question})
-                                    with st.chat_message("user", avatar="🧑‍💻"):
+                                    # FIX 1: Use default user icon
+                                    with st.chat_message("user"): 
                                         st.markdown(fup_question)
                                     
-                                    with st.chat_message("assistant", avatar=FH_LOGO_ICON_URL):
+                                    # FIX 1: Use default assistant icon
+                                    with st.chat_message("assistant"): 
                                         run_query(app, fup_question)
                                     st.rerun()
             
@@ -669,10 +674,12 @@ def main():
     if prompt := st.chat_input("Ask a question about a company policy..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         
-        with st.chat_message("user", avatar="🧑‍💻"):
+        # FIX 1: Use default user icon
+        with st.chat_message("user"):
             st.markdown(prompt)
         
-        with st.chat_message("assistant", avatar=FH_LOGO_ICON_URL):
+        # FIX 1: Use default assistant icon
+        with st.chat_message("assistant"):
             run_query(app, prompt)
         
         st.rerun()
