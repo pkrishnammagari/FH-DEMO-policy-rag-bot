@@ -557,20 +557,21 @@ def inject_custom_css():
             .stButton > button {{
                 width: 100%;
                 text-align: left;
-                background-color: #fef9e6; /* v13: Light gold */
-                border: 1px solid #fdf2d0; /* v13: Gold border */
-                color: #5d4a1a !important; /* v13: Dark gold text */
+                background-color: #002D62; /* v14: FH Dark Blue */
+                border: 1px solid #002D62; /* v14: FH Dark Blue */
+                color: #D4AF37 !important; /* v14: FH Gold */
                 font-weight: 500;
                 border-radius: 8px;
-                transition: background-color 0.2s ease, border-color 0.2s ease;
+                transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
             }}
             .stButton > button:hover {{
-                background-color: #fdf2d0; /* v13: Darker gold hover */
-                border-color: #D4AF37; /* v13: Main gold border */
-                color: #002D62 !important; 
+                background-color: #D4AF37; /* v14: FH Gold */
+                border-color: #D4AF37; /* v14: FH Gold */
+                color: #002D62 !important; /* v14: FH Dark Blue */
             }}
             .stButton > button:active {{
-                background-color: #fef9e6; /* v13: Light gold */
+                background-color: #D4AF37; /* v14: FH Gold */
+                opacity: 0.9;
             }}
             
             /* --- 7. OTHER ELEMENTS --- */
