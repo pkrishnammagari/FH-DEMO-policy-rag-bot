@@ -459,14 +459,15 @@ def inject_custom_css():
                 border-radius: 18px;
                 padding: 12px 16px;
                 margin-bottom: 10px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.03); /* v17: Add shadow to all */
             }}
             [data-testid="chat-message-container"]:has([data-testid="chat-avatar-user"]) {{
-                background-color: #e1f0ff; /* Light, friendly blue */
+                background-color: #fffdf7 !important; /* v17: Faint gold */
+                border: 1px solid #fdf2d0; /* v17: Gold border */
             }}
             [data-testid="chat-message-container"]:has([data-testid="chat-avatar-assistant"]) {{
-                background-color: #ffffff; /* Clean white */
-                border: 1px solid #d1d5db; 
-                box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+                background-color: #e1f0ff; /* v17: Light, friendly blue */
+                border: 1px solid #d1e3ff; /* v17: Light blue border */
             }}
             [data-testid="stChatMessageContent"] * {{
                 color: #111827 !important;
@@ -789,7 +790,7 @@ def main():
             if msg["role"] == "assistant" and i > 0:
                 st.markdown("---", unsafe_allow_html=True)
 
-    # --- CHAT INPUT
+    # --- CHAT INPUT ---
     if prompt := st.chat_input("Ask a question about a company policy..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         
