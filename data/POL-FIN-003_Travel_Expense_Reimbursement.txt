@@ -1,0 +1,237 @@
+Travel & Expense Reimbursement Policy
+Policy Number: POL-FIN-003
+Policy Owner: Finance Department
+Effective Date: January 1, 2025
+
+1. Executive Summary
+This Travel & Expense Reimbursement Policy establishes clear, consistent, and fair guidelines for the reimbursement of business travel and related expenses incurred by eligible employees of Finance House (“the Company”). The primary objective is to ensure prudent financial stewardship, regulatory compliance, and operational efficiency, while facilitating the business objectives of the Company. This policy details eligible expenses, the approval hierarchy, submission protocols, reimbursement processes, and expectations regarding ethical conduct. It is imperative that all employees adhere strictly to these guidelines to preserve both the integrity and financial health of Finance House.
+
+2. Eligible Employees and Travel Types
+2.1 Eligible Employees
+
+2.1.1. All regular, full-time and part-time employees of Finance House are eligible for travel reimbursement when engaged in pre-approved business travel. Temporary contractors, consultants, and interns are covered only if specifically authorized in writing by department leadership.
+
+2.1.2. Personal guests, family members, and non-employees are not eligible for any travel reimbursement from Finance House.
+
+2.2 Travel Types
+
+2.2.1. Business Travel Only: Reimbursement applies solely to travel undertaken for official business purposes including client meetings, offsite training, conferences, and company-sanctioned events.
+
+2.2.2. Role-Based Allowances: Travel allowances and eligible expense categories may vary by role and/or employment band. Examples:
+
+Band 1-3 (Analyst/Associate): Economy air travel, Tier 3 hotel rates, limited ground transportation.
+
+Band 4-6 (Manager/Director): Upgraded travel allowances, higher hotel rate limits in select cities.
+
+Band 7+ (Senior Leadership): Full business class eligibility, maximum hotel rate allowances.
+
+2.2.3. Personal Travel Exclusions: Personal vacations, home-to-office commutes, and family holidays are strictly excluded from reimbursement. Example: If an employee adds personal days to a business trip, all expenses incurred during personal extensions are the responsibility of the employee.
+
+3. Pre-Approval Requirements
+3.1 Travel Request & Approvals
+
+3.1.1. Employees are required to submit a Travel Request Form specifying purpose, destination, expected expenses, and dates, at least two weeks in advance of proposed travel.
+
+3.1.2. Approval Authority:
+
+Manager: Approves total estimated costs up to $5,000
+
+Director: Approves $5,000–$15,000
+
+CFO: Approves greater than $15,000
+
+3.1.3. No travel may commence without approved documentation. Non-compliance may result in denial of reimbursement.
+
+Example:
+If an Analyst plans to attend a $4,800 training in London, the immediate Manager must approve the trip.
+
+3.1.4. Emergency or short-notice travel (under two weeks) requires justification and explicit approval by the Director or CFO, as appropriate.
+
+4. Accommodation Expenses
+4.1 Hotel Rate Limits by City
+
+4.1.1. Maximum reimbursable rates per night (excluding taxes and fees):
+
+Tier 1 Cities (e.g., New York, London, Hong Kong): $250/night
+
+Tier 2 Cities (e.g., Dallas, Frankfurt, Singapore): $200/night
+
+Tier 3 Cities (all others): $150/night
+
+4.1.2. Suite upgrades, club access, or additional amenities (spa, minibar, gym fees) are non-reimbursable unless explicitly pre-approved.
+
+Example:
+A night at a New York hotel costing $290 will only be reimbursed at $250; the $40 excess must be covered by the employee.
+
+4.1.3. Extended Stays: For trips over 7 consecutive nights, employees are encouraged to request discounted weekly or monthly rates. Accommodation via serviced apartments must not exceed the equivalent nightly hotel cap averaged across the stay.
+
+5. Transportation
+5.1 Air Travel Class by Band
+
+5.1.1.
+
+Band	<6 hours (one-way)	≥6 hours (one-way)
+Band 1-3	Economy	Economy
+Band 4-6	Economy	Business Class
+Band 7+	Business Class	Business Class
+5.1.2. Premium or first-class fares are not reimbursable; any upgrade costs not mandated by the policy are the employee’s responsibility.
+
+Example:
+A Band 5 Director on a 7-hour flight from San Francisco to London may book business class. A Band 2 employee on the same route must book economy.
+
+5.2 Ground Transportation
+
+5.2.1. Reasonable costs for rideshare (Uber, Lyft), traditional taxis, and public transportation are reimbursable.
+
+5.2.2. Rental cars require pre-approval. Only “standard” or “intermediate” class vehicles are allowed unless business needs justify otherwise.
+
+5.2.3. Use of personal vehicles for business travel is reimbursed at $0.67 per mile. Mileage claims must include odometer readings or reliable mapping evidence.
+
+6. Meals and Incidental Expenses
+6.1 Daily Allowances (Per Diem) by Location
+
+6.1.1.
+
+City Tier	Daily Allowance
+Tier 1	$100
+Tier 2	$80
+Tier 3	$60
+6.1.2. Claims must be restricted to the actual amount spent, up to the daily cap.
+
+6.1.3. Separate claims for snacks, in-room dining, or minibar use count toward the per diem limit.
+
+6.2 Alcohol and Entertainment
+
+6.2.1. Reasonable alcohol costs at company or client dinners are reimbursable when accompanied by meal receipts. Standalone or personal alcohol expenses will not be reimbursed.
+
+6.2.2. Entertainment expenses are limited to official client entertaining and require itemized receipts and attendee details.
+
+7. Approval and Submission
+7.1 Required Documentation
+
+7.1.1. Original, itemized receipts are mandatory for all expenses exceeding $25. Credit card slips or statements alone are insufficient.
+
+7.1.2. Expense reports must be submitted within 30 days following trip completion.
+
+7.1.3. All claims require submission via the Company’s expense management system, with scanned copies of receipts and supporting documents.
+
+7.2 Currency Conversion
+
+7.2.1. Foreign currency expenses should be claimed in USD, using either the transaction rate on the date of purchase or rates published by OANDA/Reuters on the date of expense.
+
+8. Non-Reimbursable Expenses
+8.1. The following expenses are ineligible for reimbursement:
+
+Personal travel, shopping, and leisure activities
+
+Regular daily commuting to assigned office
+
+Family or companion travel costs
+
+Traffic, parking fines, or legal fees
+
+Excessive or luxury goods purchases
+
+Alcohol except as allowed for client entertaining
+
+Laundry and dry cleaning for trips less than 5 days
+
+Childcare or pet care expenses
+
+Room service markups, mini-bar snacks, in-room movies
+
+Example:
+A parking ticket, personal sightseeing tour, or theatre ticket for an employee’s spouse will NOT be reimbursed.
+
+9. Special Cases
+9.1 International Travel
+
+9.1.1. Visa fees, required vaccinations, and travel insurance are reimbursable with supporting receipts.
+
+9.1.2. Employees are responsible for validating local travel advisories and ensuring compliance with destination country entry/exit requirements.
+
+9.2 Multi-Stop Trips
+
+9.2.1. Expenses should be allocated proportionally to each business and personal segment, with detailed explanations attached. Only business-related portions are eligible for reimbursement.
+
+9.3 Family Accompaniment
+
+9.3.1. Additional costs due to family members or guests accompanying the employee are strictly non-reimbursable.
+
+10. Reimbursement Process
+10.1 Processing Timeline
+
+10.1.1. All properly submitted and approved expense reports will be processed within 15 business days.
+
+10.2 Payment Method
+
+10.2.1. Approved reimbursements are paid via direct deposit to the employee’s designated payroll bank account.
+
+10.3 Tax Implications
+
+10.3.1. Any reimbursement considered taxable under applicable laws (e.g., certain allowances or benefits) will be reported and processed in accordance with IRS and local tax authority requirements.
+
+11. Fraud and Misuse
+11.1. Submission of fraudulent claims—including inflated, duplicated, or fictitious expenses—may result in disciplinary action, up to and including termination of employment and potential legal prosecution.
+
+11.2. All expense claims are subject to audit. Suspected breaches will trigger an investigation by the Internal Audit or Compliance team.
+
+Example:
+Claiming the same receipt across multiple reports or altering amounts on a receipt will be considered fraud.
+
+12. Policy Exceptions
+12.1. Exceptions to any provision of this policy require advance approval from the CFO or designate, with supporting written justification.
+
+12.2. All exception requests must be documented and attached to the employee’s expense report for audit purposes.
+
+Frequently Asked Questions (FAQ)
+Q1. When do I need to obtain pre-approval for travel?
+A: Submit a Travel Request Form at least 2 weeks before travel. Approval is required based on the estimated expense bracket (see Section 3).
+
+Q2. I lost a hotel receipt. Can I still claim the expense?
+A: Generally, no. Only expenses with original, itemized receipts will be reimbursed, unless an exception is explicitly granted.
+
+Q3. Can I combine personal vacation with business travel?
+A: Yes, with written approval. Only the business-related portion is reimbursable (Section 2.2.3 & 9.2).
+
+Q4. What if my actual accommodation exceeds the city limit?
+A: Only the policy maximum (e.g., $250/night in NYC) is reimbursed. The difference is your responsibility.
+
+Q5. Are ride-sharing services like Uber eligible expenses?
+A: Yes, for business-related local travel. Provide electronic or paper receipts.
+
+Q6. Do I need pre-approval for every rental car?
+A: Yes. Rental cars must be pre-approved and limited to standard or intermediate class.
+
+Q7. Are non-employee spouses covered?
+A: No. Expenses related to family or guests are non-reimbursable under any circumstances.
+
+Q8. What is the reimbursement rate for using my own car?
+A: $0.67 per mile. Provide start/end odometer readings or equivalent mapping documentation.
+
+Q9. How are currency conversions handled?
+A: Use either the rate charged by your card on the transaction date or the OANDA/Reuters rate for that day.
+
+Q10. What’s the submission deadline for expense reports?
+A: All expenses must be submitted within 30 days of trip completion.
+
+Q11. Will my reimbursement be taxed?
+A: Most routine reimbursements are not taxable, but some allowances may require tax reporting as per IRS/local law (see Section 10.3).
+
+Q12. Who can approve an exception?
+A: Only the CFO or their designated representative, and all exceptions must be documented.
+
+Q13. What should I do if I suspect someone is abusing the policy?
+A: Report concerns to Internal Audit or Compliance in accordance with the Whistleblower Policy.
+
+Q14. Can I be reimbursed for tipping?
+A: Reasonable tipping (up to 18%) is included in meal/transportation per diem. Excessive gratuities must be personally covered.
+
+Q15. What happens if I submit a fraudulent claim?
+A: Strict disciplinary measures, including termination and legal action, will apply.
+
+Policy Review
+This Policy will be reviewed every 24 months by the Finance Department in consultation with the Internal Audit and Human Resources teams, or as otherwise required by business or regulatory changes.
+
+Contact: For further clarification, employees may contact the Finance Department via the internal support portal.
+

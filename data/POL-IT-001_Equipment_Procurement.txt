@@ -1,0 +1,402 @@
+IT Equipment Procurement Policy
+Policy Title: IT Equipment Procurement Policy
+Policy Number: POL-IT-001
+Policy Owner: IT Department
+Effective Date: January 1, 2025
+Review Cycle: Annual
+Version: 1.0
+
+Executive Summary
+The Finance House IT Equipment Procurement Policy establishes a standardized, transparent process for the acquisition, allocation, and management of information technology equipment. Designed to support operational efficiency, security, and fiscal responsibility, this policy ensures that every employee is equipped appropriately for their role while safeguarding organizational assets. The policy also addresses the evolving needs of remote and hybrid work environments, prioritizing both compliance and user experience.
+
+This policy applies across all business units, subsidiaries, and branches of Finance House, governing the procurement and use of laptops, monitors, mobile devices, peripherals, and related hardware. It outlines eligibility criteria, approval workflows, budget rules, technical standards, and usage guidelines tailored to employee bands and roles. By adopting a role-based procurement approach, Finance House not only guarantees cost-effectiveness but also empowers talent with the equipment necessary for optimal productivity.
+
+Key principles underpinning this policy include clarity in process, alignment with regulatory and cybersecurity requirements, strict adherence to vendor management protocols, and continuous review to adapt to the organization's changing demands. The intent is to facilitate efficient onboarding, seamless equipment replacement, and responsive support, fostering a secure and productive work environment for all staff.
+
+Section 1: Scope and Applicability
+1.1 Applicability:
+This policy is mandatory for all full-time, part-time, contract, and temporary employees, as well as consultants engaged by Finance House and requiring IT equipment to perform job-related duties.
+
+1.2 Equipment Covered:
+Includes but is not limited to:
+
+Laptops and desktop computers
+
+Monitors
+
+Docking stations
+
+Peripherals (keyboard, mouse, headsets, webcams)
+
+Mobile devices (smartphones, tablets)
+
+Printers and scanners (as per role requirement)
+
+1.3 Exclusions:
+
+Personal devices not authorized for business use
+
+Network infrastructure (routers, firewalls – covered under separate policy)
+
+Specialized research or lab equipment
+
+Section 2: Eligibility Criteria
+2.1 Eligibility by Employee Band/Level:
+
+Entry Level (Band 1-2): Eligible for a standard business laptop with a budget of $1,000.
+
+Mid-Level (Band 3-4): Eligible for an enhanced laptop with a budget of $1,500.
+
+Senior Level (Band 5-6): Eligible for a premium laptop with a budget of $2,500.
+
+Manager/Director (Band 7+): Eligible for an executive laptop with a budget of $3,500.
+
+2.2 Eligible Categories:
+All employee bands, subject to their role, may also request:
+
+Standard monitors (up to 2 units per workstation)
+
+Essential peripherals (keyboard, mouse, ergonomic accessories)
+
+Mobile devices for job functions requiring mobility or on-call duty
+
+2.3 Ineligible Equipment:
+
+Gaming hardware
+
+Non-approved vendors (unlisted brands)
+
+Used or refurbished equipment
+
+Section 3: Standard Procurement Process
+3.1 New Employee Equipment
+
+Initiated as part of onboarding once HR confirms employment status.
+
+IT provisions a laptop, monitor, and required accessories as per eligible band.
+
+Equipment delivery target: within 5 business days of joining.
+
+3.2 Equipment Replacement (3-Year Cycle)
+
+Equipment is due for replacement every 3 years from the date of issue.
+
+IT notifies the employee and manager 30 days in advance; replacement request initiated via IT Service Portal.
+
+Equipment must be returned and data wiped before new device handover.
+
+3.3 Additional Equipment Requests
+
+Employee submits request via IT Service Portal with business justification.
+
+Manager review and approval required; escalates as per budget and eligibility.
+
+3.4 Special/Custom Requirements
+
+Employees requiring equipment outside standard specifications must submit a custom request, including technical justification and any vendor quotes.
+
+Custom requests over standard band budgets initiate Technical Committee review (see Section 4.4).
+
+Section 4: Approval Workflow
+4.1 Equipment Procurements Under $1,500
+
+Single level approval: Employee’s Manager
+
+Estimated processing time: 5 business days
+
+4.2 Procurements Between $1,500 and $3,000
+
+Dual-level approval: Employee’s Manager + IT Director
+
+Estimated processing time: 7 business days
+
+4.3 Procurements Over $3,000
+
+Triple-level approval: Employee’s Manager + IT Director + Chief Financial Officer (CFO)
+
+Estimated processing time: 10 business days
+
+4.4 Custom Specifications/Non-Standard Requests
+
+Require additional review by Technical Committee (IT Security, Procurement, and Finance)
+
+Processing time may extend up to 15 business days depending on complexity
+
+Section 5: Technical Specifications
+5.1 Minimum Specifications by Band
+
+Band 1-2 (Entry):
+
+Intel i5/AMD Ryzen 5 or Apple M2 equivalent
+
+8 GB RAM, 256 GB SSD
+
+Band 3-4 (Mid):
+
+Intel i7/AMD Ryzen 7 or Apple M3 equivalent
+
+16 GB RAM, 512 GB SSD
+
+Band 5-6 (Senior):
+
+Intel i7/i9/AMD Ryzen 9 or Apple M3 Pro/Max
+
+32 GB RAM, 1 TB SSD
+
+Band 7+ (Manager/Director):
+
+Top-tier Intel/AMD or Apple Laptop (as needed)
+
+32/64 GB RAM, 1-2 TB SSD
+
+High-resolution monitor(s) as required
+
+5.2 Approved Vendors List
+
+Dell
+
+HP
+
+Lenovo
+
+Apple (for roles with explicit business justification or Director+ band)
+
+5.3 Operating System Requirements
+
+Windows 11 Pro (unless role-specific Linux or MacOS authorized)
+
+MacOS (approved roles only)
+
+5.4 Security Requirements
+
+Full disk encryption (BitLocker, FileVault, or equivalent)
+
+Trusted Platform Module (TPM 2.0) or Apple Secure Enclave
+
+Endpoint protection software (approved by IT Security)
+
+Automated OS and security patching enabled
+
+Section 6: Budget and Financial Rules
+6.1 Budget Allocation Process
+
+Annual budget for IT procurement reviewed every Q4 by IT and Finance
+
+Department heads submit annual forecasts for equipment needs
+
+6.2 Cost Center Allocation
+
+All equipment purchases charged to requesting department’s cost center
+
+Cross-charging for project-specific equipment enabled
+
+6.3 Exceeding Budget Limits (Exception Process)
+
+Any request exceeding band limits requires:
+
+Written justification
+
+Approval per Section 4 workflow
+
+Submission of exception form (Appendix A)
+
+6.4 Personal Contribution for Upgrades
+
+Employees may opt to upgrade device (e.g., higher RAM, processor)
+
+Cost above band’s standard is paid by employee, subject to business approval
+
+Personal contributions processed via payroll deduction
+
+Section 7: Restrictions and Prohibited Equipment
+7.1 Gaming Laptops/Components
+
+Strictly prohibited for business use under all circumstances
+
+7.2 Non-Approved Vendors
+
+Purchases from unapproved vendors automatically rejected
+
+7.3 Used/Refurbished Equipment
+
+Only new equipment permitted for business issuance
+
+7.4 Personal Equipment for Work Use
+
+Employees are expressly forbidden from using their personal laptops, desktops, or mobile devices to conduct official Finance House business
+
+Temporary exceptions only in disaster recovery, subject to IT approval and monitoring
+
+Section 8: Equipment Ownership and Return
+8.1 Company Ownership Policy
+
+All equipment procured remains property of Finance House
+
+Equipment may not be sold, gifted, or repurposed outside company policy
+
+8.2 Return Conditions
+
+Mandatory return of all company equipment upon resignation, retirement, or termination
+
+Final settlements contingent on return of IT assets in good condition, allowing for normal wear and tear
+
+8.3 Lost or Stolen Equipment Reporting
+
+Any loss or theft must be reported to IT and Security within 24 hours of discovery
+
+Incident to be documented in asset management system; police report required for theft
+
+8.4 Damage and Liability
+
+Accidental damage assessed by IT; repair/replacement at employee’s cost if negligence is determined
+
+Routine repairs managed under warranty provisions
+
+Section 9: Remote Work Equipment Provisions
+9.1 Additional Peripherals for Home Office
+
+Eligible employees may request up to two monitors, keyboard, mouse, and headset for home use
+
+Ergonomic chair/desk requests reviewed case-by-case
+
+9.2 Internet Allowance Considerations
+
+Employees regularly working remotely reimbursed up to $40/month for business internet needs, subject to manager approval and submission of receipts
+
+9.3 Ergonomic Equipment Requests
+
+Employees with medical or ergonomic needs may request specialized equipment (documented medical necessity required)
+
+Approval by Manager + HR + IT
+
+Section 10: Support and Maintenance
+10.1 Warranty Coverage
+
+All new equipment to be purchased with a minimum 3-year manufacturer warranty
+
+Extended warranty considered for critical roles/devices
+
+10.2 Technical Support Channels
+
+Service desk available 8 AM to 8 PM local time (Monday through Saturday)
+
+Emergency support available for critical incidents outside working hours
+
+10.3 Repair vs. Replacement Decisions
+
+Devices under warranty will be repaired/replaced per vendor SLA
+
+Post-warranty repairs evaluated by IT; cost-benefit analysis determines repair or procurement of replacement
+
+Section 11: Policy Exceptions
+11.1 Exception Request Process
+
+Employee submits exception form (Appendix A) via IT Service Portal, stating business need and justification
+
+11.2 Approving Authority
+
+Exceptions up to $500 above standard: Manager + IT Director
+
+Above $500: Technical Committee + CFO
+
+11.3 Documentation Requirements
+
+All exception decisions and supporting documents stored for minimum 3 years for audit purposes
+
+Section 12: Compliance and Audit
+12.1 Policy Compliance Monitoring
+
+IT Department responsible for quarterly compliance reviews; non-compliant actions flagged for management attention
+
+12.2 Audit Procedures
+
+Annual equipment audit performed by IT and Internal Audit
+
+Random spot checks may occur
+
+12.3 Non-Compliance Consequences
+
+Violations may result in disciplinary action up to and including termination
+
+Employees may be held financially responsible for losses resulting from willful policy breaches
+
+Appendices
+Appendix A: Equipment Request Form Template
+Employee Name:
+Employee ID:
+Department:
+Manager:
+Band/Level:
+Requested Equipment:
+Business Justification:
+Budget Amount:
+Special Requirements:
+Employee Signature/Date:
+Manager Signature/Date:
+IT Director Signature/Date (if applicable):
+CFO Signature/Date (if applicable):
+
+Appendix B: Approved Specifications by Band
+Band	Example Model	Processor	RAM	Storage	Notes
+1-2 (Entry)	Dell Latitude 3440	Intel i5/M2	8GB	256GB SSD	Standard office apps
+3-4 (Mid)	Lenovo ThinkPad T14	Intel i7/M3	16GB	512GB SSD	Data analysis/coding
+5-6 (Senior)	HP EliteBook 850/Apple MBP	i7/i9/Ryzen 9/M3 Pro	32GB	1TB SSD	Leadership/engineering
+7+ (Exec)	MacBook Pro 16/HP ZBook	i9/Ryzen 9/M3 Max	32/64GB	1-2TB SSD	Executive functions
+Appendix C: Vendor Contact Information
+Dell: Account Manager – [Contact Name, Email, Phone]
+
+HP: Regional IT Sales – [Contact Name, Email, Phone]
+
+Lenovo: Corporate Sales – [Contact Name, Email, Phone]
+
+Apple: Enterprise Support – [Contact Name, Email, Phone]
+
+All purchases to be routed through IT Procurement using approved contact details. Unlisted vendors prohibited.
+
+Appendix D: FAQ Section
+Q1: What laptop can I get as a mid-level (Band 3-4) employee?
+A: You are eligible for an enhanced laptop up to $1,500, e.g., Lenovo ThinkPad T14 or Dell Latitude with Intel i7/M3 and 16GB RAM. See Appendix B for specifications.
+
+Q2: Can I get a MacBook Pro as a Band 4 employee?
+A: MacBook Pro requests must be business-justified and approved by Manager and IT Director; budget must not exceed your band limit unless exception is granted.
+
+Q3: What’s the approval process for a $2,000 laptop?
+A: Any request between $1,500 and $3,000 requires approval by Manager and IT Director. For over $3,000, CFO approval and potential Technical Committee review are necessary (Sections 4.2, 4.3, 4.4).
+
+Q4: Can I use my personal laptop for work?
+A: No. Use of personal laptops or desktops for official business is strictly prohibited except in IT-sanctioned emergencies (Section 7.4).
+
+Q5: What happens to my laptop when I resign?
+A: All company equipment must be returned before your exit is processed; final settlement is subject to IT asset return (Section 8.2).
+
+Q6: Who approves ergonomic equipment for home offices?
+A: Requests require documentation and approvals by Manager, HR, and IT (Section 9.3).
+
+Q7: What if I lose or damage my equipment?
+A: Loss/theft must be reported within 24 hours. Damage due to negligence may result in repair costs (Sections 8.3, 8.4).
+
+Q8: How often can I replace my company laptop?
+A: Standard replacement occurs every 3 years; exceptions subject to approval (Section 3.2).
+
+Q9: What is the process for remote work internet reimbursement?
+A: Submit monthly expense forms with receipts for up to $40 reimbursement, manager approval required (Section 9.2).
+
+Q10: Are there preferred brands/models I must choose?
+A: Yes. Only Dell, HP, Lenovo, and Apple (approved roles) are permitted per Appendix C.
+
+Q11: I want to upgrade specs – can I pay the difference?
+A: Yes, subject to business approval, via payroll deduction for the extra amount (Section 6.4).
+
+Q12: How do I raise an exception for special equipment?
+A: Submit the exception form in Appendix A with all required approvals. See Section 11 for details.
+
+Q13: Who do I contact for urgent technical support?
+A: IT Service Desk (8 AM – 8 PM, Mon-Sat); after-hours emergency contacts listed on the Service Portal (Section 10.2).
+
+Q14: How is policy compliance checked?
+A: Quarterly compliance reviews and annual IT audits ensure adherence; violations may lead to action (Section 12).
+
+Q15: Can I buy used/refurbished equipment if it’s cheaper?
+A: No. Only new equipment, from approved vendors, is allowed (Section 7.3).
+
+End of Policy Document

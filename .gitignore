@@ -1,0 +1,7 @@
+venv/
+
+# Ignore Python cache
+__pycache__/
+
+# Ignore Mac system files
+.DS_Store

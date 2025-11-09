@@ -1,0 +1,15 @@
+# Core RAG & LLM Libraries
+langchain
+langchain-google-genai
+langchain-cohere
+langchain-community
+langgraph 
+
+# Vector Store
+chromadb
+
+# Embedding Model
+sentence-transformers
+
+# UI Framework
+streamlit

@@ -1,0 +1,2471 @@
+DATA SECURITY & CLASSIFICATION POLICY
+POLICY METADATA
+Item	Details
+Policy Number	POL-IT-005
+Policy Title	Data Security & Classification Policy
+Policy Owner	Information Security Department
+Effective Date	January 1, 2025
+Last Updated	January 1, 2025
+Review Cycle	Annually (or upon regulatory changes)
+Next Review Date	January 1, 2026
+Approval Authority	Chief Information Security Officer (CISO)
+1. EXECUTIVE SUMMARY
+Finance House is committed to protecting the confidentiality, integrity, and availability of all organizational data. This policy establishes a comprehensive framework for data security, classification, and handling across all business units, departments, and operational environments. The Data Security & Classification Policy (POL-IT-005) defines how data must be classified based on sensitivity levels, the security controls required for each classification level, and the responsibilities of all personnel in maintaining data security standards.
+
+This policy applies to all employees, contractors, consultants, and third-party vendors who have access to Finance House data, systems, or infrastructure. Non-compliance with this policy may result in disciplinary action up to and including termination of employment and legal proceedings. The policy aligns with international standards including GDPR, SOX, PCI-DSS, and other applicable regulatory frameworks relevant to financial services operations.
+
+2. PURPOSE AND SCOPE
+2.1 Purpose
+The purpose of this policy is to:
+
+Establish a standardized data classification framework to identify and categorize data based on sensitivity and impact
+
+Define security controls and handling requirements proportionate to each classification level
+
+Ensure compliance with legal, regulatory, and contractual data protection obligations
+
+Minimize risk of data breaches, unauthorized access, and information loss
+
+Provide clear guidance on acceptable data handling practices
+
+Create accountability for data security at all organizational levels
+
+2.2 Scope
+This policy applies to:
+
+All data created, processed, stored, or transmitted by Finance House
+
+All employees, full-time and part-time, regardless of employment location
+
+All contractors, consultants, and temporary personnel with data access
+
+All third-party vendors and business partners
+
+All computing devices (desktop, laptop, mobile, IoT)
+
+All network environments (corporate LAN, VPN, cloud services, branch networks)
+
+All data storage media (hard drives, USB drives, external storage, optical media)
+
+3. DATA CLASSIFICATION FRAMEWORK
+3.1 Classification Levels
+Finance House implements a four-level data classification system. Each level corresponds to specific handling requirements, technical controls, and access restrictions.
+
+3.1.1 Level 1: PUBLIC DATA
+Definition: Information that can be freely disclosed to the public without compromising Finance House's competitive position, regulatory compliance, or customer relationships.
+
+Characteristics:
+
+No confidentiality requirements
+
+Publicly available on company website or marketing materials
+
+No regulatory restrictions
+
+Low business impact if disclosed
+
+Non-sensitive in nature
+
+Examples:
+
+Marketing brochures and advertisements
+
+Public press releases and announcements
+
+General company information (address, phone, hiring information)
+
+Published research papers and whitepapers
+
+Conference presentation slides
+
+Job postings and recruitment materials
+
+General FAQ documents
+
+Public financial summaries (not detailed)
+
+Retention: As required by business needs; no mandatory retention period
+
+3.1.2 Level 2: INTERNAL DATA
+Definition: Information intended for use within Finance House but not sensitive. Disclosure to unauthorized parties would cause minimal business impact but should remain restricted to authorized personnel.
+
+Characteristics:
+
+Internal distribution only
+
+Minimal competitive sensitivity
+
+Contains organizational information but no proprietary secrets
+
+Unauthorized disclosure would be inconvenient but not damaging
+
+Moderate business impact if disclosed
+
+Examples:
+
+Internal policies and procedures (non-sensitive)
+
+Internal memos and communications
+
+Employee directory and contact information
+
+Organizational charts
+
+Meeting notes (general)
+
+Training materials
+
+Internal announcements
+
+General budget information
+
+Performance metrics (aggregated, non-individual)
+
+Retention: As per organizational policy; typically 3-7 years for administrative records
+
+3.1.3 Level 3: CONFIDENTIAL DATA
+Definition: Sensitive information requiring restricted access and protection against unauthorized disclosure. This includes customer-related information, financial data, and proprietary business information. Unauthorized access or disclosure would cause significant business, legal, or regulatory harm.
+
+Characteristics:
+
+Restricted distribution to business need-to-know personnel only
+
+Contains sensitive customer or financial information
+
+Protected by contractual or regulatory obligations
+
+Significant business impact if disclosed
+
+Requires encryption when transmitted externally
+
+Subject to audit logging requirements
+
+Examples:
+
+Customer personal information (names, addresses, email, phone)
+
+Customer account numbers and identification data
+
+Customer transaction histories
+
+Financial reports and statements (non-board level)
+
+Loan applications and credit assessments
+
+Employee personal information and performance reviews
+
+Salary and compensation details
+
+Internal financial data and budget details
+
+Proprietary business strategies and pricing models
+
+IT security logs and audit trails
+
+Third-party contracts and agreements
+
+Risk management data and vulnerability assessments
+
+Retention: As per regulatory requirements; typically 7+ years for financial records
+
+3.1.4 Level 4: HIGHLY CONFIDENTIAL DATA
+Definition: Information requiring the highest level of protection. This includes data critical to Finance House's security operations, regulatory compliance, customer trust, and business continuity. Unauthorized access could cause catastrophic business, legal, or regulatory consequences. This classification is reserved for the most sensitive operational data.
+
+Characteristics:
+
+Strictly limited distribution (C-level, specific department heads only)
+
+Critical to security, compliance, or operations
+
+Subject to stringent regulatory requirements
+
+Catastrophic business impact if compromised
+
+Encryption mandatory in all contexts (storage, transmission, processing)
+
+Dual authorization required for access
+
+Air-gapped systems or isolated network environments
+
+Continuous monitoring and audit logging required
+
+Examples:
+
+Encryption keys and cryptographic materials
+
+Core banking data (core ledger, settlement data)
+
+Root passwords and master credentials
+
+Security tokens and authentication credentials
+
+Payment processing infrastructure data
+
+Board-level financial statements and strategies
+
+Disaster recovery and business continuity plans (sensitive portions)
+
+Regulatory compliance documentation
+
+Fraud detection algorithms and rules
+
+Anti-money laundering (AML) detection criteria
+
+Customer Social Security numbers or tax IDs (if collected)
+
+API keys and integration credentials
+
+Criminal background checks
+
+Biometric data (if collected)
+
+Retention: Minimum 7 years for regulatory compliance; disposal requires certification
+
+3.2 DATA CLASSIFICATION DECISION TREE
+Use the following decision tree to classify data appropriately:
+
+text
+START: Is this data public?
+├─ YES → LEVEL 1 (Public Data)
+└─ NO: Is this data intended only for internal use?
+    ├─ YES: Is it sensitive (customer, financial, proprietary)?
+    │   ├─ NO → LEVEL 2 (Internal Data)
+    │   └─ YES: Is unauthorized access catastrophic?
+    │       ├─ NO → LEVEL 3 (Confidential)
+    │       └─ YES → LEVEL 4 (Highly Confidential)
+    └─ NO: Is it sensitive and restricted?
+        ├─ NO → LEVEL 2 (Internal Data)
+        └─ YES: Is unauthorized access catastrophic?
+            ├─ NO → LEVEL 3 (Confidential)
+            └─ YES → LEVEL 4 (Highly Confidential)
+
+CLASSIFICATION CRITERIA:
+• Sensitivity: Is unauthorized disclosure harmful?
+• Criticality: Is the data essential to operations or compliance?
+• Regulatory: Are there legal/regulatory requirements?
+• Impact: What is the business impact of compromise?
+4. DATA HANDLING REQUIREMENTS BY CLASSIFICATION LEVEL
+4.1 Level 1: PUBLIC DATA HANDLING
+4.1.1 Access Controls
+No access restrictions; information is publicly available
+
+No authentication required to view or access
+
+Public access via company website and marketing channels permitted
+
+No need for user authentication or login credentials
+
+4.1.2 Encryption
+Encryption not required for storage or transmission
+
+Transport Layer Security (TLS) recommended for website delivery (for data integrity)
+
+No special encryption protocols necessary
+
+4.1.3 Storage and Transmission
+Can be stored on standard company systems without special protection
+
+Can be transmitted via email without encryption
+
+Can be shared on public-facing platforms (social media, websites)
+
+No restrictions on printing or physical distribution
+
+4.1.4 Access Logging
+Access logging not required
+
+No audit trail needed
+
+General web analytics permitted
+
+4.1.5 Retention and Disposal
+Retention determined by business needs and marketing strategy
+
+Standard deletion procedures acceptable
+
+No specialized disposal required
+
+4.2 Level 2: INTERNAL DATA HANDLING
+4.2.1 Access Controls
+Restrict access to authorized Finance House employees and contractors only
+
+Require valid employee ID or contractor agreement for access
+
+Implement role-based access control (RBAC) where technically feasible
+
+Document all access approvals in HR or security systems
+
+Revoke access within 24 hours of employee termination
+
+4.2.2 Encryption
+Email encryption optional but recommended for sensitive Level 2 data
+
+If using email, mark subject line as "FINANCE HOUSE INTERNAL"
+
+Encryption not required for internal network transmission (secure network assumed)
+
+Encryption not required for data at rest on secure corporate systems
+
+4.2.3 Storage and Transmission
+Store only on Finance House-controlled systems (corporate file servers, company email)
+
+Do not store on personal cloud storage services (Google Drive, Dropbox, OneDrive personal)
+
+Do not store on personal devices without explicit IT approval
+
+Use company-provided file sharing solutions (if available)
+
+Use company email for internal communications containing Level 2 data
+
+4.2.4 Access Logging
+Standard IT access logging sufficient (system access logs)
+
+No special audit trail required beyond standard server logs
+
+IT department maintains access logs for compliance audit (1-year retention minimum)
+
+4.2.5 Retention and Disposal
+Retain according to organizational policy (typically 3-7 years)
+
+Delete using standard deletion procedures on corporate systems
+
+No certification of destruction required
+
+IT department responsible for secure deletion of archived data
+
+4.2.6 Example Use Cases
+Quarterly business review materials
+
+Team meeting minutes
+
+Employee attendance records
+
+Internal process documentation
+
+Vendor contact lists
+
+4.3 Level 3: CONFIDENTIAL DATA HANDLING
+4.3.1 Access Controls
+Restrict access to authorized personnel based on explicit need-to-know approval
+
+Require documented access request with business justification
+
+Implement role-based access control (RBAC) with predefined roles
+
+Access approvals require manager or department head authorization
+
+Conduct quarterly access reviews; remove access for terminated employees within 24 hours
+
+Implement attribute-based access control (ABAC) for granular permissions if available
+
+Log all access attempts (successful and failed) for audit purposes
+
+4.3.2 Encryption
+Mandatory encryption for all data transmissions outside secure corporate network
+
+Use TLS 1.2 or higher for email transmission
+
+Use AES-256 encryption for file-based email attachments
+
+Use encrypted channels (VPN, secure file transfer) for data transfers between offices
+
+Encryption required for any data transmitted over internet or public networks
+
+Data at rest on secure corporate systems may remain unencrypted if access controls sufficient
+
+Data at rest on portable storage (USB, external drives) must be encrypted
+
+4.3.3 Storage and Transmission
+Store only on Finance House-controlled and encrypted systems
+
+Do not store on personal cloud storage services under any circumstances
+
+Do not store on personal devices without explicit IT Security approval and encryption
+
+Use company-approved file sharing solutions with encryption capabilities
+
+Transmit via encrypted email or secure file transfer portals only
+
+No printing allowed unless necessary for specific business function (mark "CONFIDENTIAL")
+
+If printed, store securely (locked cabinet); destroy via shredding or pulping
+
+4.3.4 Access Logging
+Implement detailed access logging for all Level 3 data access
+
+Log must include: user ID, timestamp, access type, file/record accessed, duration
+
+Retain access logs for minimum 2 years for audit and forensic purposes
+
+Perform monthly access reviews for anomalies
+
+Alert security team if unusual access patterns detected
+
+Provide audit reports to Data Protection Officer quarterly
+
+4.3.5 Data Transfers and Sharing
+External sharing requires CISO or Data Protection Officer approval
+
+Require signed Data Processing Agreement (DPA) or Non-Disclosure Agreement (NDA) before sharing
+
+Share only minimum necessary data (data minimization principle)
+
+Use secure file transfer with password protection
+
+Implement time-limited access (auto-expire after 7-30 days)
+
+Require audit trail of who accessed shared data and when
+
+4.3.6 Retention and Disposal
+Retain according to regulatory requirements (typically 7 years for financial data)
+
+Implement secure deletion: use certified data wiping tools with verification
+
+For cloud-stored data, verify deletion with provider certification
+
+Document all data disposal activities
+
+Obtain certificate of destruction from vendor if outsourcing disposal
+
+4.3.7 Example Use Cases
+Customer account information (names, addresses, contact details)
+
+Customer transaction histories
+
+Customer credit assessments and loan applications
+
+Financial reports and statements (non-executive)
+
+Employee personal files and performance reviews
+
+Employee compensation and salary details
+
+Internal audit reports
+
+Risk assessments and vulnerability findings
+
+Third-party contracts and vendor agreements
+
+4.4 Level 4: HIGHLY CONFIDENTIAL DATA HANDLING
+4.4.1 Access Controls
+Implement strictest possible access controls; access must be individually justified and approved
+
+Restrict access to C-level executives, specific department heads, and designated security personnel only
+
+Require dual authorization (two approvals) for any access grant
+
+Implement multi-factor authentication (MFA) mandatory for all Level 4 access
+
+Use principle of least privilege (minimal necessary permissions)
+
+Conduct monthly access reviews; remove unnecessary access immediately
+
+Implement time-limited access with automatic expiration (recommend 30-90 days)
+
+Require audit trail of all access attempts (successful and failed)
+
+Immediately revoke access upon employee termination or transfer
+
+4.4.2 Encryption
+Encryption mandatory for all storage, transmission, and processing contexts
+
+Use AES-256 encryption or stronger for data at rest
+
+Use TLS 1.3 or higher for network transmission
+
+Use end-to-end encryption for email communications containing Level 4 data
+
+Implement full-disk encryption on all devices accessing Level 4 data
+
+Use Hardware Security Modules (HSM) for encryption key management
+
+Implement key rotation every 90 days
+
+Separate encryption keys from encrypted data (never store together)
+
+Maintain encryption key escrow with minimum two authorized personnel
+
+4.4.3 Storage and Transmission
+Store only on dedicated, air-gapped systems isolated from general network
+
+Implement separate, segmented network for Level 4 data (not connected to general corporate network)
+
+Use air-gapping for most sensitive data (physical isolation, no network connections)
+
+Implement network segregation and firewall rules to restrict access to Level 4 systems
+
+Use dedicated hardware separate from general-purpose computers
+
+Implement redundant backup systems with encryption and air-gapping
+
+No cloud storage permitted; only on-premises encrypted systems
+
+No transmission over public networks; use dedicated secure network infrastructure
+
+Physical security: Level 4 systems must be in locked rooms with access controls and surveillance
+
+4.4.4 Access Logging and Monitoring
+Implement continuous real-time logging of all access and activities
+
+Use Security Information and Event Management (SIEM) system for centralized monitoring
+
+Log must include: user ID, timestamp, precise access type, specific data accessed, duration, source IP, authentication method
+
+Retain all access logs indefinitely (minimum 10 years)
+
+Implement automated alerts for suspicious activities:
+
+Unusual access times (after hours, weekends)
+
+Access from unusual locations or IP addresses
+
+Large data exports or transfers
+
+Failed authentication attempts
+
+Access by users without standard need
+
+Conduct real-time monitoring during access; review alerts daily
+
+Generate audit reports weekly for security team review
+
+4.4.5 Device Requirements
+All devices accessing Level 4 data must meet strict security requirements:
+
+Operating system fully patched and current
+
+Full-disk encryption enabled (FileVault on Mac, BitLocker on Windows)
+
+Endpoint Detection and Response (EDR) software installed
+
+Firewall enabled with default-deny policy
+
+Antivirus and anti-malware protection active
+
+No USB ports enabled (disable if possible, or require approved USB devices only)
+
+No optical drive access
+
+No wireless connectivity permitted; wired network only
+
+Screen privacy filters to prevent shoulder surfing
+
+Dedicated devices for Level 4 access only; cannot be used for other business functions
+
+Air-gapped devices (no internet access) strongly recommended
+
+4.4.6 Transmission Protocols
+No email transmission of Level 4 data; use only secure file transfer systems
+
+Use secure, company-controlled file transfer solutions with authentication
+
+Require password protection on all transfers (strong passwords per Section 5)
+
+Implement time-limited access links (auto-expire after 24-72 hours)
+
+Require recipient verification before data transfer
+
+Transfer only over dedicated secure network channels
+
+Never transfer via public internet; use company VPN or private network
+
+4.4.7 Incident Response and Breach Notification
+Any suspected compromise requires immediate notification to CISO and Chief Risk Officer
+
+Isolate affected systems immediately from network
+
+Preserve evidence for forensic analysis
+
+Notify regulatory authorities per legal/compliance requirements
+
+Implement forensic investigation by qualified security team
+
+Review all access logs for period before suspected breach
+
+4.4.8 Retention and Disposal
+Retain minimum 7 years per regulatory requirements (some data may require indefinite retention)
+
+Implement certified secure disposal: use NIST-approved data wiping standards
+
+Require witnessed destruction procedures for sensitive media
+
+Obtain independent third-party certification of destruction
+
+Document all disposal with date, method, certifying officer, and witnesses
+
+Maintain destruction certificates indefinitely
+
+4.4.9 Example Use Cases
+Encryption keys and cryptographic materials
+
+Master passwords and root credentials
+
+Payment processing data (core ledger, settlement, authorization)
+
+API keys and system integration credentials
+
+Board-level strategic plans and financial statements
+
+Disaster recovery and business continuity procedures
+
+Security operations procedures and detection rules
+
+Fraud detection and prevention algorithms
+
+Anti-money laundering (AML) detection rules and thresholds
+
+Customer biometric data (if collected)
+
+Core banking system data and algorithms
+
+Security token management and issuance systems
+
+5. PASSWORD REQUIREMENTS AND CREDENTIAL MANAGEMENT
+5.1 Password Policy
+All employees and contractors must comply with the following password requirements:
+
+Minimum Length: Passwords must be minimum 14 characters long
+
+Character Complexity: Passwords must contain all four character types:
+
+Uppercase letters (A-Z)
+
+Lowercase letters (a-z)
+
+Numbers (0-9)
+
+Special symbols (!@#$%^&*()_+-=[]{}|;:,.<>?)
+
+Password Expiration: Passwords must be changed every 90 days
+
+Password History: System must prevent reuse of last 5 passwords (system enforces minimum 6-month gap before reusing)
+
+No Default Passwords: All default passwords must be changed on first login
+
+No Dictionary Words: Passwords cannot be based on dictionary words or common terms
+
+No Personal Information: Passwords cannot contain user ID, name, or company name
+
+No Repeating Characters: Avoid repeating characters (e.g., "AAA", "111")
+
+No Common Patterns: Avoid keyboard patterns (e.g., "qwerty", "123456")
+
+5.2 Examples of Acceptable Passwords
+BlueMountain$42Ridge2024
+
+Coffee!Bean7920Tiger+Lab
+
+Phoenix@Rising89Desert#2024
+
+5.3 Examples of Unacceptable Passwords
+Finance2025 (too short, contains company name)
+
+Password123 (common word, common pattern)
+
+FH_User2025! (contains company acronym)
+
+Admin@123456 (repeating numbers, common default)
+
+5.4 Multi-Factor Authentication (MFA)
+Mandatory for Administrators: All system administrators and security personnel must use MFA
+
+Mandatory for Level 3/4 Access: All users accessing Level 3 or Level 4 data must use MFA
+
+Recommended for All Users: All employees strongly encouraged to enable MFA on all accounts
+
+MFA Methods (in order of preference):
+
+Hardware security keys (FIDO2, YubiKey)
+
+Time-based One-Time Passwords (TOTP) from authenticator app (Google Authenticator, Microsoft Authenticator, Authy)
+
+SMS-based one-time passwords (least preferred; acceptable only if TOTP not available)
+
+Backup Codes: System must generate and securely store backup codes for account recovery
+
+Storage: Users must store backup codes in secure location separate from primary credentials
+
+5.5 Shared Credentials Policy
+Prohibition: Sharing passwords or credentials is strictly prohibited
+
+Service Accounts: Administrative or application service accounts (where shared access unavoidable) must:
+
+Require approval from CISO
+
+Implement access logging of all uses
+
+Use generic account names without personal identification
+
+Require password change when team members leave
+
+Implement MFA if technically possible
+
+Emergencies: In genuine emergencies requiring access to unavailable personnel:
+
+Contact CISO immediately for emergency access procedures
+
+Implement temporary elevated access with automatic time-based expiration
+
+Log all emergency access for audit review
+
+Revoke temporary access immediately when emergency resolved
+
+6. DEVICE SECURITY REQUIREMENTS
+All devices (desktop computers, laptops, mobile devices, tablets) accessing Finance House data must comply with the following security requirements:
+
+6.1 Disk Encryption
+Full-Disk Encryption Mandatory:
+
+Apple macOS devices: Enable FileVault 2 (built-in encryption)
+
+Windows devices: Enable Windows BitLocker (Pro, Enterprise editions) or VeraCrypt
+
+Mobile devices: Enable device encryption (iPhone/iPad: enabled by default; Android: enabled by default)
+
+Encryption Keys: Recovery keys must be securely stored (not on device):
+
+Store in password manager (approved corporate solution only)
+
+Store in secure escrow with IT department
+
+Provide to authorized personnel for business continuity
+
+Verification: IT department must verify encryption status during device setup and quarterly thereafter
+
+Non-Compliance: Devices without functional disk encryption cannot connect to corporate network
+
+6.2 Automatic Lock and Screen Saver
+Automatic Lock Timer: All devices must automatically lock screen after maximum 5 minutes of inactivity
+
+Configuration:
+
+macOS: System Preferences → Security & Privacy → General → "Require password immediately after sleep or screen saver begins"
+
+Windows: Control Panel → Power Options → Screen timeout 5 minutes
+
+Mobile: Auto-lock after 5 minutes maximum
+
+PIN/Password Required: Screen must require password/PIN to unlock (no fingerprint-only unlock for Level 3/4 access)
+
+Screen Saver: If used, must be blank screen (no personal images or logos)
+
+6.3 Antivirus and Anti-Malware Protection
+Mandatory for All Devices: All computing devices must have active antivirus and anti-malware protection
+
+Recommended Solutions:
+
+macOS: Malwarebytes for Mac (Pro) + Microsoft Defender for Mac (free)
+
+Windows: Windows Defender (built-in, free) or Kaspersky Endpoint Security
+
+Mobile: iOS: standard app store security is sufficient; Android: install Google Play Protect and Malwarebytes
+
+Continuous Monitoring:
+
+Real-time protection must be enabled at all times
+
+Definitions must update daily (automatic)
+
+Quarterly full-system scans recommended
+
+Reporting: Detected malware must be reported to IT Security immediately
+
+6.4 Security Updates and Patch Management
+Automatic Updates Mandatory: All devices must have automatic security updates enabled
+
+Update Frequency:
+
+Critical security patches: install within 24 hours of release
+
+Important patches: install within 7 days
+
+Regular updates: install within 30 days
+
+Operating System:
+
+macOS: Auto-update enabled; keep within 2 versions of current release
+
+Windows: Auto-update enabled; latest patches installed; Windows 10 or 11 only
+
+Mobile: Latest OS version required; security patches installed within 7 days
+
+Applications:
+
+Web browsers must be updated automatically
+
+Office software must be kept current
+
+Plugin software (Java, Adobe Reader) must be updated automatically or removed if unused
+
+Verification: IT department conducts monthly compliance scans; non-compliant devices lose network access
+
+6.5 Firewall and Network Security
+Host-Based Firewall Required: All devices must have firewall enabled
+
+Default Policy: Firewall must default to deny all inbound connections (except approved)
+
+Configuration:
+
+macOS: System Preferences → Security & Privacy → Firewall (enable and set to "Allow only essential services")
+
+Windows: Windows Defender Firewall enabled with default deny policy
+
+Mobile: Use VPN for all internet access (if available)
+
+6.6 Removable Media Controls
+USB Drive Encryption:
+
+All USB drives must be encrypted with AES-256
+
+Unencrypted USB drives cannot store Finance House data
+
+Approved products: VeraCrypt, DiskCryptor, BitLocker To Go (Windows), or commercial secure USB drives
+
+USB Restrictions:
+
+Level 4 data: USB drives prohibited entirely; use only wired network transfer
+
+Level 3 data: USB drives permitted only if encrypted and approved for use
+
+Level 2 data: USB drives permitted only if encrypted
+
+Level 1 data: USB drives permitted (encryption recommended)
+
+Optical Media: Avoid optical media (CDs, DVDs) for data transfer; if necessary, encrypt with AES-256
+
+Mobile Devices: No removable media transfers except through approved corporate cloud solutions
+
+6.7 Device Inventory and Tracking
+Registration: All devices must be registered with IT department upon issuance
+
+Asset Tagging: Physical asset tag must be applied to all company-issued devices
+
+Inventory: IT department maintains device inventory with:
+
+User assignment
+
+Hardware specifications
+
+Serial number and MAC address
+
+Operating system version
+
+Security software installed
+
+Remote Wipe Capability: All mobile devices must support remote wipe for theft/loss scenarios
+
+7. NETWORK SECURITY REQUIREMENTS
+7.1 VPN (Virtual Private Network) Usage
+VPN Mandatory: All remote access to Finance House data or systems must use company-approved VPN
+
+Approved VPN Solutions:
+
+OpenVPN with TLS 1.3
+
+Cisco AnyConnect
+
+Fortinet FortiClient
+
+Strict Requirements:
+
+VPN must be established BEFORE accessing any Finance House data
+
+VPN connection must remain active during entire work session
+
+Automatic VPN disconnection on network change
+
+Re-authentication required if VPN connection drops and re-establishes
+
+Split Tunneling: Disable split tunneling; all traffic must route through VPN
+
+VPN Access Logs: IT maintains logs of all VPN connections:
+
+User ID
+
+Connection time and duration
+
+Source IP address
+
+VPN server used
+
+Data volume transferred
+
+7.2 Public WiFi Restrictions
+Prohibition: Employees must NOT connect to public WiFi networks with Finance House devices
+
+Public WiFi Includes:
+
+Airport WiFi
+
+Coffee shop networks
+
+Hotel networks
+
+Library networks
+
+Restaurant networks
+
+Retail store networks
+
+Any non-Finance House WiFi
+
+Enforcement: Technical controls block access to Finance House systems from public WiFi
+
+Exceptions: Limited exceptions only with CISO written approval (with additional security controls)
+
+Alternatives:
+
+Use 4G/5G mobile hotspot (personal, with strong password)
+
+Use Finance House-provided mobile hotspot (if available)
+
+Return to secure network location
+
+Wait until home or office to access Finance House data
+
+7.3 Personal Hotspot Restrictions
+Personal Hotspot Prohibited: Employees must NOT use personal mobile hotspots for Finance House work
+
+Rationale: Personal hotspots lack enterprise-grade security controls
+
+Limited Exceptions:
+
+CISO written approval required
+
+Only for Level 1 and Level 2 data
+
+Hotspot must have strong password (14+ characters)
+
+Hotspot must be encrypted (WPA3 preferred, minimum WPA2)
+
+Device must meet Security Requirements (section 6)
+
+Preferred Alternatives:
+
+Finance House-provided mobile hotspot (if available)
+
+Return to secure network location
+
+Use wired internet connection when available
+
+7.4 Wireless Network Security
+Corporate Wireless (WiFi):
+
+All corporate WiFi must use WPA3 encryption (minimum WPA2)
+
+Implement strong pre-shared key (PSK) with minimum 14 characters
+
+Network segmentation: separate SSIDs for Level 1/2 data vs. Level 3/4 data
+
+Level 3/4 data: dedicated encrypted network with certificate-based authentication
+
+Guest Networks:
+
+Separate guest WiFi network required
+
+Guest network isolated from corporate network (no access to corporate data/systems)
+
+Guest network rate-limited and monitored
+
+No Level 1+ Finance House data on guest networks
+
+7.5 Network Segmentation and Firewalls
+Network Segregation:
+
+Separate network segment for Level 3 and Level 4 data systems
+
+Access between segments restricted via firewalls
+
+Default policy: deny all traffic between segments; explicitly allow required traffic only
+
+Firewall Rules:
+
+Whitelist approach: only explicitly allowed traffic passes
+
+Regularly audit and remove obsolete rules
+
+Document all firewall rules with business justification
+
+Implement egress filtering to detect data exfiltration
+
+Network Monitoring:
+
+Implement intrusion detection system (IDS)
+
+Monitor unusual network traffic patterns
+
+Alert on large data transfers or unusual destinations
+
+Log all network activity for audit purposes
+
+8. DATA REMOVAL AND DISPOSAL PROCEDURES
+Proper data disposal is critical to prevent data breaches and ensure compliance with regulations. All data must be securely destroyed when no longer needed.
+
+8.1 Secure Data Destruction Standards
+Standards Compliance:
+
+Use NIST SP 800-88 Guidelines for Media Sanitization
+
+Use NIST SP 800-135 for cryptographic key destruction
+
+Meet GDPR Article 17 (right to be forgotten) requirements
+
+Meet SOX compliance for financial records
+
+Destruction Methods (by media type):
+
+Media Type	Destruction Method	Standard	Verification
+Hard Disk Drives (HDD)	Degaussing + Physical destruction	NIST SP 800-88	Forensic inspection
+Solid State Drives (SSD)	Secure erase command (ATA) + Physical destruction	NIST SP 800-88	Forensic verification
+USB Flash Drives	Cryptographic erase + Physical destruction	NIST SP 800-88	Forensic confirmation
+Optical Media (CD/DVD)	Chemical disintegration + Physical destruction	NIST SP 800-88	Visual inspection
+Printed Documents	Cross-cut shredding to 2×2mm particles	DIN 66399	Visual inspection
+Magnetic Tape	Degaussing + Physical destruction	NIST SP 800-88	Forensic testing
+8.2 Data Destruction Process
+Identify Data for Destruction:
+
+Data retention period expired
+
+Data no longer required for business function
+
+System being decommissioned
+
+Employee departure/data cleanup
+
+Incident response remediation
+
+Disposal Request:
+
+Submit disposal request to Information Security Department
+
+Include data classification level
+
+Include business justification
+
+Include retention period verification
+
+Require approval from Data Owner or CISO
+
+Destruction Execution:
+
+Use certified, secure destruction methods
+
+Document all destruction activities:
+
+Items destroyed (serial numbers, model numbers)
+
+Destruction method used
+
+Date and time of destruction
+
+Personnel involved
+
+Witnesses present
+
+Perform forensic verification (for Level 3/4 data)
+
+Certificate of Destruction:
+
+Obtain certificate from destruction vendor
+
+Certificate must include:
+
+Description of items destroyed
+
+Serial numbers/asset tags
+
+Destruction method and date
+
+Certifying officer signature and credentials
+
+Vendor contact information
+
+Store certificate indefinitely for audit purposes
+
+8.3 Degaussing for Magnetic Media
+Definition: Degaussing uses powerful magnets to erase magnetic storage media
+
+Equipment: Use certified degaussing equipment meeting NIST SP 800-88
+
+Verification:
+
+Test degaussed drive with drive diagnostic tools
+
+Ensure all sectors unreadable
+
+Verify no residual data recoverable
+
+Documentation: Document degaussing serial numbers and verification results
+
+Certification: Degaussing vendor must provide certificate of completion
+
+8.4 Physical Destruction of Storage Media
+Hard Disk Destruction:
+
+Use industrial shredding equipment (destroys platters to particles < 2mm)
+
+Alternative: Incineration in certified facility
+
+Witness destruction or obtain video evidence
+
+Collect destruction debris for verification
+
+Printed Materials:
+
+Use commercial cross-cut shredder (DIN 66399 Level P-4 minimum)
+
+Shred to 2×2mm or smaller particles
+
+Witness shredding or use shredder with audit trail
+
+No taping of documents back together
+
+Optical Media:
+
+Use grinding or shredding equipment
+
+Alternative: Chemical dissolution in certified facility
+
+Verify media completely destroyed
+
+Dispose of residual materials as hazardous waste if required
+
+8.5 Cloud Data Deletion
+Data Deletion Request:
+
+Provide list of files/records to delete to cloud vendor
+
+Specify deletion timeline (typically 30-90 days)
+
+Require confirmation of deletion by vendor
+
+Verification:
+
+Request deletion confirmation from vendor
+
+Obtain certificate of deletion from vendor
+
+Verify deletion through vendor API if available
+
+Request audit logs showing deletion activities
+
+Backup Retention:
+
+Specify if backups should also be deleted
+
+Backups typically deleted after primary data deletion + 30 days
+
+Obtain confirmation when backups deleted
+
+Ensure backup copies in disaster recovery not retained indefinitely
+
+8.6 Timeline Requirements
+Mandatory Destruction Timeline: All data must be destroyed within 30 days of:
+
+Retention period expiration
+
+Business need no longer exists
+
+Employee departure (personal data)
+
+System decommissioning
+
+Explicit data subject request (GDPR)
+
+Extensions: Limited extensions possible with CISO approval:
+
+Legal hold for litigation (document justification)
+
+Regulatory investigation (document requirement)
+
+Unusual system complexity (requires IT sign-off)
+
+Extensions beyond 90 days require quarterly CISO approval
+
+Audit: Information Security audits compliance quarterly
+
+9. INCIDENT RESPONSE AND BREACH NOTIFICATION
+9.1 Data Breach Definition
+A data breach is any unauthorized access, disclosure, or loss of Finance House data that could compromise:
+
+Confidentiality (unauthorized disclosure)
+
+Integrity (unauthorized modification)
+
+Availability (unauthorized deletion or destruction)
+
+Examples include:
+
+Unauthorized access to customer account information
+
+Theft of devices containing sensitive data
+
+Email sent to wrong recipient containing confidential data
+
+Ransomware encryption of critical systems
+
+Hacking attack resulting in data exfiltration
+
+9.2 Breach Reporting Timeline (24-HOUR REQUIREMENT)
+Initial Report - Within 2 Hours:
+
+Report suspected breach to Information Security Department immediately
+
+Contact CISO or designated incident responder
+
+Do NOT attempt to investigate or repair systems yourself
+
+Contact by:
+
+Phone: [INSERT SECURITY HOTLINE]
+
+Email: security-incident@financehouse.com
+
+In-person: Security Operations Center, [INSERT LOCATION]
+
+Formal Incident Report - Within 24 Hours:
+
+Complete incident report form with:
+
+Discovery time and date
+
+Data type and classification level (if known)
+
+Estimated number of records/data volume
+
+Preliminary assessment of how breach occurred
+
+Personnel affected (if employee data involved)
+
+Contact information for reporter
+
+Submit to CISO and Incident Response Team
+
+Regulatory Notification - Within 24-72 Hours:
+
+Information Security Department assesses breach severity
+
+If confirmed breach affecting personal data:
+
+Notify Data Protection Officer (DPO)
+
+Prepare regulatory notifications per GDPR (72-hour requirement) or SOX
+
+Notify affected individuals if required
+
+Notify data protection authorities
+
+9.3 Incident Investigation Procedures
+Investigation Team:
+
+Chief Information Security Officer (lead)
+
+Incident Response Manager
+
+Digital Forensics Specialist
+
+System Administrator (for affected systems)
+
+Legal Counsel
+
+Compliance Officer (for regulated data)
+
+Investigation Steps:
+
+Isolate affected systems from network immediately
+
+Preserve evidence (don't shut down; maintain logs)
+
+Collect forensic images of affected devices/disks
+
+Interview relevant personnel
+
+Review access logs and audit trails
+
+Determine scope (how many records/systems affected)
+
+Identify root cause
+
+Determine time period of compromise
+
+Identify if data was exfiltrated
+
+Assess ongoing risk (is breach active or contained?)
+
+Investigation Timeline:
+
+Initial assessment: within 24 hours
+
+Forensic investigation: typically 3-7 days
+
+Final report: typically within 30 days
+
+Forensic Preservation:
+
+Do NOT delete or modify any files
+
+Create forensic image of affected hard drives
+
+Preserve email archives and system logs
+
+Backup all investigation findings
+
+9.4 Regulatory Notification Obligations
+GDPR Compliance (European Union):
+
+Notification timeline: 72 hours from discovery
+
+Notify Data Protection Authority (DPA) if breach involves personal data
+
+Notify affected individuals if high risk to their rights/freedoms
+
+Document the breach and notification actions
+
+SOX Compliance (U.S. Public Companies):
+
+Internal notification to Audit Committee and Board of Directors
+
+Disclosure timeline per SEC rules (typically 4 business days for material breaches)
+
+Potential public disclosure if material to financial reporting
+
+PCI-DSS Compliance (Payment Card Industry):
+
+Notification timeline: 30 days for breaches affecting payment card data
+
+Notify card networks (Visa, Mastercard, etc.)
+
+May require forensic investigation by approved assessor
+
+Potential fines up to $100,000+ for non-compliance
+
+State Laws (U.S. States):
+
+Notification timeline: varies by state (typically 30-60 days)
+
+Notify state Attorney General if threshold met (typically 500+ residents)
+
+Notify consumer credit bureaus for broader notification
+
+9.5 Communication and PR Response
+Internal Communication:
+
+Notify affected employees of potential exposure
+
+Provide guidance on protective measures (e.g., credit monitoring)
+
+Share incident details with relevant departments
+
+External Communication:
+
+Notify affected customers if required
+
+Provide identity protection services (credit monitoring, identity theft insurance)
+
+HR communication for employee-related breaches
+
+Public statement if required by media inquiries
+
+Crisis Communication Team:
+
+CISO (Technical lead)
+
+Chief Risk Officer (Strategic lead)
+
+General Counsel (Legal lead)
+
+Head of Communications (Public relations)
+
+CEO or designated executive (Approval authority)
+
+9.6 Post-Incident Remediation and Improvements
+Immediate Remediation (First 72 hours):
+
+Reset compromised passwords
+
+Revoke compromised access credentials
+
+Patch exploited vulnerabilities
+
+Update antivirus/security signatures
+
+Block attacker IP addresses
+
+Enhance monitoring on affected systems
+
+Short-term Improvements (1-4 weeks):
+
+Implement enhanced access controls
+
+Deploy additional monitoring tools
+
+Conduct security awareness training
+
+Review and strengthen security policies
+
+Increase logging and audit trail retention
+
+Long-term Improvements (1-6 months):
+
+Conduct comprehensive security assessment
+
+Implement recommended controls
+
+Upgrade security infrastructure
+
+Conduct security architecture review
+
+Employee security training and awareness
+
+Root Cause Analysis:
+
+Document root cause of breach
+
+Identify contributing factors
+
+Determine if breach was preventable with existing controls
+
+Identify gaps in current security controls
+
+Recommend preventive measures
+
+10. THIRD-PARTY AND VENDOR ACCESS MANAGEMENT
+Finance House often grants external vendors, contractors, and business partners access to company systems and data. Proper management of third-party access is essential to prevent data breaches and maintain security.
+
+10.1 Vendor Onboarding Requirements
+Pre-Access Agreement:
+
+Require signed Non-Disclosure Agreement (NDA) before access
+
+Include confidentiality obligations for data protection
+
+Include prohibition on unauthorized disclosure
+
+Include prohibition on data transfers to third countries
+
+Minimum term: Duration of contract + 2 years after termination
+
+Data Processing Agreement (DPA):
+
+Required for any vendor accessing or processing personal data
+
+Must comply with GDPR Article 28 (Processor requirements)
+
+Include data protection standards and obligations
+
+Include data transfer restrictions
+
+Include audit and inspection rights
+
+Include incident notification requirements
+
+Minimum term: Duration of data processing activities
+
+Security Assessment:
+
+Vendor must complete security questionnaire
+
+Assessment covers:
+
+Information security policies
+
+Encryption and access controls
+
+Employee security training
+
+Incident response procedures
+
+Physical security measures
+
+Compliance certifications (ISO 27001, SOC 2, etc.)
+
+Finance House reviews assessment before access granted
+
+Critical vendors may require on-site security audit
+
+Insurance Verification:
+
+Require proof of cybersecurity liability insurance (minimum coverage: $1-5 million)
+
+Require proof of professional liability insurance
+
+Finance House listed as additional insured if applicable
+
+10.2 Access Controls for Third-Party Users
+Account Creation:
+
+Use generic vendor account names (not personal names if possible)
+
+Example: "acme_vendor_tech_support" vs. "john_smith"
+
+Account creation requires documented approval from:
+
+Department head sponsoring access
+
+Information Security Department
+
+Vendor management office
+
+Access Permissions:
+
+Grant minimum necessary permissions (principle of least privilege)
+
+Access to only required systems and data
+
+Restrict access by time (business hours only if possible)
+
+Restrict access by IP address (require vendor's network IP or VPN)
+
+Restrict access by data type (if possible)
+
+Authentication:
+
+Multi-factor authentication (MFA) mandatory for all third-party access
+
+Acceptable MFA methods:
+
+Hardware security key (FIDO2)
+
+Time-based OTP (Google Authenticator, Microsoft Authenticator)
+
+SMS-based OTP (if TOTP not available)
+
+No shared credentials; individual accounts required for each user
+
+VPN Requirement:
+
+All remote access must be through company-approved VPN
+
+Vendor must use VPN endpoint specified by Finance House
+
+No alternative access methods permitted
+
+10.3 Access Logging and Monitoring
+Mandatory Logging:
+
+Log all third-party account access with:
+
+Vendor name and account ID
+
+Login date/time
+
+Duration of access session
+
+Source IP address
+
+Systems/data accessed
+
+Actions performed (if available)
+
+Retain logs minimum 3 years for audit purposes
+
+Real-time Monitoring:
+
+Monitor vendor access for unusual activity:
+
+Access outside business hours
+
+Large data exports
+
+Unusual geographic IP addresses
+
+Failed authentication attempts
+
+Alert Information Security immediately if suspicious activity detected
+
+Quarterly Access Review:
+
+Finance House conducts quarterly review of all active third-party accounts
+
+Verify each account still has legitimate business need
+
+Remove unused or unnecessary accounts
+
+Review scope of permissions vs. current needs
+
+Verify NDAs and DPAs remain current
+
+10.4 Time-Limited Access
+Access Expiration:
+
+All third-party access has explicit expiration date
+
+Expiration based on:
+
+Specific project end date
+
+Contract end date
+
+Maximum 12 months (review required for renewal)
+
+System automatically disables access on expiration date
+
+Renewal Process:
+
+Before expiration, vendor requests renewal
+
+Renewal requires:
+
+Updated security assessment
+
+Verification of continued business need
+
+Updated NDA/DPA (if expired)
+
+Approval from department head and CISO
+
+No automatic renewal; explicit renewal required
+
+Immediate Termination:
+
+Access terminated immediately upon:
+
+Contract termination
+
+Vendor request
+
+Change of vendor contact person
+
+Any security concern
+
+Failure to comply with security policies
+
+10.5 Annual Vendor Security Assessment
+Assessment Frequency: Minimum annual assessment required for all critical vendors
+
+Assessment Contents:
+
+Updated security questionnaire
+
+Review of compliance certifications:
+
+ISO 27001:2022 (Information Security Management)
+
+SOC 2 Type II (Service Organization Controls)
+
+ISO 27018 (Cloud Privacy)
+
+Penetration testing results (for critical vendors)
+
+Incident history during past year
+
+Customer reference checks (if available)
+
+Financial stability assessment
+
+Critical Vendors (higher scrutiny):
+
+Vendors with access to Level 3 or Level 4 data
+
+Vendors with system access
+
+Vendors with business continuity criticality
+
+Vendors in high-risk geographies
+
+Additional assessment requirements:
+
+On-site security audit (every 2 years)
+
+Right to audit vendor facilities
+
+Right to request remediation of findings
+
+Benchmark against industry best practices
+
+Assessment Results:
+
+Score vendors 1-5 (1 = unacceptable, 5 = excellent)
+
+Track remediation of findings
+
+Require corrective action plans for deficiencies
+
+Escalate to procurement for poor assessments
+
+Consider vendor replacement if unable to meet requirements
+
+10.6 Data Transfer Restrictions for Third Parties
+Prohibition on Unauthorized Transfers:
+
+Vendors cannot transfer Finance House data to unauthorized third parties
+
+Vendors cannot transfer data outside approved countries/regions
+
+Geographic Restrictions:
+
+EU/GDPR data: Cannot transfer outside EU/EEA without Standard Contractual Clauses (SCCs)
+
+US data: Subject to US regulatory requirements (SOX, PCI-DSS)
+
+Personal data: Subject to adequacy determination or equivalent protections
+
+Sub-processor (Sub-vendor) Requirements:
+
+Vendors cannot use sub-vendors without Finance House approval
+
+Sub-vendors must have equivalent security and data protection requirements
+
+Finance House maintains list of approved sub-vendors
+
+Vendor notifies Finance House 30 days in advance of new sub-vendors
+
+Incident Notification:
+
+Vendor must notify Finance House within 24 hours of any suspected data breach
+
+Include:
+
+Data type and classification level
+
+Number of records potentially affected
+
+Preliminary assessment of cause
+
+Actions taken to contain breach
+
+Estimated impact
+
+11. COMPLIANCE STANDARDS AND REGULATORY REQUIREMENTS
+Finance House must comply with multiple regulatory frameworks and standards. This section outlines key requirements from each.
+
+11.1 GDPR Compliance (EU General Data Protection Regulation)
+Applicability: Applies to processing of personal data of EU residents, regardless of where Finance House is located
+
+Key Requirements:
+
+Lawful Basis: Data processing must have lawful basis (explicit consent, contract, legal obligation)
+
+Data Protection Impact Assessment (DPIA): Required for high-risk processing
+
+Privacy by Design: Implement privacy in system design from the start
+
+Breach Notification: Notify data protection authority within 72 hours of confirmed breach
+
+Data Subject Rights:
+
+Right to access personal data
+
+Right to rectification (correction) of inaccurate data
+
+Right to erasure ("right to be forgotten")
+
+Right to restrict processing
+
+Right to portability
+
+Right to object to processing
+
+Data Processor Contracts: Written DPA with vendors (Article 28)
+
+Data Retention: Keep data only as long as necessary
+
+Staff Training: Regular GDPR training for relevant staff
+
+Finance House Responsibilities:
+
+Designate Data Protection Officer (DPO)
+
+Implement privacy notices for data subjects
+
+Conduct DPIAs before high-risk processing
+
+Maintain record of processing activities
+
+Cooperate with data protection authorities
+
+Audit compliance annually
+
+11.2 SOX Compliance (Sarbanes-Oxley Act - U.S. Only)
+Applicability: Applies to U.S. public company operations and subsidiaries
+
+Key Requirements:
+
+Section 302: CEO/CFO certification of financial reports (including IT security)
+
+Section 404: Internal control assessment over financial reporting
+
+Section 409: Real-time disclosure of material changes in financial condition
+
+Financial Data Security:
+
+Segregation of duties (no single person can approve and execute transactions)
+
+Access controls on financial systems
+
+Audit trails of all financial transactions
+
+Change management for financial systems
+
+IT General Controls:
+
+Access controls and authentication
+
+Change management and version control
+
+Disaster recovery and business continuity
+
+System monitoring and logging
+
+Audit Requirements:
+
+Annual audit by external auditors
+
+Assessment of internal controls
+
+Remediation of identified weaknesses
+
+Executive certification of controls
+
+11.3 PCI-DSS Compliance (Payment Card Industry Data Security Standard)
+Applicability: Applies to any organization storing, processing, or transmitting payment card data (credit cards, debit cards)
+
+Key Requirements:
+
+Network Security:
+
+Install and maintain firewall
+
+Do not use vendor-supplied defaults for passwords
+
+Cardholder Data Protection:
+
+Encrypt cardholder data in storage and transmission
+
+Use encryption key management system
+
+Vulnerability Management:
+
+Maintain current antivirus software
+
+Develop and maintain secure systems and applications
+
+Access Control:
+
+Limit access to cardholder data by business need
+
+Restrict access to data by physical and logical controls
+
+Assign unique ID to each person with computer access
+
+Restrict physical access to wireless access points
+
+Monitoring and Testing:
+
+Track and monitor all network access
+
+Regularly test security systems and processes
+
+Security Policy:
+
+Maintain information security policy
+
+Provide annual security training to staff
+
+Compliance Verification:
+
+Annual compliance audit (for large merchants/processors)
+
+Quarterly vulnerability scans
+
+Annual penetration testing
+
+Compliance certificate required
+
+11.4 Regular Audit and Compliance Schedules
+Information Security Audit Schedule:
+
+Audit Type	Frequency	Scope	Responsible Party
+Access Control Review	Quarterly	All systems and data classifications	Information Security
+Vulnerability Assessment	Quarterly	Networks, servers, applications	Information Security
+Penetration Testing	Annual	Critical systems and networks	External firm
+Data Classification Review	Annual	All data; verify proper classification	Data Governance
+Policy Compliance Review	Annual	All information security policies	Information Security
+Incident Review	Monthly	All reported incidents; lessons learned	Incident Response Team
+Third-Party Assessment	Annual	Critical vendors; security posture	Vendor Management
+Disaster Recovery Testing	Semi-annual	Recovery procedures and systems	Business Continuity
+Employee Security Training	Annual	All staff; minimum 2 hours	HR/Information Security
+Regulatory Audit Requirements:
+
+GDPR: Data Protection Authority inspections (ad hoc, on suspicion)
+
+SOX: Annual audit by external auditors
+
+PCI-DSS: Annual audit (large merchants); quarterly vulnerability scans
+
+General: Regulatory examination authority assessments (varies by regulator)
+
+Audit Reports:
+
+Document audit findings with severity levels
+
+Develop remediation plans for findings
+
+Assign owners and deadlines to remediation items
+
+Track remediation status monthly
+
+Escalate to executive if findings not remediated timely
+
+12. USER RESPONSIBILITIES AND SECURITY AWARENESS
+All Finance House personnel are responsible for protecting company data and maintaining security. Individual actions directly impact organizational security posture.
+
+12.1 Credential and Password Protection
+Credential Non-Sharing:
+
+Strict Prohibition: Do NOT share passwords, usernames, or authentication credentials with anyone
+
+Includes: Colleagues, supervisors, IT support, contractors
+
+Includes: Do not share credentials in email, chat, or phone
+
+Consequences: First offense results in written warning; repeated violations may lead to termination
+
+Secure Password Storage:
+
+Store passwords securely in password manager (e.g., Bitwarden, 1Password, LastPass)
+
+Do NOT write passwords on sticky notes or paper
+
+Do NOT store passwords in plain text documents
+
+Do NOT store passwords in web browser (if storing sensitive passwords)
+
+If password manager unavailable, contact IT for approved solution
+
+If Credential Compromised:
+
+Change password immediately if suspected compromise
+
+Report to IT Security and CISO
+
+Do NOT continue using potentially compromised credentials
+
+Follow incident reporting procedures (Section 9)
+
+12.2 Cloud Storage and File Sharing Policies
+Company Systems Only:
+
+Store all Finance House data on company-provided systems only
+
+Approved storage systems:
+
+Company file servers
+
+Company-provided OneDrive/SharePoint
+
+Company-approved cloud solutions (approved by CISO)
+
+Laptop hard drive (with full disk encryption)
+
+Unauthorized Cloud Storage Prohibited:
+
+Do NOT store Finance House data in personal cloud accounts:
+
+Google Drive (personal)
+
+Dropbox (personal)
+
+OneDrive (personal)
+
+iCloud
+
+AWS S3 (personal)
+
+Or any other personal cloud storage
+
+Violation may result in disciplinary action
+
+Data Classification in Cloud:
+
+Level 1: May use any cloud solution (personal or company)
+
+Level 2: Company-provided cloud only; not personal
+
+Level 3: Company-provided cloud with encryption
+
+Level 4: On-premises systems only; no cloud allowed
+
+12.3 Data Backup and Recovery
+Automatic Backup Requirement:
+
+Ensure company-provided backup software is active
+
+Enable automatic backups (daily minimum)
+
+Do NOT disable or interfere with backup processes
+
+Report backup failures to IT immediately
+
+Backup Encryption:
+
+All backups must be encrypted with AES-256
+
+Encryption keys managed by IT department
+
+Do NOT encrypt backups with personal passwords
+
+Do NOT create unencrypted copies
+
+Off-site Backup Storage:
+
+Backups stored both on-premises and off-premises
+
+Off-premises storage in certified data center
+
+Backups geographically distributed for disaster recovery
+
+Finance House responsible for backup management and testing
+
+12.4 Email Security and Phishing Awareness
+Email Security Best Practices:
+
+Do NOT open email attachments from unknown senders
+
+Do NOT click links from suspicious emails
+
+Verify sender email address before responding
+
+Be suspicious of urgent or threatening emails
+
+Be suspicious of requests for passwords or sensitive information
+
+Phishing emails often:
+
+Contain spelling/grammar errors
+
+Ask you to "verify" credentials
+
+Create sense of urgency or alarm
+
+Request unusual actions
+
+Phishing Email Reporting:
+
+If suspicious email received:
+
+Do NOT forward the email
+
+Use "Report Phishing" button in email client
+
+Forward to security-incident@financehouse.com
+
+Delete the email
+
+Report attempts to the Information Security Department
+
+Do NOT retry credentials if phishing page visited
+
+Email Encryption:
+
+Encrypt emails containing Level 3 or Level 4 data
+
+Use TLS encryption for all external emails
+
+Use company email encryption tool (if available)
+
+Verify recipient before sending sensitive data
+
+Do NOT use public email for Finance House data
+
+12.5 Physical Security and Workspace Management
+Desktop Cleanliness:
+
+Clear desk policy: remove all documents when leaving workstation
+
+Lock workstation when away (automatic lock after 5 minutes also applies)
+
+Do NOT leave confidential documents visible
+
+Shred physical documents containing sensitive data
+
+Monitor surroundings for shoulder surfing
+
+Document Disposal:
+
+Shred documents containing personal, financial, or confidential data
+
+Use cross-cut shredder (2×2mm minimum)
+
+Do NOT throw confidential documents in regular trash
+
+Personal data (addresses, SSNs, etc.) must be shredded
+
+Laptop and Device Security:
+
+Never leave laptop unattended in public locations
+
+Use laptop lock cable in shared spaces
+
+Enable screensaver password on all devices
+
+Cover screen if working in public areas (privacy screen)
+
+Enable privacy screen filter when in public
+
+Visitor Management:
+
+Do NOT allow visitors unescorted access to office areas
+
+Do NOT leave confidential documents visible to visitors
+
+Lock valuables and sensitive materials
+
+Request IT escort for technical vendor visits
+
+12.6 Social Engineering Awareness
+Social Engineering Threats:
+
+Social engineers attempt to extract sensitive information through deception
+
+Common techniques:
+
+Impersonating IT support ("Please verify your password")
+
+Creating urgency ("Your account will be locked in 1 hour")
+
+Flattery ("You're such an important employee")
+
+Authority ("This is the CISO, I need...")
+
+Protection Strategies:
+
+Verify identity before sharing any information
+
+Use known phone numbers to verify caller
+
+Never provide passwords or credentials via phone/email
+
+If request seems unusual, contact IT directly
+
+Trust your instincts; if it feels wrong, it probably is
+
+Reporting Social Engineering:
+
+Report any attempted social engineering to Information Security
+
+Include details: caller name, what was requested, date/time
+
+Do NOT feel embarrassed; attackers are professionals
+
+Reporting helps organization identify attack patterns
+
+12.7 Annual Security Awareness Training
+Mandatory Training Requirement:
+
+All Finance House employees must complete security awareness training
+
+Training frequency: Minimum annually (recommended bi-annual)
+
+New employees must complete training within 30 days of hire
+
+Training Content:
+
+Data security and classification overview
+
+Password management and MFA
+
+Email and phishing awareness
+
+Physical security and clean desk
+
+Incident reporting procedures
+
+GDPR, SOX, PCI-DSS overview (as applicable)
+
+Social engineering awareness
+
+Acceptable use of company resources
+
+Training Records:
+
+HR maintains training completion records
+
+Training tracked annually for compliance
+
+Non-completion escalated to management
+
+Completion required for annual performance review
+
+Specialized Training:
+
+Security personnel: Advanced security training (40+ hours annually)
+
+System administrators: Systems security training (24+ hours annually)
+
+Finance department: Data security and SOX compliance (8+ hours annually)
+
+Developers: Secure coding and application security (16+ hours annually)
+
+13. VIOLATIONS AND CONSEQUENCES
+Non-compliance with this policy is a serious matter that may result in disciplinary action, up to and including termination of employment and legal proceedings.
+
+13.1 Violation Categories and Progressive Discipline
+First Offense - Verbal Warning and Written Warning:
+
+Minor violations with minimal security impact
+
+Examples:
+
+First instance of weak password usage (after training)
+
+First instance of storing data on personal device (without classification guidance)
+
+First instance of email without encryption (for Level 2 data)
+
+Isolated incident of unsecured workspace (without sensitive data exposed)
+
+Actions:
+
+Verbal warning from manager or security officer
+
+Written warning placed in employee file
+
+Mandatory security training (4+ hours)
+
+Performance improvement plan (30 days)
+
+Monthly compliance check-ins
+
+Repeated Violations - Suspension:
+
+Multiple violations or escalation of severity
+
+Examples:
+
+Second or subsequent password-related violation
+
+Repeated storage of data on personal devices
+
+Multiple unauthorized cloud storage usage
+
+Repeated failure to use VPN for remote access
+
+Multiple phishing email incidents from same user
+
+Actions:
+
+Written warning emphasizing severity
+
+Mandatory security training (8+ hours)
+
+Temporary account restrictions (read-only access, limited duration, etc.)
+
+30-60 day suspension from work (unpaid, per company policy)
+
+Return-to-work agreement with security obligations
+
+Probationary period (6 months)
+
+Intentional Breaches or Data Theft - Termination and Legal Action:
+
+Intentional violations; deliberate disregard for policy
+
+Examples:
+
+Intentional unauthorized access to confidential data
+
+Theft of company data for personal gain
+
+Sale or sharing of confidential data with competitors
+
+Intentional circumvention of security controls
+
+Repeated violations after formal discipline
+
+Accessing data for which there is no legitimate business need
+
+Downloading data beyond job responsibilities
+
+Actions:
+
+Immediate termination of employment
+
+Criminal investigation and prosecution
+
+Civil litigation to recover damages
+
+Reporting to law enforcement
+
+Restriction from company facilities
+
+Notification to industry/professional organizations
+
+Professional license investigation (if applicable)
+
+Permanent negative employment reference
+
+13.2 Data Security Violation Examples
+Violation	Impact	Classification	Consequences
+Password written on desk	Level 2	First: Warning; Second: Suspension	Written warning, training
+Email with Level 3 data unencrypted	Level 3	Repeated	Suspension, mandatory training
+Customer data stored on personal cloud	Level 3	Intentional	Termination, legal action
+Accessing data outside job duties	Level 4	Intentional	Termination, investigation
+Sharing login credentials with colleague	Level 2	First	Written warning, retraining
+Sharing credentials repeatedly	Level 3+	Repeated	Suspension, probation
+Selling data to competitor	Level 4	Intentional	Termination, criminal prosecution
+Unauthorized USB device use	Level 2	First	Verbal warning, training
+Repeatedly using public WiFi for work	Level 3	Repeated	Suspension, account restrictions
+Intentional security control bypass	Level 4	Intentional	Termination, investigation
+13.3 Grounds for Immediate Termination (No Progressive Discipline)
+The following violations may result in immediate termination without prior progressive discipline:
+
+Deliberate theft of company data
+
+Sale of confidential data to competitors
+
+Unauthorized access to Level 4 data for personal gain
+
+Sharing credentials maliciously
+
+Intentional transmission of confidential data to external parties
+
+Installing unauthorized security tools or backdoors
+
+Using company access for criminal activity
+
+Repeated violations after formal discipline
+
+Breach affecting Level 4 data due to negligence
+
+Any violation resulting in regulatory fines or legal action
+
+13.4 Legal Action and Prosecution
+Finance House reserves the right to pursue criminal charges and civil litigation for serious violations:
+
+Criminal Investigation and Prosecution:
+
+Data theft and fraud charges
+
+Unauthorized computer access (violating Computer Fraud and Abuse Act)
+
+Wire fraud (if transmitted electronically)
+
+Identity theft (if personal data stolen)
+
+Prosecution pursued by law enforcement agencies
+
+Civil Litigation:
+
+Damages recovered for data breach costs
+
+Injunctive relief to prevent further violations
+
+Liquidated damages per employment contract
+
+Attorney fees and court costs recovery
+
+Regulatory Reporting:
+
+Breach reported to data protection authorities if applicable
+
+Regulatory fines imposed on organization (SOX, PCI-DSS, GDPR)
+
+Negative regulatory reports or consent orders
+
+Professional Consequences:
+
+Negative employment reference for future jobs
+
+Investigation by professional licensing boards
+
+Exclusion from industry certifications
+
+Industry blacklisting (for serious breaches)
+
+13.5 Employee Appeal Process
+Appeal Rights:
+
+Employees may appeal disciplinary actions
+
+Appeal must be submitted within 10 days of disciplinary action
+
+Appeal submitted in writing to HR Department
+
+Appeal reviewed by independent HR representative (not involved in original decision)
+
+Appeal Process:
+
+HR meets with employee to discuss appeal
+
+HR reviews original incident and disciplinary decision
+
+HR may interview witnesses or review additional evidence
+
+HR provides written decision within 10 days
+
+Decision is final; limited further appeal options
+
+Legal Representation:
+
+Employee may have legal representative present during investigation
+
+Legal representation not guaranteed in disciplinary meetings (per company policy)
+
+14. FREQUENTLY ASKED QUESTIONS (FAQ)
+Q1: What is data classification and why does it matter?
+A: Data classification categorizes information based on sensitivity level, determining the security controls required to protect it. This ensures security investments focus on the most critical data and provides clear guidance on how to handle information appropriately. For example, a marketing brochure (Level 1) requires less protection than customer bank account details (Level 3).
+
+Q2: How do I determine the classification level of data?
+A: Use the decision tree in Section 3.2. Ask yourself: Is this data public? If no, is it internal only? If yes, is it sensitive? If yes to sensitivity, is unauthorized access catastrophic? Your answers lead to the appropriate classification level. When in doubt, ask your manager or Information Security Department.
+
+Q3: What if I work with multiple classification levels?
+A: Handle all data according to the highest classification level present. If you have both Level 1 and Level 3 data, apply Level 3 controls to all of it for simplicity and consistency.
+
+Q4: Can I store Finance House data on my personal cloud storage (Google Drive, Dropbox)?
+A: No. Finance House data must be stored on company-provided systems only. Personal cloud storage is not permitted, regardless of data classification level, because controls and encryption are not guaranteed. Use company-provided file storage or contact IT for approved alternatives.
+
+Q5: What is the password policy? Why is it so strict (14 characters)?
+A: Passwords must be minimum 14 characters with mixed case, numbers, and symbols to withstand modern hacking attempts. Weak passwords can be cracked in minutes; strong passwords significantly increase security. The 90-day change requirement and no-reuse policy further reduce risk of compromised credentials being exploited long-term.
+
+Q6: Can I write my password down or use the same password for multiple systems?
+A: No to both. Never write passwords on sticky notes, paper, or plain text documents. Use an approved password manager (Bitwarden, 1Password) for secure storage. Use unique passwords for each system; if one system is compromised, other accounts remain secure. Reusing passwords across systems is one of the most common security mistakes.
+
+Q7: Why is multi-factor authentication (MFA) required for admin accounts and Level 3/4 data?
+A: MFA requires two forms of authentication, dramatically increasing security even if password is compromised. For critical systems and sensitive data, an attacker would need both the password AND the physical authentication device (or phone for SMS codes), making compromise extremely difficult. This is now considered standard security practice for any system handling sensitive data.
+
+Q8: What should I do if I suspect a data breach or security incident?
+A: Report immediately to the Information Security Department within 2 hours if possible, and definitely within 24 hours. Contact using the hotline number provided, or email security-incident@financehouse.com. Do not attempt to investigate yourself or clean up systems; preserve evidence for forensic investigation. Do not alert the presumed attacker if possible. Your quick reporting enables rapid incident response and minimizes damage.
+
+Q9: I work remotely. Can I use public WiFi for work?
+A: No. Public WiFi is not secure; attackers can intercept transmitted data. Always use your company-approved VPN, regardless of connection type. Alternatively, use your mobile phone's 4G/5G hotspot (with strong password and encryption enabled) or a company-provided mobile hotspot if available. Never connect to public WiFi without VPN.
+
+Q10: What encryption is applied to email containing sensitive data?
+A: For Level 3 data, TLS 1.2+ encryption is required for external emails, and use of company email encryption tools (if available) is recommended. For Level 4 data, end-to-end encryption (e.g., PGP) is required. Internal emails on the company network may use just TLS since the internal network is assumed secure. Always encrypt external emails containing any sensitive data.
+
+Q11: How long is data retained? When is it deleted?
+A: Retention varies by data type and regulatory requirements. Generally: Level 1 (business need only, typically 1-2 years); Level 2 (typically 3-7 years); Level 3 (typically 7+ years per financial regulations); Level 4 (typically 7+ years minimum, sometimes indefinite). Data is securely destroyed within 30 days of retention expiration using certified methods. Contact the Data Protection Officer for specific retention requirements for your data.
+
+Q12: What happens if I accidentally delete or lose sensitive data?
+A: Report immediately to your IT department and Information Security. Finance House maintains automated backups, and IT may be able to recover data from backups if reported quickly. The sooner you report, the better the recovery chances. Never attempt to hide data loss; delayed reporting makes recovery much harder and compounds the security risk.
+
+Q13: Can I transfer Finance House data to a cloud service or vendor?
+A: Only with documented approval from the CISO and Information Security Department. The vendor must have a signed Data Processing Agreement (DPA) or NDA. Data cannot be transferred to unauthorized countries/regions without compliance assessment. For GDPR data, specific adequacy determinations or Standard Contractual Clauses (SCCs) are required. Always obtain approval before any data transfer.
+
+Q14: What is my responsibility if I see a colleague violating security policy?
+A: Report the violation to Information Security Department or your manager. You can report anonymously if preferred. Violations create risk for the entire organization, and reporting helps maintain security. Finance House protects reporters from retaliation and maintains confidentiality where possible.
+
+Q15: I'm leaving Finance House. What happens to my access?
+A: Your access will be revoked within 24 hours of your last working day. Your company equipment will be collected and decommissioned. Your data will be transferred to appropriate colleagues or archived per retention policy. Any personal data related to your employment will be handled per GDPR data subject rights. Ensure all passwords are reset, all devices returned, and access revocation confirmed.
+
+15. POLICY REVISION AND APPROVAL
+This policy is effective as of January 1, 2025 and supersedes all previous data security policies.
+
+Approval Authority	Title	Signature	Date
+CISO	Chief Information Security Officer	_________________________	_________
+CRO	Chief Risk Officer	_________________________	_________
+General Counsel	General Counsel	_________________________	_________
+CEO	Chief Executive Officer	_________________________	_________
+Policy Review Cycle: Annual review required; updates may occur more frequently if regulatory changes necessitate.
+
+Next Scheduled Review: January 1, 2026
+
+Document Control:
+
+Version: 1.0
+
+Classification: Internal - Finance House Leadership
+
+Document Owner: Information Security Department
+
+Last Modified: January 1, 2025

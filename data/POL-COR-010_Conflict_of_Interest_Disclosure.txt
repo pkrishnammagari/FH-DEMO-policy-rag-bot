@@ -1,0 +1,872 @@
+CONFLICT OF INTEREST DISCLOSURE POLICY
+Policy Number: POL-COR-010
+Policy Owner: Compliance and Legal Department
+Effective Date: January 1, 2025
+Last Revised: October 2025
+Review Cycle: Annually
+Version: 1.0
+
+1. EXECUTIVE SUMMARY
+This Conflict of Interest Disclosure Policy (the "Policy") establishes comprehensive guidelines for identifying, disclosing, and managing conflicts of interest at Finance House. The Policy applies to all employees, directors, officers, contractors, and consultants (collectively, "Personnel") to ensure the highest standards of business ethics, integrity, and fair dealing. By maintaining transparent conflict management practices, Finance House protects its reputation, ensures fiduciary responsibility, and promotes equitable treatment of all stakeholders including clients, vendors, employees, and shareholders.
+
+2. POLICY PURPOSE AND SCOPE
+2.1 Purpose
+The primary purposes of this Policy are to:
+
+Maintain Finance House's integrity and reputation by preventing situations where personal interests compromise professional judgment
+
+Prevent conflicts of interest that could lead to unethical or illegal conduct
+
+Ensure fair and equitable treatment of all clients, vendors, employees, and business partners
+
+Protect Finance House's assets, intellectual property, and confidential information
+
+Comply with applicable laws, regulations, and industry standards
+
+Establish clear expectations for disclosure and recusal when conflicts exist
+
+Foster a culture of transparency and accountability throughout the organization
+
+2.2 Scope
+This Policy applies to all Personnel regardless of employment status, tenure, or position level. This includes:
+
+Full-time and part-time employees
+
+Executives, directors, and officers
+
+Contractors, consultants, and temporary staff
+
+Board members and advisors
+
+Agents acting on behalf of Finance House
+
+This Policy covers activities both during and outside of working hours that could create conflicts of interest with Finance House's operations or interests.
+
+2.3 Commitment to Compliance
+All Personnel are expected to read, understand, and comply with this Policy. Failure to comply may result in disciplinary action, up to and including termination of employment, and possible legal action. Personnel who are uncertain about whether a situation constitutes a conflict of interest should immediately consult with the Compliance Officer or Human Resources Department.
+
+3. DEFINITION OF CONFLICT OF INTEREST
+3.1 What Is a Conflict of Interest?
+A conflict of interest exists when a member of Personnel has a personal interest—financial or non-financial—that could compromise, or could reasonably appear to compromise, their ability to exercise sound professional judgment on behalf of Finance House. Conflicts may be actual (where a real conflict exists), potential (where a conflict could develop), or apparent (where a third party could reasonably perceive a conflict, even if none objectively exists).
+
+3.2 Key Characteristics
+Conflicts of interest typically involve situations where Personnel:
+
+Have competing loyalties or divided attention between Finance House and personal interests
+
+Could personally benefit from decisions they make in their professional capacity
+
+Are in a position to influence company decisions that directly benefit themselves or family members
+
+Possess material non-public information that could benefit personal investments
+
+Have relationships with vendors, clients, or competitors that could bias decision-making
+
+3.3 Scope of Coverage
+This Policy covers conflicts involving:
+
+Direct financial interests
+
+Indirect financial interests through family members or related entities
+
+Non-financial personal relationships
+
+Business opportunities and intellectual property
+
+Information and trade secrets
+
+Public duties and political activities
+
+4. FINANCIAL CONFLICTS OF INTEREST
+4.1 Ownership and Investment Interests
+Personnel shall not own, directly or indirectly, any equity interest exceeding 5% in any competitor, vendor, or client of Finance House without prior written approval from the Compliance Committee.
+
+Any ownership interest below the 5% threshold must be disclosed to the Compliance Officer within 30 days of acquisition.
+
+Personnel must immediately disclose holdings of more than 2% in any direct or indirect competitor.
+
+Investment in mutual funds, index funds, or diversified portfolios does not require disclosure unless Personnel has direct influence over fund composition.
+
+4.2 Financial Interests in Business Relationships
+Personnel shall not:
+
+Directly or indirectly receive payments, rebates, commissions, or other benefits from vendors or clients beyond their approved compensation from Finance House
+
+Influence vendor selection, contract negotiations, or procurement decisions where Personnel or their immediate family have a financial interest
+
+Accept loans, advances, or financial favors from vendors, clients, or third parties with whom Finance House conducts business
+
+Personnel who hold financial interests in clients or vendors must:
+
+Disclose the interest to their manager and Compliance Officer immediately
+
+Recuse themselves from all decisions relating to that client or vendor
+
+Document the recusal in writing
+
+4.3 Trading on Inside Information
+Personnel shall not purchase or sell securities of Finance House or any client, vendor, or competitor based on material non-public information obtained through their employment.
+
+The prohibition extends to "tipping" others who may trade based on such information.
+
+Personnel are bound by Finance House's Securities Trading Policy, which includes blackout periods and pre-clearance requirements.
+
+Any suspected violations must be reported to the Compliance Officer immediately.
+
+4.4 Side Businesses and Competing Activities
+Personnel shall not engage in any business activity that:
+
+Competes with Finance House's business or could compete in the future
+
+Uses Finance House's proprietary information, trade secrets, or technology
+
+Uses Finance House resources, equipment, or facilities
+
+Would materially interfere with Personnel's duties at Finance House
+
+Creates a significant time commitment exceeding 10 hours per week
+
+Any outside employment or business activity involving more than 10 hours per week must be disclosed to the Human Resources Department and Compliance Officer at least 30 days in advance.
+
+4.5 Discovered Opportunities
+Any business opportunities discovered by Personnel through their employment at Finance House, including client leads, vendor relationships, or investment opportunities, shall be the property of Finance House.
+
+Personnel must offer such opportunities to Finance House first.
+
+Personnel may only pursue such opportunities personally if:
+
+Finance House has formally rejected the opportunity in writing
+
+The opportunity does not involve Finance House's clients, vendors, or trade secrets
+
+Pursuit would not interfere with Personnel's duties
+
+5. FAMILY AND PERSONAL RELATIONSHIPS
+5.1 Definition of Immediate Family
+For purposes of this Policy, "immediate family" includes spouse, domestic partner, children, parents, siblings, and in-laws living in the same household or with close personal relationships.
+
+5.2 Employment of Family Members
+Finance House recognizes that family members may be qualified candidates for employment. However:
+
+All family member employment must be disclosed to Human Resources and Compliance
+
+Hiring decisions shall follow standard recruitment procedures without preference or bias
+
+Family relationships must be documented in personnel records
+
+Direct reporting relationships between family members are prohibited. Specifically:
+
+A family member may not directly supervise another family member
+
+A family member may not approve compensation, promotion, or termination decisions for another family member
+
+A family member may not be involved in hiring or disciplinary decisions affecting another family member
+
+If a direct reporting relationship is created through organizational changes or promotions, the company shall reassign one individual within 60 days.
+
+5.3 Family Members as Clients, Vendors, or Contractors
+If a family member is a principal, owner, or decision-maker in a vendor, client, or contractor organization doing business with Finance House, this must be disclosed immediately.
+
+The employing Personnel member shall recuse themselves from:
+
+Vendor selection decisions
+
+Contract negotiations and approvals
+
+Performance evaluations of the vendor
+
+All purchasing decisions related to the vendor
+
+A non-conflicted employee must oversee all transactions with such vendors.
+
+5.4 Romantic and Personal Relationships
+Romantic relationships between coworkers do not violate this Policy; however, they must be disclosed when they could create a conflict.
+
+Romantic relationships where one party has supervisory authority over the other in the same reporting line are prohibited.
+
+Personnel in romantic relationships must ensure they are not:
+
+Influencing compensation, promotion, or benefits decisions
+
+Assigning work based on personal preference
+
+Providing preferential access to opportunities
+
+Working together on sensitive matters or decisions
+
+Disclosure of romantic relationships is required when:
+
+One party supervises the other
+
+Both parties work in the same department
+
+Either party has approval authority over the other's work
+
+Upon disclosure, Human Resources shall assess the conflict and may reassign one individual if necessary.
+
+5.5 Nepotism Prevention
+Finance House commits to preventing nepotism by:
+
+Ensuring all hiring, promotion, and compensation decisions are made through established, objective criteria
+
+Requiring non-conflicted individuals to participate in hiring decisions involving family members
+
+Maintaining documentation of selection rationale
+
+Prohibiting preferential treatment in assignment, compensation, or advancement
+
+Ensuring equal application of policies and consequences regardless of family relationships
+
+6. OUTSIDE EMPLOYMENT AND BUSINESS ACTIVITIES
+6.1 Prohibited Activities
+Personnel are prohibited from:
+
+Working for Competitors: Personnel shall not accept employment, perform services, or hold an ownership interest in any organization that competes with Finance House during their employment.
+
+Non-Compete Obligations: Personnel agree to a 12-month non-compete period following termination of employment with Finance House, during which they shall not work for direct competitors or solicit Finance House clients.
+
+Using Company Time: Personnel shall not use Finance House's time, equipment, facilities, or intellectual property to conduct outside business activities.
+
+6.2 Permitted Activities with Disclosure
+The following outside activities may be permitted with advance written approval:
+
+Part-Time Work with Vendors or Clients: Personnel may not accept employment with vendors or clients of Finance House without written approval from their manager and Compliance Officer. Approval will be granted only if:
+
+The individual recuses themselves from all decisions affecting the employer
+
+There is no conflict with Finance House responsibilities
+
+The employment does not exceed 10 hours per week
+
+A written recusal agreement is executed
+
+Consulting or Advisory Roles: Personnel may provide consulting services outside of Finance House if:
+
+The service does not compete with Finance House
+
+It does not exceed 10 hours per week
+
+It is disclosed to Human Resources
+
+Advance written approval is obtained
+
+The individual does not use Finance House information or resources
+
+Board Service: Personnel may serve on boards of non-competitors if:
+
+Advance written approval is obtained from Compliance
+
+There are no conflicts with Finance House activities
+
+Time commitment is reasonable and does not interfere with duties
+
+Annual disclosure is renewed
+
+6.3 Disclosure Requirements
+Personnel must disclose all outside employment, business interests, or consulting arrangements that exceed 10 hours per week within 30 days of commencement.
+
+Disclosure shall be made to the Human Resources Department and Compliance Officer using the Conflict of Interest Disclosure Form.
+
+Failure to disclose may result in disciplinary action.
+
+6.4 Time and Resource Management
+Personnel shall not use Finance House time, equipment, facilities, or resources for outside business activities.
+
+Outside work shall not be conducted during business hours.
+
+Personnel shall not use Finance House email, phone systems, or networks for outside business communications.
+
+7. GIFTS, ENTERTAINMENT, AND HOSPITALITY
+7.1 Gifts from Clients and Vendors
+Acceptance Limits: Personnel may accept gifts from clients, vendors, or business partners only if:
+
+The gift is of nominal value (less than $100)
+
+The gift is not prohibited by applicable law or regulation
+
+The gift does not create an obligation or expectation of special treatment
+
+The gift is properly disclosed and registered
+
+Prohibited Gifts: Personnel shall not accept:
+
+Cash or cash equivalents (including gift cards)
+
+Jewelry, watches, or luxury items
+
+Tickets to major events (sports, concerts, theater)
+
+Travel or vacation packages
+
+Personal gifts unrelated to business (e.g., family vacation favors)
+
+Gift Disclosure: Gifts valued between $50 and $100 must be disclosed to the Compliance Officer within 5 business days. Gifts valued at $100 or more must be declined, with a polite written explanation provided to the gift provider.
+
+7.2 Gifts to Clients and Vendors
+Authorization Limits: Personnel may give gifts to clients, vendors, or business partners only if:
+
+The gift is valued at less than $100
+
+The gift is business-appropriate and does not suggest quid pro quo expectations
+
+The gift is not prohibited by the recipient organization's policy
+
+Written pre-approval is obtained from the Compliance Officer for gifts exceeding $50
+
+Prohibited Giving: Finance House shall not provide:
+
+Cash or cash equivalents
+
+High-value items that could appear as bribes
+
+Personalized gifts suggesting favoritism
+
+Multiple gifts to the same recipient within a 12-month period
+
+7.3 Meals and Entertainment
+Business-related meals with clients, vendors, or prospective clients are permitted if:
+
+The location and venue are appropriate
+
+The cost is reasonable and proportionate to the business purpose
+
+Finance House employees do not attend solely for personal benefit
+
+Alcoholic beverages are consumed responsibly
+
+Meal Cost Guidelines:
+
+Working lunches: up to $50 per person
+
+Client entertainment dinners: up to $150 per person
+
+Group events: up to $100 per person
+
+Premium venues or special occasions: requires pre-approval from manager
+
+7.4 Luxury Travel and Events
+Personnel shall not accept:
+
+Paid travel to conferences, events, or destinations from vendors or clients without prior written approval
+
+First-class or business-class travel paid by external parties
+
+Hotel accommodations exceeding standard business rates
+
+Pre-approval must be obtained from the Compliance Officer for any externally-funded travel or event attendance valued over $500.
+
+7.5 Gift Register and Disclosure
+All gifts exceeding $25 must be registered with the Compliance Department within 5 business days.
+
+The Compliance Department shall maintain a confidential gift register documenting:
+
+Recipient name and department
+
+Gift provider and organization
+
+Gift description and estimated value
+
+Date received
+
+Disclosure and approval status
+
+The gift register shall be reviewed quarterly by the Compliance Committee.
+
+8. INFORMATION AND INTELLECTUAL PROPERTY
+8.1 Confidential Information and Trade Secrets
+Personnel shall not use Finance House's confidential information, trade secrets, or proprietary data for personal gain or outside business purposes.
+
+Confidential information includes, but is not limited to:
+
+Client lists and contact information
+
+Pricing models and fee structures
+
+Product development plans and technical specifications
+
+Strategic plans and financial information
+
+Operational procedures and systems
+
+Market analysis and research data
+
+Personnel shall not disclose confidential information to competitors, unauthorized third parties, or for personal business purposes during or after employment.
+
+8.2 Business Opportunities
+Any business opportunity discovered by Personnel through their employment at Finance House is the property of Finance House.
+
+Such opportunities include potential client relationships, vendor partnerships, product ideas, market opportunities, or investment opportunities identified through Finance House activities.
+
+Personnel must present any such opportunity to Finance House's management in writing.
+
+Finance House shall have 30 days to evaluate and decide whether to pursue the opportunity.
+
+Personnel may only pursue the opportunity personally if:
+
+Finance House has declined in writing
+
+The opportunity does not involve Finance House clients or prospects
+
+No Finance House confidential information is used
+
+Pursuit does not interfere with Personnel's duties
+
+8.3 Patents, Inventions, and Intellectual Property
+All patents, inventions, software, processes, and intellectual property developed by Personnel that relate to Finance House's business, products, or services shall be owned by Finance House.
+
+Ownership applies regardless of when the invention was developed (during or outside business hours) if it relates to Finance House's activities.
+
+Personnel shall promptly disclose all inventions and intellectual property to the Compliance Officer and shall execute assignment agreements as required.
+
+Personnel shall cooperate in obtaining patent protection and shall sign all documents necessary to perfect Finance House's ownership rights.
+
+8.4 Client Lists and Relationships
+Client lists, contact information, and relationships developed through Finance House employment are company property.
+
+Personnel shall not solicit or service Finance House clients after termination except as specifically authorized in writing.
+
+Non-solicitation obligations extend for 12 months following termination of employment.
+
+9. VENDOR AND SUPPLIER RELATIONSHIPS
+9.1 Objective Vendor Selection
+Personnel shall not:
+
+Benefit personally from vendor selection decisions
+
+Influence vendor selection based on personal relationships or financial gain
+
+Accept kickbacks, rebates, or special benefits from vendors
+
+Discriminate against qualified vendors based on personal preference
+
+All vendor selection decisions shall be made through transparent, competitive processes with documented justification.
+
+9.2 Procurement Integrity
+Personnel involved in procurement shall:
+
+Maintain objective criteria for vendor evaluation
+
+Document all evaluations and selections
+
+Recuse themselves from decisions where they have conflicts
+
+Ensure multiple qualified bids are solicited for significant purchases
+
+Procurement processes shall be overseen by non-conflicted individuals when Personnel have financial interests in potential vendors.
+
+9.3 Rebates and Kickbacks
+Personnel shall not directly or indirectly accept rebates, kickbacks, commissions, or other financial benefits from vendors in exchange for business or favorable treatment.
+
+Such conduct is prohibited regardless of whether it is characterized as legitimate discount or incentive programs.
+
+Any vendor-provided benefits must be approved in advance by Compliance and applied to Finance House benefit (not personal benefit).
+
+9.4 Preferred Vendor Lists and Discount Programs
+All preferred vendor lists shall be disclosed to Compliance with written justification for vendor selection.
+
+Discount programs or preferential rates offered by vendors must be:
+
+Disclosed to Compliance in advance
+
+Applied uniformly across Finance House
+
+Not conditioned on Personnel's personal patronage or benefit
+
+10. POLITICAL ACTIVITIES AND CONTRIBUTIONS
+10.1 Personal Political Activities
+Personnel have the right to engage in personal political activities and express political views as private citizens.
+
+Political activities must be conducted:
+
+Outside of business hours
+
+Without using Finance House resources, facilities, or equipment
+
+Without implying Finance House endorsement or involvement
+
+In compliance with applicable laws and regulations
+
+Personnel shall not use their Finance House position to influence others regarding political candidates or causes.
+
+10.2 Finance House Political Activities
+Finance House shall not make financial contributions to political candidates, parties, or committees without specific board authorization.
+
+Matching gift programs shall not include contributions to political campaigns or advocacy organizations.
+
+Lobbying activities conducted by Finance House shall comply with all applicable federal, state, and local disclosure requirements.
+
+10.3 Employee Political Contributions
+Personnel are responsible for their own political contributions and shall not seek reimbursement from Finance House.
+
+Finance House shall not pressure or incentivize Personnel to make political contributions.
+
+Personnel are free to support the political causes of their choice without company influence or interference.
+
+11. DISCLOSURE AND APPROVAL PROCESS
+11.1 Annual Disclosure Requirement
+All Personnel shall complete and sign a Conflict of Interest Disclosure Form annually, typically during the first quarter of each calendar year.
+
+The form requires Personnel to certify that they have reviewed this Policy and disclosed all known conflicts or that they are not aware of any conflicts.
+
+Falsification or omission of material conflicts on the disclosure form is grounds for disciplinary action, up to and including termination.
+
+11.2 Immediate Disclosure of New Conflicts
+Personnel shall disclose any new conflicts or changes in circumstances that create conflicts within 30 days of the conflict arising or coming to their attention.
+
+Disclosure shall be made to the Compliance Officer using the Conflict of Interest Disclosure Form or written notice.
+
+Delayed disclosure may result in disciplinary action.
+
+11.3 Approval Authority and Process
+Authority: Conflicts of interest are evaluated and approved (or denied) by:
+
+The Compliance Officer (initial evaluation)
+
+The Human Resources Department (employment-related conflicts)
+
+The Compliance Committee (significant or complex conflicts)
+
+The Board of Directors (conflicts involving senior executives or directors)
+
+Approval Timeline: Personnel shall receive written notice of approval or denial within 15 business days of disclosure.
+
+Approval Conditions: When a conflict is approved, the approval shall include:
+
+Specific conditions or restrictions
+
+Required management or monitoring
+
+Recusal requirements or limitations
+
+Disclosure to affected parties
+
+Annual reassessment requirements
+
+11.4 Reassessment and Review
+All approved conflicts shall be reassessed at least annually.
+
+Circumstances may change, making a previously approved conflict untenable.
+
+Personnel shall immediately notify Compliance of changed circumstances affecting an approved conflict.
+
+Finance House reserves the right to modify approval conditions or withdraw approval if circumstances change materially.
+
+12. MANAGEMENT OF CONFLICTS
+12.1 Recusal and Abstention
+When a conflict exists or appears to exist, Personnel must recuse themselves from all decisions, discussions, negotiations, or votes related to the subject matter of the conflict.
+
+Recusal obligations apply to:
+
+Vendor or client decisions
+
+Compensation or employment decisions affecting related parties
+
+Investment or business opportunity decisions
+
+Contract negotiations or approvals
+
+Procurement or purchasing decisions
+
+Personnel shall provide written notice of recusal to their manager and the Compliance Officer.
+
+12.2 Alternative Assignment
+Finance House shall assign decision-making authority to a non-conflicted individual when Personnel recuse themselves.
+
+The non-conflicted individual shall have full authority to make the decision without input or influence from the conflicted Personnel (except as necessary for factual information).
+
+12.3 Monitoring and Oversight
+The Compliance Officer shall:
+
+Maintain a registry of disclosed conflicts
+
+Monitor compliance with recusal requirements
+
+Conduct periodic reviews of conflict management
+
+Follow up with Personnel regarding conflict status
+
+Department managers shall monitor their team members for compliance with conflict policies.
+
+12.4 Documentation
+All conflicts and their management shall be documented in writing, including:
+
+Nature and scope of the conflict
+
+Parties involved
+
+Approval status and conditions
+
+Recusal requirements
+
+Management approach adopted
+
+Dates of disclosure and approval
+
+Documentation shall be retained for at least 5 years.
+
+13. VIOLATIONS AND CONSEQUENCES
+13.1 Disciplinary Framework
+Violations of this Policy shall result in disciplinary action according to the following framework. Severity shall be determined by the Compliance Committee based on the nature, intent, and impact of the violation.
+
+13.2 Disciplinary Actions
+Oral Warning: Minor violations or first offenses, such as:
+
+Inadvertent failure to disclose a minor conflict
+
+Accepting a gift slightly exceeding guidelines
+
+Inadvertent use of company time for outside work
+
+Lack of timely disclosure with prompt remediation
+
+Written Warning: Repeated minor violations or moderate offenses, such as:
+
+Second failure to disclose or comply with requirements
+
+Deliberate failure to recuse from a conflicted decision
+
+Accepting prohibited gifts
+
+Undisclosed outside employment
+
+Suspension: Significant violations, such as:
+
+Deliberate concealment of material conflicts
+
+Repeated violations despite prior discipline
+
+Unauthorized use of confidential information
+
+Trading on material non-public information
+
+Accepting kickbacks or improper payments
+
+Duration: up to 30 days
+
+Termination: Severe violations or repeated violations following prior discipline, such as:
+
+Fraud or theft related to conflicts
+
+Deliberate breach of non-compete obligation
+
+Improper use of confidential information for competitive advantage
+
+Pattern of violations demonstrating disregard for Policy
+
+Violation of fiduciary duty
+
+Criminal conduct related to conflicts
+
+13.3 Restitution
+Personnel who benefit improperly from violations shall be required to repay or return all improper benefits.
+
+Restitution shall be required regardless of disciplinary action level.
+
+Finance House may pursue restitution through legal action if necessary.
+
+13.4 Criminal Violations
+Violations involving fraud, theft, bribery, or other criminal conduct shall be reported to law enforcement.
+
+Finance House reserves the right to pursue civil or criminal remedies independent of disciplinary action.
+
+13.5 Impact on Employment
+Violations of this Policy may impact compensation, promotion eligibility, and advancement opportunities.
+
+Violations may result in loss of bonus, benefits, or other compensation.
+
+Termination for Policy violation is grounds for forfeiture of accrued benefits where permitted by law.
+
+14. REPORTING AND INVESTIGATIONS
+14.1 Reporting Channels
+Personnel aware of actual or suspected violations of this Policy should report the concern through the following channels (in order of preference):
+
+Manager or Supervisor: Direct reporting to the involved Personnel's manager
+
+Compliance Officer: Direct reporting to the Compliance Department
+
+Human Resources Department: Report to HR for employment-related concerns
+
+Ethics Hotline: Anonymous reporting via Finance House's confidential ethics hotline (if available)
+
+Anonymous Reporting: Written submission to the Compliance Officer's attention (no signature required)
+
+14.2 No Retaliation Policy
+Finance House strictly prohibits retaliation against Personnel for good-faith reporting of violations.
+
+Retaliation includes, but is not limited to:
+
+Termination or demotion
+
+Reduced compensation or benefits
+
+Assignment to undesirable duties
+
+Unfavorable performance evaluations
+
+Isolation or exclusion from team activities
+
+Any Personnel who experience retaliation should report immediately to the Compliance Officer or Human Resources Department.
+
+Retaliation violators will face disciplinary action, up to and including termination.
+
+14.3 Investigation Process
+Initiation: Upon receipt of a report, the Compliance Officer shall initiate a formal investigation.
+
+Investigation Timeline: Investigations shall be completed within 30-60 days unless circumstances warrant extension.
+
+Investigation Scope: The investigation shall include:
+
+Interviews with the reporting party, respondent, and witnesses
+
+Review of relevant documents and communications
+
+Examination of financial records if applicable
+
+Determination of whether a violation occurred
+
+Recommendation for corrective action
+
+Confidentiality: All investigation information shall be maintained as confidential to the extent possible and consistent with legal requirements. Information shall be disclosed only to individuals with a legitimate need to know.
+
+Neutrality: Investigations shall be conducted objectively by independent investigators, when possible.
+
+14.4 Appeal and Review
+Personnel who are subject to disciplinary action resulting from a conflict of interest investigation may appeal within 14 days of notice.
+
+The appeal shall be submitted in writing to the Compliance Committee and shall include:
+
+Specific grounds for the appeal
+
+Any new evidence or information
+
+Explanation of why the findings are incorrect or unfair
+
+The Compliance Committee shall review the appeal within 14 days and provide written notice of the final decision.
+
+The decision of the Compliance Committee shall be final and binding.
+
+FREQUENTLY ASKED QUESTIONS
+Q1: Do I need to disclose a personal investment in a publicly traded company?
+
+A: Generally, no. If you own shares in a large, diversified public company through a mutual fund or brokerage account where you do not make specific investment decisions, disclosure is not required. However, if you personally make significant investments (over 2% ownership) in a competitor, that must be disclosed.
+
+Q2: I have a spouse who works for one of Finance House's vendors. What do I need to do?
+
+A: You must disclose this relationship to the Compliance Officer immediately. You will likely be required to recuse yourself from all decisions affecting that vendor, including procurement decisions, contract negotiations, and performance evaluations. A written recusal agreement will be executed.
+
+Q3: Can I accept lunch from a client?
+
+A: Yes, business lunches are permitted if they are reasonable in cost and purpose. A working lunch under $50 per person for business discussion is appropriate. However, you may not accept lavish meals or entertainment unrelated to business purposes.
+
+Q4: My manager is asking me to work part-time for a company that is not a direct competitor. Do I need approval?
+
+A: Yes. Any outside employment exceeding 10 hours per week must be disclosed to Human Resources and Compliance. You must obtain written approval before accepting. Even if the company is not a direct competitor, Finance House needs to ensure there are no conflicts and that the work does not interfere with your duties.
+
+Q5: I discovered a client opportunity through my Finance House work. Can I pursue it on my own?
+
+A: No, not immediately. You must disclose the opportunity to Finance House's management. Finance House has 30 days to decide whether to pursue it. You can only pursue it personally if Finance House formally declines in writing and the opportunity does not involve Finance House's clients, prospects, or confidential information.
+
+Q6: What if I'm unsure whether something is a conflict of interest?
+
+A: Contact the Compliance Officer immediately. It is better to disclose and ask than to incorrectly assume there is no conflict. The Compliance Officer can provide guidance on specific situations.
+
+Q7: Are romantic relationships between coworkers prohibited?
+
+A: No. Romantic relationships between coworkers are permitted, but they must be disclosed when they could create a conflict. Specifically, if one person supervises the other in the same reporting line, that is prohibited. If you are in a romantic relationship with someone at Finance House, contact Human Resources to determine if disclosure is required.
+
+Q8: Can I give a gift to a client?
+
+A: Yes, gifts valued under $100 may be given to clients if they are appropriate and business-related. Gifts exceeding $50 require pre-approval from Compliance. Prohibited gifts include cash, luxury items, tickets to major events, or travel packages.
+
+Q9: What happens if I fail to disclose a conflict?
+
+A: Failure to disclose may result in disciplinary action ranging from a written warning to termination, depending on the nature and severity of the undisclosed conflict. Intentional concealment of a material conflict is treated very seriously.
+
+Q10: I want to serve on the board of a non-profit organization. Do I need approval?
+
+A: Board service for organizations that do not compete with Finance House may be permitted if you obtain advance written approval from Compliance. The time commitment must be reasonable and must not interfere with your Finance House duties. You must disclose the board service annually.
+
+Q11: Can I use Finance House confidential information to start my own business after I leave?
+
+A: No. You are bound by confidentiality obligations that continue after your employment ends. Using Finance House's confidential information to compete with Finance House violates both this Policy and the law. Additionally, you are subject to a 12-month non-compete obligation with competitors.
+
+Q12: What is the policy on cryptocurrency or alternative investments through outside organizations?
+
+A: Any investment or financial interest must be disclosed if it involves clients, vendors, or competitors of Finance House. If the investment is personal and does not involve Finance House business relationships, it generally does not require disclosure unless it exceeds 2% ownership in an entity that competes with Finance House.
+
+Q13: If I'm approved to manage a conflict, do I need to be reapproved each year?
+
+A: Yes. All approved conflicts must be reassessed at least annually. You must complete an annual disclosure form each year. If circumstances change, you must notify Compliance immediately. Approval conditions may change based on organizational structure or other factors.
+
+Q14: What if I believe I'm being retaliated against for reporting a conflict?
+
+A: Finance House has a strict no-retaliation policy. If you believe you are being retaliated against for good-faith reporting of a violation, report this immediately to the Compliance Officer or Human Resources. Retaliation violations will result in disciplinary action, up to and including termination of the retaliator.
+
+Q15: Can I appeal a decision to deny my conflict approval?
+
+A: No formal appeal process applies to denied approvals. However, you may provide additional information or context to the Compliance Officer for reconsideration. If you believe the decision was made in error or in violation of this Policy, you may escalate the concern to the Compliance Committee.
+
+Q16: Who should I contact if I have questions about this Policy?
+
+A: Contact the Compliance Officer in the Compliance and Legal Department. The Compliance Officer is available to provide guidance on specific situations and to answer questions about this Policy. You may also contact Human Resources for employment-related conflict questions.
+
+Q17: How long are conflict disclosures kept confidential?
+
+A: Disclosures are maintained as confidential and are only shared with individuals who have a legitimate business need to know (such as your manager, HR, and relevant decision-makers). However, Finance House may be required to disclose information in response to legal process, regulatory inquiries, or internal investigations.
+
+CONFLICT OF INTEREST DISCLOSURE FORM OUTLINE
+Finance House – Conflict of Interest Disclosure Form
+
+Employee Information
+
+Name, Employee ID, Department
+
+Manager Name, Reporting Line
+
+Disclosure Date, Annual or New Disclosure
+
+Conflict Categories (check if applicable and describe):
+
+ Financial interests in competitors or vendors
+
+ Outside employment or business interests
+
+ Family member relationships or employment
+
+ Gifts or entertainment received/offered
+
+ Information or intellectual property concerns
+
+ Other potential conflicts
+
+Detailed Disclosures
+
+Description of each conflict
+
+Parties involved, relationship to Finance House
+
+Estimated financial value or impact
+
+Dates conflict existed or arose
+
+Current status and management approach
+
+Certification
+I certify that I have read and understand Finance House's Conflict of Interest Disclosure Policy. I have disclosed all known conflicts of interest and conflicts that may arise from my activities. I understand that failure to disclose material conflicts may result in disciplinary action.
+
+Signatures
+
+Employee Signature and Date
+
+Compliance Officer Signature and Date
+
+Approval Status: Approved / Denied / Approved with Conditions
+
+IMPLEMENTATION AND APPROVAL
+This Policy is effective January 1, 2025. All Personnel must acknowledge receipt and understanding of this Policy within 30 days of the effective date. Updates and revisions shall be communicated to all Personnel, and refresher training shall be conducted annually.
+
+Approved By:
+Compliance and Legal Department
+Finance House Leadership
+
+Document Control: POL-COR-010 | Version 1.0 | October 2025
