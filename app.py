@@ -25,7 +25,7 @@ DB_DIR = "db"
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 # Note: Use 'mps' for Apple Silicon, 'cuda' for NVIDIA, or 'cpu'
 # 'mps' will be very fast on your M4
-EMBEDDING_DEVICE = "mps" 
+EMBEDDING_DEVICE = "cpu" 
 RETRIEVER_K = 10  # Number of docs to retrieve
 RERANKER_TOP_N = 3  # Number of docs to pass to LLM
 
