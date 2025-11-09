@@ -26,6 +26,9 @@ EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 EMBEDDING_DEVICE = "cpu"  # Set to "cpu" for cloud deployment
 RETRIEVER_K = 10  # Number of docs to retrieve
 RERANKER_TOP_N = 3  # Number of docs to pass to LLM
+FH_LOGO_URL = "https://www.financehouse.ae/wp-content/themes/finance-house/assets/images/logo.svg"
+FH_LOGO_ICON_URL = "https://www.financehouse.ae/wp-content/themes/finance-house/assets/images/logo-icon-dark.svg"
+
 
 # --- 1. Caching and Resource Loading (Essential for Streamlit) ---
 
@@ -362,90 +365,114 @@ def get_graph():
 
 def inject_custom_css():
     """
-    Injects custom CSS for a professional, neutral UI.
-    This CSS is now *supplementing* the forced light theme.
+    Injects custom CSS to override Streamlit themes and apply
+    Finance House branding.
     """
-    st.markdown("""
+    st.markdown(f"""
         <style>
-            /* --- Base & Colors (Forced light theme is set in st.set_page_config) --- */
-            .stApp {
-                background-color: #f0f2f6; /* Neutral light gray background */
-            }
-            
-            /* --- Chat Bubbles (Customize the light theme) --- */
-            [data-testid="chat-message-container"] {
-                border-radius: 18px;
-                padding-top: 10px;
-                padding-bottom: 10px;
-                margin-bottom: 10px;
-            }
-            
-            /* User (You) Bubble */
-            [data-testid="chat-message-container"]:has([data-testid="chat-avatar-user"]) {
-                background-color: #e1f0ff; /* Light, friendly blue */
-            }
+            /* --- 1. CORE FIX: Force Light Theme & Base --- */
+            /* Force light background for main app area */
+            [data-testid="stApp"] {{
+                background-color: #f0f2f6 !important; /* Neutral light gray */
+                color: #111827 !important;
+            }}
+            /* Force dark text for all text elements */
+            body, p, li, h1, h2, h3, h4, h5, h6 {{
+                color: #111827 !important;
+            }}
 
+            /* --- 2. BRANDING: Sidebar (Finance House Dark Blue) --- */
+            [data-testid="stSidebar"] {{
+                background-color: #002D62 !important; /* FH Dark Blue */
+                border-right: 1px solid #002D62;
+            }}
+            /* Force white text for all elements in the sidebar */
+            [data-testid="stSidebar"] * {{
+                color: #ffffff !important;
+            }}
+            /* Style the sidebar header */
+            [data-testid="stSidebar"] [data-testid="stHeader"] {{
+                color: #D4AF37 !important; /* FH Gold */
+                font-size: 1.5rem;
+                padding-top: 1rem;
+            }}
+
+            /* --- 3. CHAT BUBBLES --- */
+            [data-testid="chat-message-container"] {{
+                border-radius: 18px;
+                padding: 12px 16px;
+                margin-bottom: 10px;
+            }}
+            /* User (You) Bubble */
+            [data-testid="chat-message-container"]:has([data-testid="chat-avatar-user"]) {{
+                background-color: #e1f0ff; /* Light, friendly blue */
+            }}
             /* Assistant (Bot) Bubble */
-            [data-testid="chat-message-container"]:has([data-testid="chat-avatar-assistant"]) {
+            [data-testid="chat-message-container"]:has([data-testid="chat-avatar-assistant"]) {{
                 background-color: #ffffff; /* Clean white */
-                border: 1px solid #d1d5db; /* Subtle border */
+                border: 1px solid #d1d5db; 
                 box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-            }
-            
-            /* --- "Show Reasoning" Expander --- */
-            [data-testid="stExpander"] {
+            }}
+            /* Ensure text inside bubbles is dark */
+            [data-testid="stChatMessageContent"] * {{
+                color: #111827 !important;
+            }}
+
+            /* --- 4. REASONING EXPANDER --- */
+            [data-testid="stExpander"] {{
                 border: 1px solid #d1d5db;
                 border-radius: 10px;
-                background-color: #fafafa; /* Slightly off-white */
+                background-color: #fafafa;
                 margin-top: 15px;
-            }
-            [data-testid="stExpander"] summary {
+            }}
+            /* Force dark text for the expander summary */
+            [data-testid="stExpander"] summary {{
                 font-weight: 600;
-                color: #4b5563; 
-            }
-            
-            /* Fix for st.json (it will inherit light theme, just style it) */
-            [data-testid="stExpander"] [data-testid="stJson"] {
-                background-color: #e5e7eb; /* Light gray background for JSON */
+                color: #4b5563 !important;
+            }}
+            /* Force dark text for ALL content inside expander details */
+            [data-testid="stExpanderDetails"] * {{
+                color: #111827 !important;
+            }}
+            /* Style the st.json block inside the expander */
+            [data-testid="stExpanderDetails"] [data-testid="stJson"] {{
+                background-color: #e5e7eb !important; /* Light gray background */
                 padding: 10px;
                 border-radius: 5px;
-            }
+            }}
+            [data-testid="stExpanderDetails"] [data-testid="stJson"] * {{
+                color: #1f2937 !important; /* Dark text for JSON */
+            }}
 
-            /* --- Follow-up Question Buttons --- */
-            .stButton > button {
+            /* --- 5. FOLLOW-UP BUTTONS --- */
+            .stButton > button {{
                 width: 100%;
                 text-align: left;
                 background-color: #ffffff;
                 border: 1px solid #d1d5db;
-                color: #1f2937; 
+                color: #1f2937 !important; /* Force dark text */
                 font-weight: 500;
                 border-radius: 8px;
                 transition: background-color 0.2s ease, border-color 0.2s ease;
-            }
-            .stButton > button:hover {
+            }}
+            .stButton > button:hover {{
                 background-color: #f9fafb;
-                border-color: #9ca3af;
-                color: #000000; 
-            }
-            .stButton > button:active {
+                border-color: #002D62; /* FH Blue on hover */
+                color: #002D62 !important; 
+            }}
+            .stButton > button:active {{
                 background-color: #f3f4f6;
-            }
+            }}
             
-            /* --- Source Citation Styling --- */
-            .source-citation {
-                font-size: 0.85rem;
-                color: #6b7280;
-                background-color: #f3f4f6;
-                padding: 2px 6px;
-                border-radius: 4px;
-                display: inline-block;
-                margin-right: 5px;
-            }
-
-            /* --- Sidebar Styling --- */
-            [data-testid="stSidebar"] {
+            /* --- 6. OTHER ELEMENTS --- */
+            /* Style the title */
+            [data-testid="stHeading"] {{
+                color: #002D62; /* FH Dark Blue */
+            }}
+            /* Style the chat input box */
+            [data-testid="stChatInput"] {{
                 background-color: #ffffff;
-            }
+            }}
         </style>
     """, unsafe_allow_html=True)
 
@@ -537,21 +564,18 @@ def run_query(app, question: str):
 # --- Main Application Logic ---
 def main():
     
-    # --- PAGE CONFIG (THIS IS THE FIX) ---
+    # --- PAGE CONFIG (REMOVED 'theme' PARAMETER) ---
     st.set_page_config(
         page_title="Finance House Policy Bot",
-        page_icon="🤖",
-        layout="wide",
-        theme="light"  # <-- THIS IS THE CRITICAL FIX
+        page_icon=FH_LOGO_ICON_URL, # Use FH icon as page icon
+        layout="wide"
     )
     
-    # Inject our custom styles (which now modify the light theme)
+    # Inject our new custom CSS
     inject_custom_css()
     
-    st.title("Finance House Policy Bot 🤖")
-
-    # --- SIDEBAR (WITH BONUS LOGO) ---
-    st.sidebar.image("httpsD://www.financehouse.ae/wp-content/themes/finance-house/assets/images/logo.svg", use_column_width=True)
+    # --- SIDEBAR (WITH LOGO AND BRANDING) ---
+    st.sidebar.image(FH_LOGO_URL, use_column_width=True)
     st.sidebar.header("About This App")
     st.sidebar.markdown("""
     This advanced chatbot is designed to help Finance House employees
@@ -565,6 +589,9 @@ def main():
     5.  **Generate:** A Gemini LLM synthesizes the final answer with citations.
     6.  **Follow-ups:** Suggests related questions to explore.
     """)
+    
+    # --- MAIN CHAT INTERFACE ---
+    st.title("Finance House Policy Bot 🇦🇪")
     
     # --- CHAT HISTORY INITIALIZATION ---
     if "messages" not in st.session_state:
@@ -584,7 +611,9 @@ def main():
 
     # --- CHAT HISTORY DISPLAY ---
     for i, msg in enumerate(st.session_state.messages):
-        with st.chat_message(msg["role"]):
+        # Use FH icon for assistant, default for user
+        avatar = FH_LOGO_ICON_URL if msg["role"] == "assistant" else "🧑‍💻"
+        with st.chat_message(msg["role"], avatar=avatar):
             st.markdown(msg["content"])
             
             # Display "Reasoning" and "Follow-ups" for assistant messages
@@ -615,10 +644,10 @@ def main():
                                 button_key = f"fup_{i}_{j}"
                                 if cols[j].button(fup_question, use_container_width=True, key=button_key):
                                     st.session_state.messages.append({"role": "user", "content": fup_question})
-                                    with st.chat_message("user"):
+                                    with st.chat_message("user", avatar="🧑‍💻"):
                                         st.markdown(fup_question)
                                     
-                                    with st.chat_message("assistant"):
+                                    with st.chat_message("assistant", avatar=FH_LOGO_ICON_URL):
                                         run_query(app, fup_question)
                                     st.rerun()
             
@@ -629,10 +658,10 @@ def main():
     if prompt := st.chat_input("Ask a question about a company policy..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         
-        with st.chat_message("user"):
+        with st.chat_message("user", avatar="🧑‍💻"):
             st.markdown(prompt)
         
-        with st.chat_message("assistant"):
+        with st.chat_message("assistant", avatar=FH_LOGO_ICON_URL):
             run_query(app, prompt)
         
         st.rerun()
