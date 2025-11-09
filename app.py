@@ -482,15 +482,28 @@ def inject_custom_css():
             /* FIX 4.1: Force light bg on expander heading */
             [data-testid="stExpander"] summary {{
                 font-weight: 600;
-                color: #4b5563 !important;
-                background-color: #fffdf7 !important; /* v13: Faint gold bg */
+                color: #D4AF37 !important; /* v16: FH Gold */
+                background-color: #002D62 !important; /* v16: FH Dark Blue */
+                border-radius: 8px 8px 0 0; /* v16: Match top corners */
             }}
+            /* v16: NEW RULE - Force color on text *inside* the summary */
+            [data-testid="stExpander"] summary * {{
+                color: #D4AF37 !important; /* v16: FH Gold */
+            }}
+
             [data-testid="stExpander"] summary:hover,
             [data-testid="stExpander"] summary:active,
             [data-testid="stExpander"] summary:focus {{
-                background-color: #fef9e6 !important; /* v13: Saturated gold hover */
-                color: #002D62 !important; /* FH Blue on hover/focus */
+                background-color: #D4AF37 !important; /* v16: FH Gold */
+                color: #002D62 !important; /* v16: FH Dark Blue on hover */
             }}
+            /* v16: NEW RULE - Force color on text *inside* summary on hover */
+            [data-testid="stExpander"] summary:hover *,
+            [data-testid="stExpander"] summary:active *,
+            [data-testid="stExpander"] summary:focus * {{
+                color: #002D62 !important; /* v16: FH Dark Blue on hover */
+            }}
+
             [data-testid="stExpanderDetails"] * {{
                 color: #111827 !important;
             }}
