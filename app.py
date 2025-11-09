@@ -363,24 +363,21 @@ def get_graph():
 def inject_custom_css():
     """
     Injects custom CSS for a professional, neutral UI.
-    THIS IS THE CORRECTED VERSION with !important tags to override themes.
+    This CSS is now *supplementing* the forced light theme.
     """
     st.markdown("""
         <style>
-            /* --- Base & Colors (FIX: Force light theme) --- */
-            /* This forces the app to be light mode and sets a dark text color */
+            /* --- Base & Colors (Forced light theme is set in st.set_page_config) --- */
             .stApp {
-                background-color: #f0f2f6 !important; /* Neutral light gray background */
-                color: #1f2937 !important; /* Default dark text color */
+                background-color: #f0f2f6; /* Neutral light gray background */
             }
             
-            /* --- Chat Bubbles (FIX: Force colors) --- */
+            /* --- Chat Bubbles (Customize the light theme) --- */
             [data-testid="chat-message-container"] {
                 border-radius: 18px;
                 padding-top: 10px;
                 padding-bottom: 10px;
                 margin-bottom: 10px;
-                color: #1f2937 !important; /* Force dark text in all bubbles */
             }
             
             /* User (You) Bubble */
@@ -388,51 +385,39 @@ def inject_custom_css():
                 background-color: #e1f0ff; /* Light, friendly blue */
             }
 
-            /* Assistant (Bot) Bubble (FIX: Force text color on ALL children) */
+            /* Assistant (Bot) Bubble */
             [data-testid="chat-message-container"]:has([data-testid="chat-avatar-assistant"]) {
-                background-color: #ffffff !important; /* Clean white */
+                background-color: #ffffff; /* Clean white */
                 border: 1px solid #d1d5db; /* Subtle border */
                 box-shadow: 0 1px 3px rgba(0,0,0,0.03);
             }
-            /* This is the key: Force all p, li, h1, etc. inside to be dark */
-            [data-testid="chat-message-container"]:has([data-testid="chat-avatar-assistant"]) * {
-                color: #1f2937 !important;
-            }
             
-            /* --- "Show Reasoning" Expander (FIX: Force colors) --- */
+            /* --- "Show Reasoning" Expander --- */
             [data-testid="stExpander"] {
                 border: 1px solid #d1d5db;
                 border-radius: 10px;
-                background-color: #fafafa !important; /* Slightly off-white */
+                background-color: #fafafa; /* Slightly off-white */
                 margin-top: 15px;
             }
-            /* Force all text inside the expander to be dark */
-            [data-testid="stExpander"] * {
-                color: #1f2937 !important;
-            }
-            /* Fix summary text color */
             [data-testid="stExpander"] summary {
                 font-weight: 600;
-                color: #4b5563 !important;
+                color: #4b5563; 
             }
             
-            /* Fix for st.json dark-on-dark issue */
+            /* Fix for st.json (it will inherit light theme, just style it) */
             [data-testid="stExpander"] [data-testid="stJson"] {
-                background-color: #e5e7eb !important; /* Light gray background for JSON */
+                background-color: #e5e7eb; /* Light gray background for JSON */
                 padding: 10px;
                 border-radius: 5px;
             }
-            [data-testid="stExpander"] [data-testid="stJson"] * {
-                color: #1f2937 !important; /* Dark text for JSON content */
-            }
 
-            /* --- Follow-up Question Buttons (FIX: Force colors) --- */
+            /* --- Follow-up Question Buttons --- */
             .stButton > button {
                 width: 100%;
                 text-align: left;
                 background-color: #ffffff;
                 border: 1px solid #d1d5db;
-                color: #1f2937 !important; /* Force dark text */
+                color: #1f2937; 
                 font-weight: 500;
                 border-radius: 8px;
                 transition: background-color 0.2s ease, border-color 0.2s ease;
@@ -440,13 +425,13 @@ def inject_custom_css():
             .stButton > button:hover {
                 background-color: #f9fafb;
                 border-color: #9ca3af;
-                color: #000000 !important; /* Force black text on hover */
+                color: #000000; 
             }
             .stButton > button:active {
                 background-color: #f3f4f6;
             }
             
-            /* --- Source Citation Styling (Already OK) --- */
+            /* --- Source Citation Styling --- */
             .source-citation {
                 font-size: 0.85rem;
                 color: #6b7280;
@@ -457,12 +442,9 @@ def inject_custom_css():
                 margin-right: 5px;
             }
 
-            /* --- Sidebar Styling (FIX: Force light theme) --- */
+            /* --- Sidebar Styling --- */
             [data-testid="stSidebar"] {
-                background-color: #ffffff !important;
-            }
-            [data-testid="stSidebar"] * {
-                color: #1f2937 !important;
+                background-color: #ffffff;
             }
         </style>
     """, unsafe_allow_html=True)
@@ -470,17 +452,16 @@ def inject_custom_css():
 def format_reasoning_docs(docs: List[Document]) -> str:
     """
     Helper to format retrieved/reranked docs for the expander.
-    THIS IS THE CORRECTED VERSION with inline styles to force text color.
+    (No longer needs !important tags as theme is fixed)
     """
     md_string = ""
     for i, doc in enumerate(docs):
         policy_num = doc.metadata.get('policy_number', 'N/A')
         policy_title = doc.metadata.get('policy_title', 'Unknown')
-        # FIX: Added inline style to force text color, overriding other rules
         md_string += f"""
 <details>
-    <summary><strong style="color: #1f2937 !important;">Doc {i+1}: {policy_num} - {policy_title}</strong></summary>
-    <p style="font-size: 0.9rem; color: #4b5563 !important; background-color: #f9fafb; border: 1px solid #e5e7eb; padding: 10px; border-radius: 5px;">
+    <summary><strong>Doc {i+1}: {policy_num} - {policy_title}</strong></summary>
+    <p style="font-size: 0.9rem; color: #4b5563; background-color: #f9fafb; border: 1px solid #e5e7eb; padding: 10px; border-radius: 5px;">
         {doc.page_content[:500]}...
     </p>
 </details>
@@ -556,15 +537,21 @@ def run_query(app, question: str):
 # --- Main Application Logic ---
 def main():
     
+    # --- PAGE CONFIG (THIS IS THE FIX) ---
     st.set_page_config(
         page_title="Finance House Policy Bot",
         page_icon="🤖",
-        layout="wide"
+        layout="wide",
+        theme="light"  # <-- THIS IS THE CRITICAL FIX
     )
     
+    # Inject our custom styles (which now modify the light theme)
     inject_custom_css()
     
     st.title("Finance House Policy Bot 🤖")
+
+    # --- SIDEBAR (WITH BONUS LOGO) ---
+    st.sidebar.image("httpsD://www.financehouse.ae/wp-content/themes/finance-house/assets/images/logo.svg", use_column_width=True)
     st.sidebar.header("About This App")
     st.sidebar.markdown("""
     This advanced chatbot is designed to help Finance House employees
@@ -579,6 +566,7 @@ def main():
     6.  **Follow-ups:** Suggests related questions to explore.
     """)
     
+    # --- CHAT HISTORY INITIALIZATION ---
     if "messages" not in st.session_state:
         st.session_state.messages = [{
             "role": "assistant",
@@ -587,16 +575,19 @@ def main():
             "follow_ups": []
         }]
 
+    # --- AGENT INITIALIZATION ---
     try:
         app = get_graph()
     except Exception as e:
         st.error(f"Failed to initialize the RAG agent: {e}")
         st.stop()
 
+    # --- CHAT HISTORY DISPLAY ---
     for i, msg in enumerate(st.session_state.messages):
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
             
+            # Display "Reasoning" and "Follow-ups" for assistant messages
             if msg["role"] == "assistant" and msg["reasoning"]:
                 
                 with st.expander("Show Reasoning 🧠"):
@@ -618,11 +609,9 @@ def main():
                     
                     num_followups = len(msg["follow_ups"])
                     if num_followups > 0:
-                        # Ensure we don't create more columns than we have questions
                         cols = st.columns(min(num_followups, 3)) 
                         for j, fup_question in enumerate(msg["follow_ups"]):
-                            if j < 3: # Only display up to 3 questions
-                                # Create a unique key for each button
+                            if j < 3: 
                                 button_key = f"fup_{i}_{j}"
                                 if cols[j].button(fup_question, use_container_width=True, key=button_key):
                                     st.session_state.messages.append({"role": "user", "content": fup_question})
@@ -636,6 +625,7 @@ def main():
             if msg["role"] == "assistant" and msg["content"] != "Hello! I'm the Finance House Policy Bot. How can I help you today?":
                 st.markdown("---", unsafe_allow_html=True)
 
+    # --- CHAT INPUT ---
     if prompt := st.chat_input("Ask a question about a company policy..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         
