@@ -389,7 +389,8 @@ def inject_custom_css():
     Injects custom CSS to override Streamlit themes and apply
     Finance House branding. 
     
-    FIX v9: More aggressive CSS for Sidebar scroll, Expander heading, and st.json.
+    FIX v11: Ultra-aggressive CSS for Sidebar scrollbar and
+    specificity-boosted fix for st.json.
     """
     st.markdown(f"""
         <style>
@@ -404,12 +405,27 @@ def inject_custom_css():
             }}
 
             /* --- 2. BRANDING: Sidebar (Finance House Dark Blue) --- */
-            /* * FIX 2.0 (BUG 1): Apply overflow hidden to main sidebar container */
+            
+            /* * FIX 2.0 (BUG 1 - v11): Ultra-aggressive sidebar scroll fix */
             [data-testid="stSidebar"] {{
                 background-color: #002D62 !important; /* FH Dark Blue */
                 border-right: 1px solid #002D62;
-                overflow: hidden !important; /* Disables all scroll */
+                overflow: hidden !important; /* Disables scroll on the container */
             }}
+            /* Target the *direct child* wrapper div */
+            [data-testid="stSidebar"] > div:first-child {{
+                overflow: hidden !important; /* Disables scroll on the inner wrapper */
+            }}
+            /* Target the block container *inside* the wrapper */
+            [data-testid="stSidebar"] > div:first-child > [data-testid="stVerticalBlock"] {{
+                overflow: hidden !important; /* Disables scroll on the block */
+                scrollbar-width: none; /* Firefox */
+            }}
+            [data-testid="stSidebar"] [data-testid="stVerticalBlock"]::-webkit-scrollbar {{
+                display: none; /* Chrome, Safari */
+            }}
+            /* End Bug 1 Fix */
+            
             /* FIX 2.1: Force white text for all elements in the sidebar */
             [data-testid="stSidebar"] * {{
                 color: #ffffff !important;
@@ -425,16 +441,6 @@ def inject_custom_css():
             [data-testid="stSidebar"] strong {{
                 color: #D4AF37 !important; /* FH Gold for "How it Works" */
             }}
-            
-            /* * FIX 2.3: (Redundant but safe) Hide scrollbar properties */
-            [data-testid="stSidebar"] [data-testid="stVerticalBlock"]::-webkit-scrollbar {{
-                display: none; /* Hide scrollbar for Chrome, Safari */
-            }}
-            [data-testid="stSidebar"] [data-testid="stVerticalBlock"] {{
-                scrollbar-width: none; /* Hide scrollbar for Firefox */
-                overflow: hidden !important; /* Double-tap to ensure no scroll */
-            }}
-
 
             /* --- 3. CHAT BUBBLES --- */
             [data-testid="chat-message-container"] {{
@@ -461,7 +467,7 @@ def inject_custom_css():
                 background-color: #fafafa !important; /* Force light background */
                 margin-top: 15px;
             }}
-            /* * FIX 4.1 (BUG 3): Force light bg on expander heading */
+            /* FIX 4.1: Force light bg on expander heading */
             [data-testid="stExpander"] summary {{
                 font-weight: 600;
                 color: #4b5563 !important;
@@ -477,7 +483,7 @@ def inject_custom_css():
                 color: #111827 !important;
             }}
             
-            /* --- 5. THE 100% READABILITY FIX (v9) --- */
+            /* --- 5. THE 100% READABILITY FIX (v11) --- */
             
             /* FIX 5.1: Fixes `code` tags (citations) in the main answer */
             [data-testid="stChatMessageContent"] code {{
@@ -495,18 +501,25 @@ def inject_custom_css():
                 border-radius: 4px;
             }}
 
-            /* * FIX 5.3 (BUG 2): Aggressive fix for st.json black box */
-            [data-testid="stJson"] {{
+            /* * FIX 5.3 (BUG 2 - v11): Specificity-boosted fix for st.json */
+            /* This targets st.json *only inside* the expander */
+            [data-testid="stExpanderDetails"] [data-testid="stJson"] {{
                 background-color: #e5e7eb !important;
                 border: 1px solid #d1d5db;
                 border-radius: 5px;
             }}
-            [data-testid="stJson"] pre {{
+            [data-testid="stExpanderDetails"] [data-testid="stJson"] pre {{
                 background-color: #e5e7eb !important;
                 color: #1f2937 !important;
                 padding: 10px;
             }}
-            [data-testid="stJson"] pre * {{
+            /* Target *everything* inside the pre tag */
+            [data-testid="stExpanderDetails"] [data-testid="stJson"] pre * {{
+                color: #1f2937 !important;
+                background-color: transparent !important;
+            }}
+            /* Target syntax highlighting spans */
+            [data-testid="stExpanderDetails"] [data-testid="stJson"] pre span {{
                 color: #1f2937 !important;
                 background-color: transparent !important;
             }}
@@ -726,7 +739,7 @@ def main():
                                         st.markdown(fup_question)
                                     
                                     with st.chat_message("assistant"): 
-                                        run_query(app, fup_question)
+                                        run_query(app, fup_question) # FIX v10: Changed fup_query to fup_question
                                     st.rerun()
             
             # Add a separator after assistant messages, but not the first one
