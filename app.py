@@ -474,21 +474,21 @@ def inject_custom_css():
 
             /* --- 4. REASONING EXPANDER --- */
             [data-testid="stExpander"] {{
-                border: 1px solid #d1d5db;
+                border: 1px solid #fdf2d0; /* v13: Gold border */
                 border-radius: 10px;
-                background-color: #fafafa !important; /* Force light background */
+                background-color: #fffdf7 !important; /* v13: Faint gold bg */
                 margin-top: 15px;
             }}
             /* FIX 4.1: Force light bg on expander heading */
             [data-testid="stExpander"] summary {{
                 font-weight: 600;
                 color: #4b5563 !important;
-                background-color: #fafafa !important; /* Force light bg */
+                background-color: #fffdf7 !important; /* v13: Faint gold bg */
             }}
             [data-testid="stExpander"] summary:hover,
             [data-testid="stExpander"] summary:active,
             [data-testid="stExpander"] summary:focus {{
-                background-color: #fafafa !important;
+                background-color: #fef9e6 !important; /* v13: Saturated gold hover */
                 color: #002D62 !important; /* FH Blue on hover/focus */
             }}
             [data-testid="stExpanderDetails"] * {{
@@ -499,45 +499,47 @@ def inject_custom_css():
             
             /* FIX 5.1: Fixes `code` tags (citations) in the main answer */
             [data-testid="stChatMessageContent"] code {{
-                background-color: #e5e7eb !important; /* Light gray */
-                color: #1f2937 !important; /* Dark text */
+                background-color: #fef9e6 !important; /* v13: Light gold */
+                color: #5d4a1a !important; /* v13: Dark gold text */
                 padding: 0.2em 0.4em;
                 border-radius: 4px;
+                border: 1px solid #fdf2d0; /* v13: Gold border */
             }}
             
             /* FIX 5.2: Fixes `code` tags (metrics, intent) in the expander */
             [data-testid="stExpanderDetails"] code {{
-                background-color: #e5e7eb !important; /* Light gray */
-                color: #1f2937 !important; /* Dark text */
+                background-color: #fef9e6 !important; /* v13: Light gold */
+                color: #5d4a1a !important; /* v13: Dark gold text */
                 padding: 0.2em 0.4em;
                 border-radius: 4px;
+                border: 1px solid #fdf2d0; /* v13: Gold border */
             }}
 
             /* * FIX 5.3 (BUG 2 - v12): Hyper-aggressive fix for st.json */
             /* This targets st.json *only inside* the expander */
             [data-testid="stExpanderDetails"] [data-testid="stJson"] {{
-                background-color: #e5e7eb !important;
-                border: 1px solid #d1d5db;
+                background-color: #fef9e6 !important; /* v13: Light gold */
+                border: 1px solid #fdf2d0 !important; /* v13: Gold border */
                 border-radius: 5px;
             }}
             /* v12: NEW RULE - Target the intermediate div Streamlit injects */
             [data-testid="stExpanderDetails"] [data-testid="stJson"] > div {{
-                background-color: #e5e7eb !important;
+                background-color: #fef9e6 !important; /* v13: Light gold */
                 border: none !important;
             }}
             [data-testid="stExpanderDetails"] [data-testid="stJson"] pre {{
-                background-color: #e5e7eb !important;
-                color: #1f2937 !important;
+                background-color: #fef9e6 !important; /* v13: Light gold */
+                color: #5d4a1a !important; /* v13: Dark gold text */
                 padding: 10px;
             }}
             /* Target *everything* inside the pre tag */
             [data-testid="stExpanderDetails"] [data-testid="stJson"] pre * {{
-                color: #1f2937 !important;
+                color: #5d4a1a !important; /* v13: Dark gold text */
                 background-color: transparent !important;
             }}
             /* Target syntax highlighting spans */
             [data-testid="stExpanderDetails"] [data-testid="stJson"] pre span {{
-                color: #1f2937 !important;
+                color: #5d4a1a !important; /* v13: Dark gold text */
                 background-color: transparent !important;
             }}
             
@@ -555,20 +557,20 @@ def inject_custom_css():
             .stButton > button {{
                 width: 100%;
                 text-align: left;
-                background-color: #ffffff;
-                border: 1px solid #d1d5db;
-                color: #1f2937 !important; /* Force dark text */
+                background-color: #fef9e6; /* v13: Light gold */
+                border: 1px solid #fdf2d0; /* v13: Gold border */
+                color: #5d4a1a !important; /* v13: Dark gold text */
                 font-weight: 500;
                 border-radius: 8px;
                 transition: background-color 0.2s ease, border-color 0.2s ease;
             }}
             .stButton > button:hover {{
-                background-color: #f9fafb;
-                border-color: #002D62; /* FH Blue on hover */
+                background-color: #fdf2d0; /* v13: Darker gold hover */
+                border-color: #D4AF37; /* v13: Main gold border */
                 color: #002D62 !important; 
             }}
             .stButton > button:active {{
-                background-color: #f3f4f6;
+                background-color: #fef9e6; /* v13: Light gold */
             }}
             
             /* --- 7. OTHER ELEMENTS --- */
@@ -763,7 +765,7 @@ def main():
             if msg["role"] == "assistant" and i > 0:
                 st.markdown("---", unsafe_allow_html=True)
 
-    # --- CHAT INPUT
+    # --- CHAT INPUT ---
     if prompt := st.chat_input("Ask a question about a company policy..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         
