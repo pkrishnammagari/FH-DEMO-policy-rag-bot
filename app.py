@@ -26,8 +26,7 @@ EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 EMBEDDING_DEVICE = "cpu"  # Set to "cpu" for cloud deployment
 RETRIEVER_K = 10  # Number of docs to retrieve
 RERANKER_TOP_N = 3  # Number of docs to pass to LLM
-FH_LOGO_URL = "https://www.financehouse.ae/wp-content/themes/finance-house/assets/images/logo.svg"
-# --- (REMOVED) FH_LOGO_ICON_URL (We will use default icons per user request) ---
+# --- (REMOVED) FH_LOGO_URL (Will use default icons/text per user request) ---
 
 
 # --- 1. Caching and Resource Loading (Essential for Streamlit) ---
@@ -395,6 +394,10 @@ def inject_custom_css():
                 font-size: 1.5rem;
                 padding-top: 1rem;
             }}
+            /* FIX 1: Make sidebar title gold */
+            [data-testid="stSidebar"] [data-testid="stHeading"] {{
+                color: #D4AF37 !important; /* FH Gold */
+            }}
 
             /* --- 3. CHAT BUBBLES --- */
             [data-testid="chat-message-container"] {{
@@ -425,7 +428,6 @@ def inject_custom_css():
                 font-weight: 600;
                 color: #4b5563 !important;
             }}
-            /* Fix for expander header black on click */
             [data-testid="stExpander"] summary:hover,
             [data-testid="stExpander"] summary:active,
             [data-testid="stExpander"] summary:focus {{
@@ -445,16 +447,18 @@ def inject_custom_css():
                 border-radius: 4px;
             }}
             /* This fixes the black box for st.json (Generated Sub-Queries) */
-            [data-testid="stExpanderDetails"] pre {{
+            /* FIX 2: This is the hyper-specific rule for st.json */
+            [data-testid="stExpanderDetails"] [data-testid="stJson"] pre {{
                 background-color: #e5e7eb !important; /* Light gray background */
+                color: #1f2937 !important; /* Dark text */
                 padding: 10px;
                 border-radius: 5px;
             }}
-            [data-testid="stExpanderDetails"] pre * {{
+            [data-testid="stExpanderDetails"] [data-testid="stJson"] pre * {{
                 color: #1f2937 !important; /* Dark text for JSON */
             }}
             /* This fixes the bold text (Metric, etc.) from getting a black bg */
-            [data-testid="stExpanderDetails"] strong {{
+            [data-testid="stApp"] strong {{
                 background-color: transparent !important;
                 color: #111827 !important;
             }}
@@ -580,7 +584,7 @@ def main():
     # --- PAGE CONFIG (REMOVED 'theme' PARAMETER) ---
     st.set_page_config(
         page_title="Finance House Policy Bot",
-        page_icon="🤖", # FIX 1: Use default emoji icon for page
+        page_icon="🤖", # Use default emoji icon for page
         layout="wide"
     )
     
@@ -588,8 +592,8 @@ def main():
     inject_custom_css()
     
     # --- SIDEBAR (WITH LOGO AND BRANDING) ---
-    # FIX 2: Use use_container_width instead of use_column_width
-    st.sidebar.image(FH_LOGO_URL, use_container_width=True)
+    # FIX 1: Removed the failing st.sidebar.image and replaced with text
+    st.sidebar.title("Finance House 🇦🇪")
     st.sidebar.header("About This App")
     st.sidebar.markdown("""
     This advanced chatbot is designed to help Finance House employees
@@ -605,11 +609,11 @@ def main():
     """)
     
     # --- MAIN CHAT INTERFACE ---
-    st.title("Finance House Policy Bot 🇦🇪")
+    st.title("Finance House Policy Bot")
     
     # --- CHAT HISTORY INITIALIZATION ---
     if "messages" not in st.session_state:
-        # FIX 1: Restore the missing keys to the initial message
+        # FIX (from crash log): Restore the missing keys to the initial message
         st.session_state.messages = [{
             "role": "assistant",
             "content": "Hello! I'm the Finance House Policy Bot. How can I help you today?",
@@ -634,7 +638,7 @@ def main():
             # Use .get() for a safer check that won't raise a KeyError
             if msg.get("reasoning"):
                 
-                # FIX 3: Check if this is the last message
+                # Check if this is the last message
                 is_last_message = (i == len(st.session_state.messages) - 1)
                 
                 with st.expander("Show Reasoning 🧠", expanded=is_last_message):
